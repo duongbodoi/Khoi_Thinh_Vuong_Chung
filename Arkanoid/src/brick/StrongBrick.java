@@ -1,4 +1,4 @@
-package src;
+package brick;
 
 public class StrongBrick extends Brick {
 

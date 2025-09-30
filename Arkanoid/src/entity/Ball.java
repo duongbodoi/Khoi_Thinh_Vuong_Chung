@@ -1,4 +1,7 @@
-package src;
+package entity;
+
+import base.GameObject;
+import base.MovableObject;
 
 public class Ball extends MovableObject {
     protected int speed;

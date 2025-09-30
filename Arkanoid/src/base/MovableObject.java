@@ -1,4 +1,4 @@
-package src;
+package base;
 public abstract class MovableObject extends GameObject{
     protected  int dx, dy;
 

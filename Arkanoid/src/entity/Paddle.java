@@ -1,4 +1,6 @@
-package src;
+package entity;
+
+import base.MovableObject;
 
 public class Paddle extends MovableObject {
     protected  int speed;

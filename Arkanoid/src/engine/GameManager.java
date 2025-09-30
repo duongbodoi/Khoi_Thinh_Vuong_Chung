@@ -1,4 +1,9 @@
-package src;
+package engine;
+import brick.Brick;
+import entity.Ball;
+import entity.Paddle;
+import powerup.PowerUp;
+
 import java.util.List;
 
 public class GameManager {

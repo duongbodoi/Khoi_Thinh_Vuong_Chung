@@ -1,4 +1,4 @@
-package src;
+package powerup;
 
 public class FastBallPowerUp extends PowerUp{
 

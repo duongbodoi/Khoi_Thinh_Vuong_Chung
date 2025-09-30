@@ -1,6 +1,8 @@
-package src;
+package brick;
 
-public class Brick extends GameObject{
+import base.GameObject;
+
+public class Brick extends GameObject {
     protected int hitPoints;
     protected  String type;
 

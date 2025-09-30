@@ -1,4 +1,4 @@
-package src;
+package base;
 
 public abstract class GameObject {
     protected int x , y;
