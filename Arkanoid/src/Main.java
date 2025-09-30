@@ -1,1 +1,0 @@
-// Hiep đã tham gia
