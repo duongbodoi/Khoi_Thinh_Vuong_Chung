@@ -1,5 +1,7 @@
 package base;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public abstract class GameObject {
     protected int x , y;
     protected int width, height;
@@ -17,6 +19,12 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
+
     public abstract void update(); // cập nhật vị trí của đối tượng
-    public abstract void render(); // vẽ ra
+
+    /**
+     * Từ bút vẽ gc in ra các đối tượng, tạm thời dùng retangle
+      * @param gc
+     */
+    public abstract void render(GraphicsContext gc); // vẽ ra
 }
