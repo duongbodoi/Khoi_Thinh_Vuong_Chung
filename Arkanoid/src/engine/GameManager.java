@@ -28,10 +28,11 @@ public class GameManager {
     }
 
     public void checkCollisions() {
-
+        // kiểm tra ball với paddle, bricks
+        // xử lý điểm, gạch bị phá
     }
 
-    public void gameOver() {
-
+    public boolean gameOver() {
+        return  false;
     }
 }

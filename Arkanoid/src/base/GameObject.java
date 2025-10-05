@@ -17,6 +17,6 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
-    public abstract void update();
-    public abstract void render();
+    public abstract void update(); // cập nhật vị trí của đối tượng
+    public abstract void render(); // vẽ ra
 }

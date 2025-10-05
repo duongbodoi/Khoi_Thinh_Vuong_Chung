@@ -12,6 +12,7 @@ public class Paddle extends MovableObject {
         this.currentPowerUp = null;
     }
 
+
     public void moveLeft() {
         dx = -speed;
         move();
@@ -21,7 +22,7 @@ public class Paddle extends MovableObject {
         dx = speed;
         move();
     }
-
+    // Để lại
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
     }

@@ -1,6 +1,4 @@
-package src;
-
-import base.GameObject;
+package base;
 
 public class Renderer {
     public void draw(GameObject obj) {

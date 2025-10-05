@@ -14,12 +14,23 @@ public class Ball extends MovableObject {
         this.directionY = directionY;
     }
 
+    /**
+     * Thao tác phản lại khi va chạm vào vật thể.
+     * @param other vật thể truyền vào có thể là brick hoặc Paddle
+     * <p>dựa vào vật thể truyền vào để thay đổi góc chiều bật ra hợp lý</p>
+     */
     public void bounceOff(GameObject other) {
 
     }
 
-    public void checkCollision(GameObject other) {
-
+    /**
+     * Kiểm Tra va chạm.
+     * @param other đối tượng cản
+     * @return true or false
+     * Phục vụ cho hàm bounceOff ở trên.
+     */
+    public boolean checkCollision(GameObject other) {
+        return false;
     }
 
     public void update() {

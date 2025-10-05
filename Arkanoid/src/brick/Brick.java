@@ -13,12 +13,21 @@ public class Brick extends GameObject {
         this.type = type;
     }
 
+    /**
+     * Thực hiện thao tác giảm hitPoints.
+     * Thực hiện khi kiểm tra method Checkcolision ở GameManager
+     */
     public void takeHit(){
 
     }
 
-    public void isDestroyed() {
+    /**
+     * Kiểm tra xem hitPoint đã về 0 hay chưa để set trạng thái huỷ.
+     * @return true or false
+     */
+    public boolean isDestroyed() {
 
+        return true;
     }
 
     public void update() {
