@@ -2,7 +2,8 @@ package entity;
 
 import base.GameObject;
 import base.MovableObject;
-
+import javafx.scene.canvas.GraphicsContext;
+// Dương làm
 public class Ball extends MovableObject {
     protected int speed;
     protected int directionX, directionY;
@@ -33,11 +34,14 @@ public class Ball extends MovableObject {
         return false;
     }
 
+
+    @Override
     public void update() {
 
     }
 
-    public void render() {
+    @Override
+    public void render(GraphicsContext gc) {
 
     }
 }

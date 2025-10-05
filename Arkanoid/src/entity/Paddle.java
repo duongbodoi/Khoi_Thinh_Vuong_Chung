@@ -1,7 +1,8 @@
 package entity;
 
 import base.MovableObject;
-
+import javafx.scene.canvas.GraphicsContext;
+// NGỌC ANH LÀM PHẦN NÀY
 public class Paddle extends MovableObject {
     protected  int speed;
     protected  String currentPowerUp;
@@ -14,24 +15,27 @@ public class Paddle extends MovableObject {
 
 
     public void moveLeft() {
-        dx = -speed;
-        move();
+
     }
 
     public void moveRight() {
-        dx = speed;
-        move();
+
     }
     // Để lại
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
     }
 
+
+    @Override
     public void update() {
-        //logic cap nhat paddle
+
     }
 
-    public void render() {
-        //ve paddle
+    @Override
+    public void render(GraphicsContext gc) {
+
     }
+
+
 }

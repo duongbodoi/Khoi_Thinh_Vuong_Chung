@@ -2,6 +2,7 @@ package powerup;
 
 import base.GameObject;
 import entity.Paddle;
+import javafx.scene.canvas.GraphicsContext;
 
 public class PowerUp extends GameObject {
     protected String type;
@@ -15,7 +16,7 @@ public class PowerUp extends GameObject {
     }
 
     @Override
-    public void render() {
+    public void render(GraphicsContext gc) {
 
     }
 
