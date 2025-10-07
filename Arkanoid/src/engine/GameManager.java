@@ -138,6 +138,7 @@ public class GameManager {
                 brick.render(gc);
             }
         }
+        ball.render(gc);
     }
 
 }
