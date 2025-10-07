@@ -79,7 +79,13 @@ public class GameManager {
     }
 
     public void updateGame() {
-        // CHIẾN
+        paddle.update();
+        ball.update();
+        checkCollisions();
+
+        for(Brick brick : bricks) {
+            brick.update();
+        }
     }
 
     public void handleInput(KeyEvent e) {
