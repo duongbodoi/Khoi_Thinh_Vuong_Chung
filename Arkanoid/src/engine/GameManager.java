@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import brick.Brick;
 import entity.Ball;
 import entity.Paddle;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import powerup.PowerUp;
 
@@ -110,6 +111,12 @@ public class GameManager {
     public void checkCollisions() {
         // kiểm tra ball với paddle, bricks
         // xử lý điểm, gạch bị phá
+        for (Brick brick : bricks) {
+            if(ball.checkCollision(brick)) {
+                brick.takeHit();
+                ball.bounceOff(brick);
+            }
+        }
     }
 
     /**
@@ -125,8 +132,12 @@ public class GameManager {
      * Vẽ ra toàn bỗ những thằng nói trên.
      * <p>Kiểm tra xem nó có tồn tại nữa ko để in ra</p>
      */
-    public void renderer() {
-
+    public void renderer(GraphicsContext gc) {
+        for(Brick brick : bricks) {
+            if(!brick.isDestroyed()) {
+                brick.render(gc);
+            }
+        }
     }
 
 }
