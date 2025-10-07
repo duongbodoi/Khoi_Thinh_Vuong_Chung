@@ -25,6 +25,8 @@ public class Main extends Application {
             @Override
             public void handle(long l) {
                 gc.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+                gameManager.updateGame();
+                gameManager.checkCollisions();
                 gameManager.renderer(gc);
             }
         }.start();

@@ -45,7 +45,7 @@ public class Ball extends MovableObject {
      * <p>dựa vào vật thể truyền vào để thay đổi góc chiều bật ra hợp lý</p>
      */
     public void bounceOff(GameObject other) {
-        if(other instanceof Brick) {}
+        if(other instanceof Brick)
         {
             double varxL = xo + r - other.getX(); // độ lấn trái
             double varxR = (other.getX() + other.getWidth()) - (xo - r); // độ lấn nếu vật ở phải
@@ -53,13 +53,20 @@ public class Ball extends MovableObject {
             double varyB = (other.getY() + other.getHeight()) - (yo - r); // độ lấn dưới
             double varX = Math.min(varxR, varxL); // từ min sẽ biết được là nó đang là trái hay phải để lấy đúng độ lấn
             double varY = Math.min(varyT, varyB); // tương tự
-            if (varX < varY) { // lấn nhiều hơn tức có
+            if (varxL < varxR && varxL < varyT && varxL < varyB && dx > 0) {
                 dx *= -1;
-                x -=(int)varX;
-            } else {
+                x -= (int)varxL;
+            } else if (varxR < varxL && varxR < varyT && varxR < varyB && dx < 0) {
+                dx *= -1;
+                x += (int)varxR;
+            } else if (varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
                 dy *= -1;
-                y-=(int)varY;
+                y -= (int)varyT;
+            } else if (varyB < varyT && varyB < varxL && varyB < varxR && dy < 0) {
+                dy *= -1;
+                y += (int)varyB;
             }
+
         }
         if(other instanceof Paddle) {
             // xử lí khi va chạm paddle
@@ -112,10 +119,12 @@ public class Ball extends MovableObject {
             dy*=-1;
             y=0;
         }
+        xo = getX() + (double)getWidth() / 2;
+        yo = getY() + (double) getHeight() / 2;
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.fillRect(x, y, width, height);
+        gc.fillOval(x, y, width, height);
     }
 }
