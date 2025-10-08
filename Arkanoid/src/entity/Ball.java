@@ -53,16 +53,28 @@ public class Ball extends MovableObject {
         {
 //            double varX = Math.min(varxR, varxL); // từ min sẽ biết được là nó đang là trái hay phải để lấy đúng độ lấn
 //            double varY = Math.min(varyT, varyB); // tương tự
-            if (varxL < varxR && varxL < varyT && varxL < varyB && dx > 0) {
+            if (varxL < varxR
+                    && varxL < varyT
+                    && varxL < varyB
+                    && dx > 0) {
                 dx *= -1;
                 x -= (int)varxL;
-            } else if (varxR < varxL && varxR < varyT && varxR < varyB && dx < 0) {
+            } else if (varxR < varxL
+                    && varxR < varyT
+                    && varxR < varyB
+                    && dx < 0) {
                 dx *= -1;
                 x += (int)varxR;
-            } else if (varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
+            } else if (varyT < varyB
+                    && varyT < varxL
+                    && varyT < varxR
+                    && dy > 0) {
                 dy *= -1;
                 y -= (int)varyT;
-            } else if (varyB < varyT && varyB < varxL && varyB < varxR && dy < 0) {
+            } else if (varyB < varyT
+                    && varyB < varxL
+                    && varyB < varxR
+                    && dy < 0) {
                 dy *= -1;
                 y += (int)varyB;
             }
@@ -103,8 +115,10 @@ public class Ball extends MovableObject {
         vì khi tính khoảng cách trừ đi sẽ ra khoảng cách ngắn nhất
         và cũng chỉ có 3 vị trí đặc biệt đó làm nằm trong trên/ dưới và trái/phải
         */
-        double nearestX = Math.max(other.getX(),Math.min(other.getX()+other.getWidth(),xo));
-        double nearestY = Math.max(other.getY(),Math.min(other.getY()+other.getHeight(),yo));
+        double nearestX = Math.max(other.getX(),
+                Math.min(other.getX()+other.getWidth(),xo));
+        double nearestY = Math.max(other.getY(),
+                Math.min(other.getY()+other.getHeight(),yo));
 
         double dx = xo - nearestX;
         double dy = yo - nearestY;

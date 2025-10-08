@@ -8,6 +8,7 @@ import brick.Brick;
 import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import powerup.PowerUp;
 
@@ -98,21 +99,21 @@ public class GameManager {
     public void handleInput(KeyEvent e) {
         // Hiệp
         //tuỳ vào input gọi các hàm thay đổi hướng di chuyển của paddle
-        switch (e.getCode()) {
-            case LEFT:
-            case A:
-                paddle.moveLeft();
+        switch (e.getEventType().getName()) {
+            case "KEY_PRESSED":
+                switch (e.getCode()) {
+                    case LEFT -> paddle.moveLeft();
+                    case RIGHT -> paddle.moveRight();
+                }
                 break;
-
-            case RIGHT:
-            case D:
-                paddle.moveRight();
-                break;
-
-            default:
-                paddle.stop();
+            case "KEY_RELEASED":
+                switch (e.getCode()) {
+                    case LEFT -> paddle.stop();
+                    case RIGHT -> paddle.stop();
+                }
                 break;
         }
+
     }
 
     //Dương
