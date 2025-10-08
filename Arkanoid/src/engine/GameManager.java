@@ -33,9 +33,9 @@ public class GameManager {
         lives = 3;
         gameState = "PLAYING";
 
-        // 2. Tạo Paddle
+        // Tạo Paddle
         int paddleWidth = screenWidth / 8;
-        int paddleHeight = 20;
+        int paddleHeight = screenHeight / 40;
         paddle = new Paddle(
                 screenWidth / 2 - paddleWidth / 2,
                 screenHeight - 50,
@@ -44,14 +44,14 @@ public class GameManager {
                 0, 0, 10
         );
 
-        // 3. Tạo Ball
+        // Tạo Ball
         ball = new Ball(
                 screenWidth / 2,
                 screenHeight,
                 10, 10, 5, 1, -1
         );
 
-        // 4. Load Bricks
+        // Load Bricks
         int brickCols = 10;
         int brickRows = 5;
         int brickWidth = screenWidth / brickCols;
@@ -113,7 +113,6 @@ public class GameManager {
     public boolean gameOver() {
         return  false;
     }
-
 
     /**
      * Vẽ ra toàn bỗ những thằng nói trên.
