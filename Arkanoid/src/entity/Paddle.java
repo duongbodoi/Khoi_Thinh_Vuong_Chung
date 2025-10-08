@@ -4,7 +4,7 @@ import static engine.Main.GAME_WIDTH;
 
 import base.MovableObject;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.sence.paint.Color;
+import javafx.scene.paint.Color;
 // NGỌC ANH LÀM PHẦN NÀY
 public class Paddle extends MovableObject {
     protected  int speed;
@@ -18,14 +18,14 @@ public class Paddle extends MovableObject {
 
 
     public void moveLeft() {
-        x = -speed;
+        dx =- speed;
     }
 
     public void moveRight() {
-        x = speed;
+        dx = speed;
     }
     public void stop () {
-
+        dx=0;
     }
     // Để lại
     public void applyPowerUp(String powerUp) {
@@ -35,9 +35,9 @@ public class Paddle extends MovableObject {
 
     @Override
     public void update() {
-        x += dx;
+        move();
         // giới hạn paddle
-        if (x < 0) {
+        if (x <= 0) {
             x = 0;
         }
         if (x + width > GAME_WIDTH) {
@@ -47,7 +47,7 @@ public class Paddle extends MovableObject {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.GRAY;
-        gc.fillRect(x, y, width, height);
+       gc.setFill(Color.RED);
+       gc.fillRect(x, y, width, height);
     }
 }
