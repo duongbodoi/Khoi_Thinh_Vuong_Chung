@@ -14,7 +14,7 @@ import static engine.Main.GAME_WIDTH;
 public class Ball extends MovableObject {
     //public static final double PI = Math.PI;
     protected int speed;
-    protected int directionX, directionY;
+    protected double directionX, directionY;
     protected double angle = 0;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
     // tâm của hình tròn
@@ -32,7 +32,7 @@ public class Ball extends MovableObject {
      * @param directionX
      * @param directionY
      */
-    public Ball(int x, int y, int width, int height, int speed, int directionX,int directionY) {
+    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY) {
         super(x, y, width, height, directionX*speed, directionY*speed);
         this.speed = speed;
         this.directionX = directionX;
@@ -45,14 +45,14 @@ public class Ball extends MovableObject {
      * <p>dựa vào vật thể truyền vào để thay đổi góc chiều bật ra hợp lý</p>
      */
     public void bounceOff(GameObject other) {
+        double varxL = xo + r - other.getX(); // độ lấn trái
+        double varxR = (other.getX() + other.getWidth()) - (xo - r); // độ lấn nếu vật ở phải
+        double varyT = yo + r - other.getY(); // độ lấn trên
+        double varyB = (other.getY() + other.getHeight()) - (yo - r); // độ lấn dưới
         if(other instanceof Brick)
         {
-            double varxL = xo + r - other.getX(); // độ lấn trái
-            double varxR = (other.getX() + other.getWidth()) - (xo - r); // độ lấn nếu vật ở phải
-            double varyT = yo + r - other.getY(); // độ lấn trên
-            double varyB = (other.getY() + other.getHeight()) - (yo - r); // độ lấn dưới
-            double varX = Math.min(varxR, varxL); // từ min sẽ biết được là nó đang là trái hay phải để lấy đúng độ lấn
-            double varY = Math.min(varyT, varyB); // tương tự
+//            double varX = Math.min(varxR, varxL); // từ min sẽ biết được là nó đang là trái hay phải để lấy đúng độ lấn
+//            double varY = Math.min(varyT, varyB); // tương tự
             if (varxL < varxR && varxL < varyT && varxL < varyB && dx > 0) {
                 dx *= -1;
                 x -= (int)varxL;
@@ -69,7 +69,21 @@ public class Ball extends MovableObject {
 
         }
         if(other instanceof Paddle) {
-            // xử lí khi va chạm paddle
+            double maxAngle = 90;
+            double minAngle = 30;
+            if(varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
+                dy *= -1;
+                y -= (int) varyT;
+            }
+            double midPaddleX = other.getX() + (double)other.getWidth() / 2;
+            double xoPerMid = Math.abs(xo - midPaddleX) /( double)(other.getWidth()/2);
+            angle = maxAngle - xoPerMid*(maxAngle - minAngle);
+            dx/=directionX;
+            dy/=directionY;
+            directionX = Math.cos(Math.toRadians(angle));
+            directionY = Math.sin(Math.toRadians(angle));
+            dx*=directionX;
+            dy*=directionY;
         }
     }
 
@@ -102,6 +116,7 @@ public class Ball extends MovableObject {
 
     @Override
     public void update() {
+
         move();
         if(x>= GAME_WIDTH-getWidth()) {
             dx*=-1;
@@ -121,6 +136,7 @@ public class Ball extends MovableObject {
         }
         xo = getX() + (double)getWidth() / 2;
         yo = getY() + (double) getHeight() / 2;
+
     }
 
     @Override

@@ -21,6 +21,9 @@ public class Paddle extends MovableObject {
     public void moveRight() {
 
     }
+    public void stop () {
+
+    }
     // Để lại
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
