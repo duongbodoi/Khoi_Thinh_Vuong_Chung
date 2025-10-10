@@ -4,14 +4,13 @@ import javafx.scene.paint.Color;
 
 public class UnbreakBrick extends Brick {
 
-    public UnbreakBrick(int x, int y, int width, int height) {
-        super(x, y, width, height);
-        this.hitPoints = 200;
+    public UnbreakBrick(int x, int y, int width, int height,int hitPoint, String type) {
+        super(x, y, width, height, hitPoint, type);
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        if(!destroy && hitPoints >= 100) {
+        if(!destroy) {
             gc.setFill(Color.BLACK);
             gc.fillRect(x, y, width, height);
         }

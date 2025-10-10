@@ -10,11 +10,8 @@ public class Brick extends GameObject {
     protected boolean destroy;
     protected String type;
     public Brick(int x, int y, int width, int height) {
-
+        super(x, y, width, height);
     }
-
-
-
     public Brick(int x, int y, int width, int height, int hitPoints, String type) {
         super(x, y, width, height);
         this.hitPoints = hitPoints;
@@ -58,16 +55,16 @@ public class Brick extends GameObject {
     public void render(GraphicsContext gc) {
         // dùng bút vẽ gc, vị trí x y để vẽ ra brick
         // tạm thời dùng retangle để vẽ, về sau sẽ đổi sang dùng hình ảnh\
-        if(!destroy) {
-            if (hitPoints >= 100) {
-                gc.setFill(Color.BLACK);
-            } else if (hitPoints == 2) {
-                gc.setFill(Color.RED);
-            } else if (hitPoints == 1) {
-                gc.setFill(Color.GREEN);
-            }
-        }
-
-        gc.fillRect(x, y, width, height);
+//        if(!destroy) {
+//            if (hitPoints >= 100) {
+//                gc.setFill(Color.BLACK);
+//            } else if (hitPoints == 2) {
+//                gc.setFill(Color.RED);
+//            } else if (hitPoints == 1) {
+//                gc.setFill(Color.GREEN);
+//            }
+//        }
+//
+//        gc.fillRect(x, y, width, height);
     }
 }

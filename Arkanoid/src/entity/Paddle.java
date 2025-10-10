@@ -1,5 +1,4 @@
 package entity;
-
 import static engine.Main.GAME_WIDTH;
 
 import base.MovableObject;
@@ -9,30 +8,36 @@ import javafx.scene.paint.Color;
 public class Paddle extends MovableObject {
     protected  int speed;
     protected  String currentPowerUp;
-
+    boolean isLeft;
+    boolean isRight;
     public Paddle(int x, int y, int width, int height, int dx, int dy, int speed) {
         super(x, y, width, height, dx, dy);
         this.speed = speed;
         this.currentPowerUp = null;
+        isLeft = false;
+        isRight = false;
     }
 
 
-    public void moveLeft() {
-        dx =- speed;
+    public void moveLeft(boolean isMove) {
+        isLeft = isMove;
     }
 
-    public void moveRight() {
-        dx = speed;
+    public void moveRight(boolean isMove) {
+        isRight = isMove;
     }
-    public void stop () {
-        dx=0;
-    }
-    // Để lại
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
     }
-
-
+    @Override
+    public void move() {
+        if(isLeft) {
+            x-=speed;
+        }
+        if(isRight) {
+            x+=speed;
+        }
+    }
     @Override
     public void update() {
         move();
