@@ -33,7 +33,6 @@ public class GameManager {
     public void removebrick(Brick brick) {
         bricks.remove(brick);
     }
-
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
         // cần thiết có thể tạo thêm 1 method đọc danh sách gạch vào list
@@ -42,43 +41,47 @@ public class GameManager {
         gameState = "PLAYING";
 
         // Tạo Paddle
-        int paddleWidth = screenWidth / 8;
+        int paddleWidth = screenWidth / 10;
         int paddleHeight = screenHeight / 40;
         paddle = new Paddle(
                 screenWidth / 2 - paddleWidth / 2,
                 screenHeight - 50,
                 paddleWidth,
                 paddleHeight,
-                0, 0, 10
+                0, 0, 9
         );
 
         // Tạo Ball
         ball = new Ball(
                 screenWidth / 2,
                 screenHeight,
-                10, 10, 5, 1, -1
+                10, 10, 6, 1, -1
         );
 
         // Load Bricks
-        int brickCols = 10;
-        int brickRows = 5;
-        int brickWidth = screenWidth / brickCols;
-        int brickHeight = 25;
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", brickWidth, brickHeight);
+            bricks = BrickLoadMap.loadBricks("assets/map2.txt", screenWidth);
         } catch (Exception e) {
-            System.out.println("Không thể đọc file map, tạo map mặc định");
+            System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
+
+            // Tạo map mặc định
             bricks = new ArrayList<>();
+            int brickCols = 10;
+            int brickRows = 5;
+            int gap = 5;
+            int brickWidth = (screenWidth - (brickCols + 1) * gap) / brickCols;
+            int brickHeight = 25;
+            int offsetX = gap;
+            int offsetY = 40;
+
             for (int row = 0; row < brickRows; row++) {
                 for (int col = 0; col < brickCols; col++) {
-                    int x = col * brickWidth;
-                    int y = row * brickHeight + 60;
                     int hitPoints = (row % 3) + 1;
                     String type = "type" + hitPoints;
-
-                    Brick brick = new Brick(x, y, brickWidth, brickHeight, hitPoints, type);
-                    bricks.add(brick);
+                    int x = offsetX + col * (brickWidth + gap);
+                    int y = offsetY + row * (brickHeight + gap);
+                    bricks.add(new Brick(x, y, brickWidth, brickHeight, hitPoints, type));
                 }
             }
         }
