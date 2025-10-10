@@ -10,7 +10,6 @@ public class BrickLoadMap {
         List<Brick> bricks = new ArrayList<>();
         List<String> lines = new ArrayList<>();
 
-
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -41,8 +40,14 @@ public class BrickLoadMap {
                 int x = dx + col * (brickWidth + dbrick);
                 int y = dy + row * (brickHeight + dbrick);
                 String type = "type" + value;
+                switch (value) {
+                    case 1: bricks.add(new NormalBrick(x, y, brickWidth, brickHeight,value, type));
+                    case 2 : bricks.add(new StrongBrick(x, y, brickWidth, brickHeight,value, type));
+                    case 3: bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
+                    case 100 : bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type));
+                }
 
-                bricks.add(new Brick(x, y, brickWidth, brickHeight, value, type));
+
             }
         }
 

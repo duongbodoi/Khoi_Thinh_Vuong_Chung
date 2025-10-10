@@ -65,25 +65,25 @@ public class GameManager {
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
 
-            // Tạo map mặc định
-            bricks = new ArrayList<>();
-            int brickCols = 10;
-            int brickRows = 5;
-            int gap = 5;
-            int brickWidth = (screenWidth - (brickCols + 1) * gap) / brickCols;
-            int brickHeight = 25;
-            int offsetX = gap;
-            int offsetY = 40;
-
-            for (int row = 0; row < brickRows; row++) {
-                for (int col = 0; col < brickCols; col++) {
-                    int hitPoints = (row % 3) + 1;
-                    String type = "type" + hitPoints;
-                    int x = offsetX + col * (brickWidth + gap);
-                    int y = offsetY + row * (brickHeight + gap);
-                    bricks.add(new Brick(x, y, brickWidth, brickHeight, hitPoints, type));
-                }
-            }
+//            // Tạo map mặc định
+//            bricks = new ArrayList<>();
+//            int brickCols = 10;
+//            int brickRows = 5;
+//            int gap = 5;
+//            int brickWidth = (screenWidth - (brickCols + 1) * gap) / brickCols;
+//            int brickHeight = 25;
+//            int offsetX = gap;
+//            int offsetY = 40;
+//
+//            for (int row = 0; row < brickRows; row++) {
+//                for (int col = 0; col < brickCols; col++) {
+//                    int hitPoints = (row % 3) + 1;
+//                    String type = "type" + hitPoints;
+//                    int x = offsetX + col * (brickWidth + gap);
+//                    int y = offsetY + row * (brickHeight + gap);
+//                    bricks.add(new Brick(x, y, brickWidth, brickHeight, hitPoints, type));
+//                }
+//            }
         }
         powerUps = new ArrayList<>();
         System.out.println("Game khởi tạo xong");
@@ -105,14 +105,14 @@ public class GameManager {
         switch (e.getEventType().getName()) {
             case "KEY_PRESSED":
                 switch (e.getCode()) {
-                    case LEFT -> paddle.moveLeft();
-                    case RIGHT -> paddle.moveRight();
+                    case LEFT -> paddle.moveLeft(true);
+                    case RIGHT -> paddle.moveRight(true);
                 }
                 break;
             case "KEY_RELEASED":
                 switch (e.getCode()) {
-                    case LEFT -> paddle.stop();
-                    case RIGHT -> paddle.stop();
+                    case LEFT -> paddle.moveLeft(false);
+                    case RIGHT -> paddle.moveRight(false);
                 }
                 break;
         }
