@@ -16,6 +16,7 @@ public class Ball extends MovableObject {
     protected int speed;
     protected double directionX, directionY;
     protected double angle = 0;
+    boolean is_dead = false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
     // tâm của hình tròn
     double xo = getX() + (double)getWidth() / 2;
@@ -38,7 +39,9 @@ public class Ball extends MovableObject {
         this.directionX = directionX;
         this.directionY = directionY;
     }
-
+    public boolean is_dead() {
+        return is_dead;
+    }
     /**
      * Thao tác phản lại khi va chạm vào vật thể.
      * @param other vật thể truyền vào có thể là brick hoặc Paddle
@@ -140,9 +143,14 @@ public class Ball extends MovableObject {
             dx*=-1;
             x=0;
         }
-        if(y>GAME_HEIGHT-getHeight()) {
+        if(y>=GAME_HEIGHT-getHeight()) {
+            is_dead = true;
             dy*=-1;
             y=GAME_HEIGHT-getHeight();
+
+        }
+        else {
+            is_dead = false;
         }
         if(y<=0) {
             dy*=-1;
