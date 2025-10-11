@@ -17,8 +17,8 @@ public class Main extends Application {
         Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         //
-        GameManager gameManager = new GameManager(GAME_WIDTH, GAME_HEIGHT);
-        gameManager.startGame();
+        GameManager gameManager = new GameManager(gc,GAME_WIDTH,GAME_HEIGHT);
+        //gameManager.changeState(new GamePlay(gameManager));
 
         new AnimationTimer() {
 
@@ -26,8 +26,8 @@ public class Main extends Application {
             public void handle(long l) {
                 gc.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
                 gameManager.updateGame();
-                gameManager.checkCollisions();
-                gameManager.renderer(gc);
+                //gameManager.checkCollisions();
+                gameManager.renderer();
             }
         }.start();
         // Khoi tao scene bat su kien
@@ -38,5 +38,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 
 }

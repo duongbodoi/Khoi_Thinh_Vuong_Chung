@@ -1,0 +1,36 @@
+package engine;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+
+public class GameOver extends GameState{
+    public GameOver(GameManager gameManager) {
+        super(gameManager);
+    }
+
+    @Override
+    public void handleInput(KeyEvent e) {
+        switch (e.getCode()) {
+            case E: gameManager.changeState(new MainMenu(gameManager)); break;
+            case X: System.exit(19);
+        }
+    }
+
+    @Override
+    public void updateGame() {
+
+    }
+
+    @Override
+    public void renderer(GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, 800, 600);
+        gc.setFill(Color.BLACK);
+        gc.fillText("Bạn quá gà", 350, 250);
+        gc.fillText("Bản lĩnh thì ấn E sô cờ lô lại", 330, 280);
+        gc.fillText("Còn yếu thì X đi, non nắm", 340, 310);
+    }
+
+
+}
