@@ -8,13 +8,12 @@ import brick.Brick;
 import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import powerup.PowerUp;
 
 import java.util.List;
 
-public class GameManager {
+public class GamePlay extends GameState {
     private Paddle paddle;
     private Ball ball;
     private List<Brick> bricks;
@@ -24,15 +23,13 @@ public class GameManager {
     private String gameState;
     private int screenWidth;
     private int screenHeight;
-
-    public GameManager(int screenWidth, int screenHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public GamePlay(GameManager gameManager) {
+        super(gameManager);
+        screenHeight=gameManager.getHeight();
+        screenWidth=gameManager.getWidth();
+        startGame();
     }
 
-    public void removebrick(Brick brick) {
-        bricks.remove(brick);
-    }
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
         // cần thiết có thể tạo thêm 1 method đọc danh sách gạch vào list
@@ -54,7 +51,7 @@ public class GameManager {
         // Tạo Ball
         ball = new Ball(
                 screenWidth / 2,
-                screenHeight,
+                screenHeight -100,
                 10, 10, 6, 1, -1
         );
 
@@ -92,8 +89,8 @@ public class GameManager {
     public void updateGame() {
         paddle.update();
         ball.update();
-        //checkCollisions();
-
+        checkCollisions();
+        gameOver();
         for (Brick brick : bricks) {
             brick.update();
         }
@@ -132,7 +129,10 @@ public class GameManager {
         if(ball.checkCollision(paddle)) {
             ball.bounceOff(paddle);
         }
-
+        if(ball.is_dead()) {
+            lives--;
+            System.out.println("Lives: " + lives);
+        }
 
 
     }
@@ -142,8 +142,10 @@ public class GameManager {
      *
      * @return
      */
-    public boolean gameOver() {
-        return false;
+    public void gameOver() {
+        if(lives <= 0) {
+            gameManager.changeState(new GameOver(gameManager));
+        }
     }
 
     /**
@@ -161,6 +163,7 @@ public class GameManager {
         }
         ball.render(gc);
         paddle.render(gc);
+
     }
 
 }
