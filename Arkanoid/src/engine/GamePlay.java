@@ -38,7 +38,7 @@ public class GamePlay extends GameState {
         gameState = "PLAYING";
 
         // Tạo Paddle
-        int paddleWidth = screenWidth / 10;
+        int paddleWidth = screenWidth / 8;
         int paddleHeight = 15;
         paddle = new Paddle(
                 screenWidth / 2 - paddleWidth / 2,
@@ -52,13 +52,13 @@ public class GamePlay extends GameState {
         ball = new Ball(
                 screenWidth / 2,
                 screenHeight -100,
-                15, 15, 6, 1, -1
+                20, 20, 6, 1, -1
         );
 
         // Load Bricks
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth);
+            bricks = BrickLoadMap.loadBricks("assets/map3.txt", screenWidth);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
         }
