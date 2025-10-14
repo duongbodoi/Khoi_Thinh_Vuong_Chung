@@ -9,11 +9,13 @@ import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import powerup.PowerUp;
 
 import java.util.List;
 
 public class GamePlay extends GameState {
+
     private Paddle paddle;
     private Ball ball;
     private List<Brick> bricks;
@@ -39,7 +41,7 @@ public class GamePlay extends GameState {
 
         // Tạo Paddle
         int paddleWidth = screenWidth / 8;
-        int paddleHeight = 15;
+        int paddleHeight = screenHeight / 40;
         paddle = new Paddle(
                 screenWidth / 2 - paddleWidth / 2,
                 screenHeight - 50,
@@ -50,9 +52,9 @@ public class GamePlay extends GameState {
 
         // Tạo Ball
         ball = new Ball(
-                screenWidth / 2,
-                screenHeight -100,
-                20, 20, 6, 1, -1
+                paddle.getX()+paddle.getWidth()/2-7,
+                paddle.getY()-14,
+                14, 14, 6, 0.6, -0.8
         );
 
         // Load Bricks
@@ -68,7 +70,12 @@ public class GamePlay extends GameState {
 
     public void updateGame() {
         paddle.update();
-        ball.update();
+        if(ball.Is_begin()) {
+            ball.update();
+        }
+        else{
+            ball.resetBegin(paddle);
+        }
         checkCollisions();
         gameOver();
         for (Brick brick : bricks) {
@@ -84,6 +91,7 @@ public class GamePlay extends GameState {
                 switch (e.getCode()) {
                     case LEFT -> paddle.moveLeft(true);
                     case RIGHT -> paddle.moveRight(true);
+                    case SPACE -> ball.setIs_begin(true);
                 }
                 break;
             case "KEY_RELEASED":
@@ -112,6 +120,8 @@ public class GamePlay extends GameState {
         if(ball.is_dead()) {
             lives--;
             System.out.println("Lives: " + lives);
+            ball.setIs_begin(false);
+            ball.resetBegin(paddle);
         }
 
 
@@ -143,7 +153,8 @@ public class GamePlay extends GameState {
         }
         ball.render(gc);
         paddle.render(gc);
-
+        gc.setFill(Color.CHOCOLATE);
+        gc.fillText("Score: " + score, 100, 100);
     }
 
 }
