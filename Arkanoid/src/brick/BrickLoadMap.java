@@ -25,9 +25,9 @@ public class BrickLoadMap {
         int brickRows = lines.size();
         int brickCols = lines.get(0).split("\\s+").length;
 
-        int dbrick = 5;
-        int dx = 5;
-        int dy = 40;
+        int dbrick = 3;
+        int dx = 10;
+        int dy = 60;
         int brickWidth = (screenWidth - (brickCols + 1) * dbrick) / brickCols;
         int brickHeight = 25;
 
@@ -41,13 +41,19 @@ public class BrickLoadMap {
                 int y = dy + row * (brickHeight + dbrick);
                 String type = "type" + value;
                 switch (value) {
-                    case 1: bricks.add(new NormalBrick(x, y, brickWidth, brickHeight,value, type));
-                    case 2 : bricks.add(new StrongBrick(x, y, brickWidth, brickHeight,value, type));
-                    case 3: bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
-                    case 100 : bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type));
+                    case 1:
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type));
+                        break;
+                    case 2:
+                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
+                        break;
+                    case 3:
+                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
+                        break;
+                    case 100:
+                        bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type));
+                        break;
                 }
-
-
             }
         }
 

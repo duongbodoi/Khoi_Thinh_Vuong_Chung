@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static final int GAME_WIDTH = 800;
-    public static final int GAME_HEIGHT = 600;
+    public static final int GAME_HEIGHT = 1000;
     public void start (Stage primaryStage) {
         //
         Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
