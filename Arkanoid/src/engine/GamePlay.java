@@ -58,7 +58,7 @@ public class GamePlay extends GameState {
         // Load Bricks
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth);
+            bricks = BrickLoadMap.loadBricks("Arkanoid/assets/map3.txt", screenWidth);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
         }

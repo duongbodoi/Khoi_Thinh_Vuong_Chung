@@ -19,12 +19,14 @@ public class Brick extends GameObject {
         this.destroy = false;
     }
 
+    public Brick() {
+    }
+
     /**
      * Thực hiện thao tác giảm hitPoints.
      * Thực hiện khi kiểm tra method Checkcolision ở GameManager
      */
     public void takeHit() {
-        hitPoints--;
         if(hitPoints > 0) {
             hitPoints--;
         } else {
