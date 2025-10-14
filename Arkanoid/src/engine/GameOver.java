@@ -27,9 +27,9 @@ public class GameOver extends GameState{
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, 800, 600);
         gc.setFill(Color.BLACK);
-        gc.fillText("Bạn quá gà", 350, 250);
-        gc.fillText("Bản lĩnh thì ấn E sô cờ lô lại", 330, 280);
-        gc.fillText("Còn yếu thì X đi, non nắm", 340, 310);
+        gc.fillText("Game Over", 350, 250);
+        gc.fillText("Press E to back to Mainmenu", 330, 280);
+        gc.fillText("Press X to quit", 340, 310);
     }
 
 

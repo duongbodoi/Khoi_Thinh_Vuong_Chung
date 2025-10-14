@@ -25,6 +25,7 @@ public class GamePlay extends GameState {
     private String gameState;
     private int screenWidth;
     private int screenHeight;
+    boolean is_paused = false;
     public GamePlay(GameManager gameManager) {
         super(gameManager);
         screenHeight=gameManager.getHeight();
@@ -53,7 +54,7 @@ public class GamePlay extends GameState {
         // Tạo Ball
         ball = new Ball(
                 paddle.getX()+paddle.getWidth()/2-7,
-                paddle.getY()-14,
+                paddle.getY()-15,
                 14, 14, 6, 0.6, -0.8
         );
 
@@ -63,23 +64,45 @@ public class GamePlay extends GameState {
             bricks = BrickLoadMap.loadBricks("assets/map2.txt", screenWidth);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
+
+//            // Tạo map mặc định
+//            bricks = new ArrayList<>();
+//            int brickCols = 10;
+//            int brickRows = 5;
+//            int gap = 5;
+//            int brickWidth = (screenWidth - (brickCols + 1) * gap) / brickCols;
+//            int brickHeight = 25;
+//            int offsetX = gap;
+//            int offsetY = 40;
+//
+//            for (int row = 0; row < brickRows; row++) {
+//                for (int col = 0; col < brickCols; col++) {
+//                    int hitPoints = (row % 3) + 1;
+//                    String type = "type" + hitPoints;
+//                    int x = offsetX + col * (brickWidth + gap);
+//                    int y = offsetY + row * (brickHeight + gap);
+//                    bricks.add(new Brick(x, y, brickWidth, brickHeight, hitPoints, type));
+//                }
+//            }
         }
         powerUps = new ArrayList<>();
         System.out.println("Game khởi tạo xong");
     }
 
     public void updateGame() {
-        paddle.update();
-        if(ball.Is_begin()) {
-            ball.update();
-        }
-        else{
-            ball.resetBegin(paddle);
-        }
-        checkCollisions();
-        gameOver();
-        for (Brick brick : bricks) {
-            brick.update();
+        if (!is_paused)
+        {
+            paddle.update();
+            if (ball.Is_begin()) {
+                ball.update();
+            } else {
+                ball.resetBegin(paddle);
+            }
+            checkCollisions();
+            gameOver();
+            for (Brick brick : bricks) {
+                brick.update();
+            }
         }
     }
 
@@ -92,6 +115,12 @@ public class GamePlay extends GameState {
                     case LEFT -> paddle.moveLeft(true);
                     case RIGHT -> paddle.moveRight(true);
                     case SPACE -> ball.setIs_begin(true);
+                    case ESCAPE -> {
+                        if(is_paused) is_paused = false;
+                        else is_paused = true;
+                    }
+                    case R -> gameManager.changeState(new GamePlay(gameManager));
+                    case E-> gameManager.changeState(new MainMenu(gameManager));
                 }
                 break;
             case "KEY_RELEASED":
@@ -147,6 +176,7 @@ public class GamePlay extends GameState {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
                 bricks.remove(brick);
+                score +=10;
             } else {
                 brick.render(gc);
             }
@@ -154,7 +184,18 @@ public class GamePlay extends GameState {
         ball.render(gc);
         paddle.render(gc);
         gc.setFill(Color.CHOCOLATE);
-        gc.fillText("Score: " + score, 100, 100);
+        gc.fillText("Score: " + score, 20, 20);
+        gc.fillText("Lives: " + lives, 20+700, 20);
+        if(is_paused) {
+            gc.setFill(Color.LIGHTBLUE);
+            gc.fillRect(screenWidth/2-screenWidth/4, screenHeight/2-screenHeight/8, screenWidth/2, screenHeight/4);
+            gc.setFill(Color.BLACK);
+            gc.fillText("Ấn E để trở về MainMenu",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80);
+            gc.fillText("Ấn Esc để tiếp tục",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+20);
+            gc.fillText("Ấn R để trở về Restart",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+40);
+
+
+        }
     }
 
 }

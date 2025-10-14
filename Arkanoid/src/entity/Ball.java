@@ -16,7 +16,8 @@ public class Ball extends MovableObject {
     protected int speed;
     public static final int SPEED = 9;
     protected double directionX, directionY;
-    protected double angle = 0;
+    protected double angle = 90;
+    boolean angleR= true;
     boolean is_dead = false;
     boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
@@ -149,14 +150,13 @@ public class Ball extends MovableObject {
     }
     public void resetBegin (Paddle paddle) {
         x=paddle.getX() + paddle.getWidth()/2 -width/2 ;
-        y=paddle.getY() - height;
+        y=paddle.getY() - height -1;
         is_dead = false;
     }
     @Override
     public void update() {
-        if(is_begin) {
-            move();
-        }
+
+        move();
         if(x>= GAME_WIDTH-getWidth()) {
             dx*=-1;
             x=GAME_WIDTH-getWidth();
@@ -186,5 +186,7 @@ public class Ball extends MovableObject {
     @Override
     public void render(GraphicsContext gc) {
         gc.fillOval(x, y, width, height);
+
+
     }
 }
