@@ -24,7 +24,6 @@ public class Brick extends GameObject {
      * Thực hiện khi kiểm tra method Checkcolision ở GameManager
      */
     public void takeHit() {
-        hitPoints--;
         if(hitPoints > 0) {
             hitPoints--;
         } else {
