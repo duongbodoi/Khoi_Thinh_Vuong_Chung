@@ -14,6 +14,7 @@ public class GameOver extends GameState{
         switch (e.getCode()) {
             case E: gameManager.changeState(new MainMenu(gameManager)); break;
             case X: System.exit(19);
+            case R : gameManager.changeState(new GamePlay(gameManager)); break;
         }
     }
 
@@ -30,6 +31,8 @@ public class GameOver extends GameState{
         gc.fillText("Game Over", 350, 250);
         gc.fillText("Press E to back to Mainmenu", 330, 280);
         gc.fillText("Press X to quit", 340, 310);
+        gc.fillText("Press R to restart", 340, 340);
+
     }
 
 
