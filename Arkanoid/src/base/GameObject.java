@@ -40,7 +40,13 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
-
+    public GameObject(int x, int y, int width, int height,Image image) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.image = image;
+    }
     public abstract void update(); // cập nhật vị trí của đối tượng
 
     /**

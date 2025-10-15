@@ -1,12 +1,14 @@
 package brick;
 
+import engine.LoadImage;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BrickLoadMap {
-    public static List<Brick> loadBricks(String file, int screenWidth) {
+    public static List<Brick> loadBricks(String file, int screenWidth, LoadImage loadImage) {
         List<Brick> bricks = new ArrayList<>();
         List<String> lines = new ArrayList<>();
 
@@ -44,20 +46,20 @@ public class BrickLoadMap {
 
                 switch (value) {
                     case 1:
-                        imagePath = "assets/IMAGE/green.png";
-                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
+                        //imagePath = "assets/IMAGE/green.png";
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getNormalBrick()));
                         break;
                     case 2:
-                        imagePath = "assets/IMAGE/red.png";
-                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
+                        //imagePath = "assets/IMAGE/red.png";
+                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getStrongBrick()));
                         break;
                     case 3:
-                        imagePath = "assets/IMAGE/blue.png";
-                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
+                        //imagePath = "assets/IMAGE/blue.png";
+                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick()));
                         break;
                     case 100:
-                        imagePath = "assets/IMAGE/black.png";
-                        bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
+                        //imagePath = "assets/IMAGE/black.png";
+                        bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getUnbreakBrick()));
                         break;
                     default:
                         System.out.println("⚠️ Không nhận diện được loại gạch: " + value);

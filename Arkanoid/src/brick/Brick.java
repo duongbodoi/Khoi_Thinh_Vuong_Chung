@@ -18,20 +18,12 @@ public class Brick extends GameObject {
         super(x, y, width, height);
         this.destroy = false;
     }
-    public Brick(int x, int y, int width, int height, int hitPoints, String type, String imagePath) {
-        super(x, y, width, height);
+    public Brick(int x, int y, int width, int height, int hitPoints, String type, Image image) {
+        super(x, y, width, height, image);
         this.hitPoints = hitPoints;
         this.type = type;
         this.destroy = false;
-        if (imagePath != null) {
-            try {
-                this.image = new Image(new FileInputStream(imagePath));
-            } catch (FileNotFoundException e) {
-                System.err.println(" Không thể tải ảnh: " + imagePath);
-                System.out.println("Đang tìm ảnh ở: " + getClass().getResource(imagePath));
-            }
 
-        }
     }
 
     public Brick() {

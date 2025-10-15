@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 
 //CHIẾN
 public class StrongBrick extends Brick {
-    public StrongBrick (int x, int y, int width, int height,int hitPoint, String type, String imagePath) {
-        super(x, y, width, height, hitPoint, type, imagePath);
+    public StrongBrick ( int x, int y, int width, int height,int hitPoint, String type, Image image) {
+        super(x, y, width, height, hitPoint, type, image);
     }
 
     @Override
