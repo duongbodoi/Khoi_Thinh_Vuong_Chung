@@ -14,9 +14,12 @@ import static engine.Main.GAME_WIDTH;
 public class Ball extends MovableObject {
     //public static final double PI = Math.PI;
     protected int speed;
+    public static final int SPEED = 9;
     protected double directionX, directionY;
-    protected double angle = 0;
+    protected double angle = 90;
+    boolean angleR= true;
     boolean is_dead = false;
+    boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
     // tâm của hình tròn
     double xo = getX() + (double)getWidth() / 2;
@@ -30,8 +33,8 @@ public class Ball extends MovableObject {
      * @param width độ rộng
      * @param height độ cao
      * @param speed tốc độ
-     * @param directionX
-     * @param directionY
+     * @param directionX goc x
+     * @param directionY goc y
      */
     public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY) {
         super(x, y, width, height, directionX*speed, directionY*speed);
@@ -41,6 +44,9 @@ public class Ball extends MovableObject {
     }
     public boolean is_dead() {
         return is_dead;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
     /**
      * Thao tác phản lại khi va chạm vào vật thể.
@@ -91,6 +97,12 @@ public class Ball extends MovableObject {
                 y -= (int) varyT;
             }
             double midPaddleX = other.getX() + (double)other.getWidth() / 2;
+            if(xo>midPaddleX) {
+                dx=Math.abs(dx);
+            }
+            else {
+                dx=-Math.abs(dx);
+            }
             double xoPerMid = Math.abs(xo - midPaddleX) /( double)(other.getWidth()/2);
             angle = maxAngle - xoPerMid*(maxAngle - minAngle);
             dx/=directionX;
@@ -129,8 +141,18 @@ public class Ball extends MovableObject {
 
 
     }
+    public boolean Is_begin() {
+        return is_begin;
+    }
+    public void setIs_begin(boolean is_begin) {
+        this.is_begin = is_begin;
 
-
+    }
+    public void resetBegin (Paddle paddle) {
+        x=paddle.getX() + paddle.getWidth()/2 -width/2 ;
+        y=paddle.getY() - height -1;
+        is_dead = false;
+    }
     @Override
     public void update() {
 
@@ -164,5 +186,7 @@ public class Ball extends MovableObject {
     @Override
     public void render(GraphicsContext gc) {
         gc.fillOval(x, y, width, height);
+
+
     }
 }
