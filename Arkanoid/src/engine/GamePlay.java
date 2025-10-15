@@ -25,6 +25,7 @@ public class GamePlay extends GameState {
     private int screenHeight;
     public GamePlay(GameManager gameManager) {
         super(gameManager);
+        this.bricks = new ArrayList<>();
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
         startGame();
@@ -60,7 +61,7 @@ public class GamePlay extends GameState {
         try {
             bricks = BrickLoadMap.loadBricks("Arkanoid/assets/map3.txt", screenWidth);
         } catch (Exception e) {
-            System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
+            System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());;
         }
         powerUps = new ArrayList<>();
         System.out.println("Game khởi tạo xong");
@@ -95,6 +96,7 @@ public class GamePlay extends GameState {
         }
 
     }
+
 
     //Dương
     public void checkCollisions() {
