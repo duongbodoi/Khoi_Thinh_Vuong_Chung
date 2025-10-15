@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 
 public class UnbreakBrick extends Brick {
 
-    public UnbreakBrick(int x, int y, int width, int height,int hitPoint, String type, String imagePath) {
-        super(x, y, width, height, hitPoint, type, imagePath);
+    public UnbreakBrick ( int x, int y, int width, int height,int hitPoint, String type, Image image) {
+        super(x, y, width, height, hitPoint, type, image);
     }
 
     @Override
