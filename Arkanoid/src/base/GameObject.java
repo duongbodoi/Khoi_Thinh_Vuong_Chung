@@ -1,10 +1,12 @@
 package base;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public abstract class GameObject {
-    protected int x , y;
+    protected int x, y;
     protected int width, height;
+    protected Image image;
 
     public int getX() {
         return x;
@@ -22,7 +24,10 @@ public abstract class GameObject {
         return height;
     }
 
-    public GameObject() {};
+    public GameObject() {
+    }
+
+    ;
 
     public GameObject(int x, int y) {
         this.x = x;
@@ -40,7 +45,20 @@ public abstract class GameObject {
 
     /**
      * Từ bút vẽ gc in ra các đối tượng, tạm thời dùng retangle
-      * @param gc
+     *
+     * @param gc
      */
-    public abstract void render(GraphicsContext gc); // vẽ ra
+    public void render(GraphicsContext gc) {
+        if (image != null) {
+            gc.drawImage(image, x, y, width, height);
+        } else {
+            // fallback: nếu chưa có ảnh thì vẽ khung
+            gc.strokeRect(x, y, width, height);
+        }
+    }// vẽ ra
+
+    public void setImage(String imagePath) {
+        this.image = new Image(getClass().getResourceAsStream(imagePath));
+    }
 }
+

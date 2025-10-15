@@ -45,7 +45,7 @@ public class BrickLoadMap {
                         bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type));
                         break;
                     case 2:
-                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
+                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type));
                         break;
                     case 3:
                         bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
