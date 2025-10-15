@@ -40,18 +40,27 @@ public class BrickLoadMap {
                 int x = dx + col * (brickWidth + dbrick);
                 int y = dy + row * (brickHeight + dbrick);
                 String type = "type" + value;
+                String imagePath;
+
                 switch (value) {
                     case 1:
-                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type));
+                        imagePath = "assets/IMAGE/green.png";
+                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
                         break;
                     case 2:
-                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type));
+                        imagePath = "assets/IMAGE/red.png";
+                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
                         break;
                     case 3:
-                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type));
+                        imagePath = "assets/IMAGE/blue.png";
+                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
                         break;
                     case 100:
-                        bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type));
+                        imagePath = "assets/IMAGE/black.png";
+                        bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, imagePath));
+                        break;
+                    default:
+                        System.out.println("⚠️ Không nhận diện được loại gạch: " + value);
                         break;
                 }
             }
