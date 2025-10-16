@@ -217,7 +217,6 @@ public class GamePlay extends GameState {
 
         }
 
-
     }
 
 }
