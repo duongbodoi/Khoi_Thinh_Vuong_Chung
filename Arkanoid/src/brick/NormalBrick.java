@@ -13,6 +13,8 @@ public class NormalBrick extends Brick {
         super(x, y, width, height, hitPoint, type, image);
     }
 
+
+
     @Override
     public void render(GraphicsContext gc) {
         if (!destroy) {

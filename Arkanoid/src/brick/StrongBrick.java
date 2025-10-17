@@ -2,11 +2,10 @@ package brick;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 //CHIẾN
 public class StrongBrick extends Brick {
-    public StrongBrick ( int x, int y, int width, int height,int hitPoint, String type, Image image) {
+    public StrongBrick (int x, int y, int width, int height, int hitPoint, String type, Image[] image) {
         super(x, y, width, height, hitPoint, type, image);
     }
 

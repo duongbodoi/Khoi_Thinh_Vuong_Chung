@@ -14,6 +14,7 @@ public class Brick extends GameObject {
     protected int hitPoints;
     protected boolean destroy;
     protected String type;
+    protected Image[] images;
     public Brick(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.destroy = false;
@@ -23,9 +24,18 @@ public class Brick extends GameObject {
         this.hitPoints = hitPoints;
         this.type = type;
         this.destroy = false;
-
     }
 
+    public Brick(int x, int y, int width, int height, int hitPoints, String type, Image[] images) {
+        super(x, y, width, height);
+        this.images = images;
+        this.type = type;
+        this.destroy = false;
+        this.hitPoints = images != null ? images.length : hitPoints;
+        if (images != null && images.length > 0) {
+            this.image = images[0];
+        }
+    }
     public Brick() {
     }
 
@@ -34,8 +44,13 @@ public class Brick extends GameObject {
      * Thực hiện khi kiểm tra method Checkcolision ở GameManager
      */
     public void takeHit() {
-        if(hitPoints > 0) {
+        if (hitPoints > 0) {
             hitPoints--;
+
+                if (images != null && hitPoints > 0) {
+                    int index = Math.min(images.length - hitPoints, images.length - 1);
+                    this.image = images[index];
+                }
         } else {
             destroy = true;
         }

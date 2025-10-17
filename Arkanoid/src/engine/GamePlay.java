@@ -62,40 +62,22 @@ public class GamePlay extends GameState {
 
         // Tạo Ball
         ball = new Ball(
-                paddle.getX()+paddle.getWidth()/2-7,
-                paddle.getY()-15,
+                paddle.getX() + paddle.getWidth() / 2 - 7,
+                paddle.getY() - 15,
                 14, 14, 6, 0.6, -0.8
         );
 
         // Load Bricks
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth,loadImage);
+            bricks = BrickLoadMap.loadBricks("assets/map5.txt", screenWidth, loadImage);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
 
-//            // Tạo map mặc định
-//            bricks = new ArrayList<>();
-//            int brickCols = 10;
-//            int brickRows = 5;
-//            int gap = 5;
-//            int brickWidth = (screenWidth - (brickCols + 1) * gap) / brickCols;
-//            int brickHeight = 25;
-//            int offsetX = gap;
-//            int offsetY = 40;
-//
-//            for (int row = 0; row < brickRows; row++) {
-//                for (int col = 0; col < brickCols; col++) {
-//                    int hitPoints = (row % 3) + 1;
-//                    String type = "type" + hitPoints;
-//                    int x = offsetX + col * (brickWidth + gap);
-//                    int y = offsetY + row * (brickHeight + gap);
-//                    bricks.add(new Brick(x, y, brickWidth, brickHeight, hitPoints, type));
-//                }
-//            }
+
+            powerUps = new ArrayList<>();
+            System.out.println("Game khởi tạo xong");
         }
-        powerUps = new ArrayList<>();
-        System.out.println("Game khởi tạo xong");
     }
 
     public void updateGame() {
