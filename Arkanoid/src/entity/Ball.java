@@ -90,7 +90,7 @@ public class Ball extends MovableObject {
 
         }
         if(other instanceof Paddle) {
-            double maxAngle = 90;
+            double maxAngle = 89;
             double minAngle = 30;
             if(varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
                 dy *= -1;
