@@ -72,18 +72,16 @@ public class GamePlay extends GameState {
 
         // Tạo Ball
         ball = new Ball(
-                paddle.getX()+paddle.getWidth()/2-7,
-                paddle.getY()-15,
+                paddle.getX() + paddle.getWidth() / 2 - 7,
+                paddle.getY() - 15,
                 14, 14, 6, 0.6, -0.8
         );
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth,loadImage);
+            bricks = BrickLoadMap.loadBricks("assets/map5.txt", screenWidth, loadImage);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
         }
-        powerUps = new ArrayList<>();
-        System.out.println("Game khởi tạo xong");
     }
 
     public void updateGame() {

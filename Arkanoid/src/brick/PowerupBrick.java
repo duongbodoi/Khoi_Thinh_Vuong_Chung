@@ -3,13 +3,10 @@ package brick;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-
-import java.util.GregorianCalendar;
-
 //CHIẾN
 public class PowerupBrick extends Brick {
     //gần như tương tự chỉ overide lại các hàm cha là được
-    public PowerupBrick ( int x, int y, int width, int height,int hitPoint, String type, Image image) {
+    public PowerupBrick (int x, int y, int width, int height, int hitPoint, String type, Image[] image) {
         super(x, y, width, height, hitPoint, type, image);
     }
 

@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 
 public class LoadImage {
     private Image normalBrick;
-    private Image strongBrick;
-    private Image powerUpBrick;
+    private Image[] strongBrick;
+    private Image[] powerUpBrick;
     private Image unbreakBrick;
 
     private Image backgroundMain;
@@ -20,20 +20,28 @@ public class LoadImage {
     private Image startHover;
 
     public LoadImage() {
-        normalBrick = checkLoadImage("assets/IMAGE/green.png");
-        strongBrick = checkLoadImage("assets/IMAGE/red.png");
-        powerUpBrick = checkLoadImage("assets/IMAGE/blue.png");
-        unbreakBrick = checkLoadImage("assets/IMAGE/black.png");
 
-        backgroundMain = checkLoadImage("assets/IMAGE/backGround_main.png");
-        backgroundPlay = checkLoadImage("assets/IMAGE/backGround_play.png");
+        normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.png");
+        strongBrick = new Image[] {
+                checkLoadImage("assets/IMAGE/Bred1.png"),
+                checkLoadImage("assets/IMAGE/Bred2.png")
+        };
 
-        scoreFrame = checkLoadImage("assets/IMAGE/score.png");
-        lifeFrame  = checkLoadImage("assets/IMAGE/life.png");
+        powerUpBrick = new Image[] {
 
-        startNormal = new Image("file:assets/IMAGE/start_normal.png");
-        startHover  = new Image("file:assets/IMAGE/start_hover.png");
+                checkLoadImage("assets/IMAGE/Bblue1.png"),
+                checkLoadImage("assets/IMAGE/Bblue2.png"),
+                checkLoadImage("assets/IMAGE/Bblue3.png")
+        };
+
+        unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
     }
+
+
+
+
+
+
 
     private Image checkLoadImage(String imagePath) {
         try {
@@ -50,11 +58,11 @@ public class LoadImage {
         return normalBrick;
     }
 
-    public Image getStrongBrick() {
+    public Image[] getStrongBrick() {
         return strongBrick;
     }
 
-    public Image getPowerUpBrick() {
+    public Image[] getPowerUpBrick() {
         return powerUpBrick;
     }
 
