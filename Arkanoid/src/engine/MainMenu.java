@@ -1,5 +1,6 @@
 package engine;
 
+import engine.InGamePlay.GamePlay;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;

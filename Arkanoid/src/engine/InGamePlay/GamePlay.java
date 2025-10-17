@@ -1,29 +1,22 @@
-package engine;
+package engine.InGamePlay;
 
 import brick.BrickLoadMap;
 
-import java.util.ArrayList;
-
 import brick.Brick;
+import engine.*;
 import entity.Ball;
 import entity.Paddle;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 import powerup.PowerUp;
-import engine.LoadImage;
 
 import java.util.List;
 
 public class GamePlay extends GameState {
-
     private Paddle paddle;
     private Ball ball;
     private List<Brick> bricks;
@@ -33,24 +26,27 @@ public class GamePlay extends GameState {
     private String gameState;
     private int screenWidth;
     private int screenHeight;
-    boolean is_paused = false;
-
+    //boolean is_paused = false;
+    GamePause gamePause;
+    //boolean is_victory = false;
+    NextLevel nextLevel;
     LoadImage loadImage;
     GameButton startButton;
 
     public GamePlay(GameManager gameManager) {
         super(gameManager);
-        loadImage = new LoadImage();
-
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
-
+        loadImage = new LoadImage();
+        gamePause = new GamePause(screenWidth, screenHeight);
+        nextLevel = new NextLevel(screenWidth, screenHeight);
         startButton = new GameButton("",
                 screenWidth / 2 - 100, screenHeight / 2 - 40,
                 80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
 
         startGame();
         startButton.setOnClick(() -> ball.setIs_begin(true));
+
     }
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
@@ -78,14 +74,14 @@ public class GamePlay extends GameState {
         );
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map5.txt", screenWidth, loadImage);
+            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth, loadImage);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
         }
     }
 
     public void updateGame() {
-        if (!is_paused)
+        if (!gamePause.Is_pause())
         {
             paddle.update();
             if (ball.Is_begin()) {
@@ -95,9 +91,18 @@ public class GamePlay extends GameState {
             }
             checkCollisions();
             gameOver();
+            checkLevel();
             for (Brick brick : bricks) {
                 brick.update();
             }
+            // --- SAU khi update paddle, ball, brick xong ---
+            List<Brick> newBricks = nextLevel.loadNextLevel(loadImage);
+            if (newBricks != null && !newBricks.isEmpty()) {
+                bricks = newBricks;
+                nextLevel.setContinue(false);
+            }
+
+
         }
     }
 
@@ -109,13 +114,22 @@ public class GamePlay extends GameState {
                 switch (e.getCode()) {
                     case LEFT -> paddle.moveLeft(true);
                     case RIGHT -> paddle.moveRight(true);
-                    case SPACE -> ball.setIs_begin(true);
-                    case ESCAPE -> {
-                        if(is_paused) is_paused = false;
-                        else is_paused = true;
+                    case SPACE -> {
+                        if(nextLevel.isFinished()) nextLevel.setContinue(true);
+                        else ball.setIs_begin(true);
                     }
-                    case R -> gameManager.changeState(new GamePlay(gameManager));
-                    case E-> gameManager.changeState(new MainMenu(gameManager));
+                    case ESCAPE -> {
+                        if(gamePause.Is_pause()) gamePause.setIs_pause(false);
+                        else gamePause.setIs_pause(true);
+                    }
+                    case R -> {
+                        if (gamePause.Is_pause())
+                            gameManager.changeState(new GamePlay(gameManager));
+                    }
+                    case E-> {
+                        if (gamePause.Is_pause())
+                            gameManager.changeState(new MainMenu(gameManager));
+                    }
                 }
                 break;
             case "KEY_RELEASED":
@@ -172,6 +186,14 @@ public class GamePlay extends GameState {
             gameManager.changeState(new GameOver(gameManager));
         }
     }
+    public void checkLevel() {
+        if (!nextLevel.isFinished() && bricks.isEmpty()) {
+            nextLevel.setFinished(true);
+            ball.setIs_begin(false);
+            ball.resetBegin(paddle);
+            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager));
+        }
+    }
 
     /**
      * Vẽ ra toàn bỗ những thằng nói trên.
@@ -200,20 +222,12 @@ public class GamePlay extends GameState {
         }
         ball.render(gc);
         paddle.render(gc);
-        //gc.setFill(Color.CHOCOLATE);
-//        gc.fillText("Score: " + score, 20, 20);
-//        gc.fillText("Lives: " + lives, 20+700, 20);
-        if (is_paused) {
-            gc.setFill(Color.LIGHTBLUE);
-            gc.fillRect(screenWidth/2-screenWidth/4, screenHeight/2-screenHeight/8, screenWidth/2, screenHeight/4);
-            gc.setFill(Color.BLACK);
-            gc.fillText("Ấn E để trở về MainMenu",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80);
-            gc.fillText("Ấn Esc để tiếp tục",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+20);
-            gc.fillText("Ấn R để trở về Restart",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+40);
-        }
+        nextLevel.renderer(gc);
+        gamePause.rendererPause(gc);
         if (!ball.Is_begin()) {
             startButton.draw(gc);
         }
+
     }
 
 }
