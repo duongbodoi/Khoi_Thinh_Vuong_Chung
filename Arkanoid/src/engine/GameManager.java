@@ -2,6 +2,7 @@ package engine;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class GameManager {
     private GameState currentState;
@@ -40,5 +41,17 @@ public class GameManager {
         gc.clearRect(0, 0, width, height);
         if (currentState != null)
             currentState.renderer(gc);
+    }
+
+    public void handleMouseMoved(MouseEvent e) {
+        if (currentState != null) {
+            currentState.handleMouseMoved(e);
+        }
+    }
+
+    public void handleMouseClicked(MouseEvent e) {
+        if (currentState != null) {
+            currentState.handleMouseClicked(e);
+        }
     }
 }
