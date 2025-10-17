@@ -34,6 +34,9 @@ public class Main extends Application {
         Scene scene = new Scene(new StackPane(canvas), GAME_WIDTH, GAME_HEIGHT);
         scene.setOnKeyPressed(e->gameManager.handleInput(e));
         scene.setOnKeyReleased(e->gameManager.handleInput(e));
+        // bat su kien chuot
+        scene.setOnMouseMoved(e -> gameManager.handleMouseMoved(e));
+        scene.setOnMouseClicked(e -> gameManager.handleMouseClicked(e));
         //
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -32,7 +32,6 @@ public class GameOver extends GameState{
         gc.fillText("Press E to back to Mainmenu", 330, 280);
         gc.fillText("Press X to quit", 340, 310);
         gc.fillText("Press R to restart", 340, 340);
-
     }
 
 

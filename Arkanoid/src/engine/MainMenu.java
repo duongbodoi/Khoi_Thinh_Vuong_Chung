@@ -6,9 +6,16 @@ import javafx.scene.paint.Color;
 
 
 public class MainMenu extends GameState {
+    private int screenWidth;
+    private int screenHeight;
+    LoadImage loadImage;
 
     public MainMenu(GameManager gm) {
         super(gm);
+
+        screenHeight=gameManager.getHeight();
+        screenWidth=gameManager.getWidth();
+        loadImage = new LoadImage();
     }
 
     @Override
@@ -17,7 +24,6 @@ public class MainMenu extends GameState {
                 case ENTER -> gameManager.changeState(new GamePlay(gameManager));
                 case ESCAPE -> System.exit(3);
             }
-
     }
 
     @Override
@@ -26,7 +32,8 @@ public class MainMenu extends GameState {
     @Override
     public void renderer(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, 800, 600);
+        gc.drawImage(loadImage.getBackgroundMain(),0, 0, screenWidth, screenHeight);
+        //gc.fillRect(0, 0, 800, 600);
         gc.setFill(Color.BLACK);
         gc.fillText("MAIN MENU", 350, 250);
         gc.fillText("Press ENTER to Play", 330, 280);

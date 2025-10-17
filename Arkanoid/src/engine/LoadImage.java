@@ -9,6 +9,16 @@ public class LoadImage {
     private Image[] strongBrick;
     private Image[] powerUpBrick;
     private Image unbreakBrick;
+
+    private Image backgroundMain;
+    private Image backgroundPlay;
+
+    private Image scoreFrame;
+    private Image lifeFrame;
+
+    private Image startNormal;
+    private Image startHover;
+
     public LoadImage() {
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.png");
@@ -58,6 +68,26 @@ public class LoadImage {
 
     public Image getUnbreakBrick() {
         return unbreakBrick;
+    }
+
+    public Image getBackgroundMain(){
+        return backgroundMain;
+    }
+    public Image getBackgroundPlay(){
+        return backgroundPlay;
+    }
+
+    public Image getScoreFrame() {
+        return scoreFrame;
+    }
+    public Image getLifeFrame() {
+        return lifeFrame;
+    }
+    public Image getStartNormal() {
+        return startNormal;
+    }
+    public Image getStartHover() {
+        return startHover;
     }
 
 }

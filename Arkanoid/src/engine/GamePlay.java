@@ -9,8 +9,10 @@ import entity.Ball;
 import entity.Paddle;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -32,15 +34,23 @@ public class GamePlay extends GameState {
     private int screenWidth;
     private int screenHeight;
     boolean is_paused = false;
-    LoadImage loadImage ;
+
+    LoadImage loadImage;
+    GameButton startButton;
 
     public GamePlay(GameManager gameManager) {
         super(gameManager);
         loadImage = new LoadImage();
+
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
-        startGame();
 
+        startButton = new GameButton("",
+                screenWidth / 2 - 100, screenHeight / 2 - 40,
+                80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
+
+        startGame();
+        startButton.setOnClick(() -> ball.setIs_begin(true));
     }
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
@@ -67,16 +77,10 @@ public class GamePlay extends GameState {
                 14, 14, 6, 0.6, -0.8
         );
 
-        // Load Bricks
-
         try {
             bricks = BrickLoadMap.loadBricks("assets/map5.txt", screenWidth, loadImage);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
-
-
-            powerUps = new ArrayList<>();
-            System.out.println("Game khởi tạo xong");
         }
     }
 
@@ -143,8 +147,19 @@ public class GamePlay extends GameState {
             ball.setIs_begin(false);
             ball.resetBegin(paddle);
         }
+    }
 
+    public void handleMouseMoved(MouseEvent e) {
+        double mouseX = e.getX();
+        double mouseY = e.getY();
+        startButton.checkHover(mouseX, mouseY);
+    }
 
+    public void handleMouseClicked(MouseEvent e) {
+        double mouseX = e.getX();
+        double mouseY = e.getY();
+        startButton.checkHover(mouseX, mouseY); // luôn cập nhật hover trước click
+        startButton.checkClick(e);
     }
 
     /**
@@ -163,6 +178,17 @@ public class GamePlay extends GameState {
      * <p>Kiểm tra xem nó có tồn tại nữa ko để in ra</p>
      */
     public void renderer(GraphicsContext gc) {
+        gc.drawImage(loadImage.getBackgroundPlay(), 0, 60, screenWidth, screenHeight);
+        gc.drawImage(loadImage.getScoreFrame(),10, 0,60, 60);
+        gc.drawImage(loadImage.getLifeFrame(),screenWidth - 100, 0,60, 60);
+
+        gc.setFont(Font.font("Impact", FontWeight.BOLD, 28));
+        gc.setFill(Color.web("#FFD700"));
+        gc.fillText("" + score, 80, 40);
+
+        gc.setFill(Color.web("#FF4040"));
+        gc.fillText("" + lives, screenWidth - 30, 40);
+
         for (int i = bricks.size() - 1; i >= 0; i--) {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
@@ -174,10 +200,10 @@ public class GamePlay extends GameState {
         }
         ball.render(gc);
         paddle.render(gc);
-        gc.setFill(Color.CHOCOLATE);
-        gc.fillText("Score: " + score, 20, 20);
-        gc.fillText("Lives: " + lives, 20+700, 20);
-        if(is_paused) {
+        //gc.setFill(Color.CHOCOLATE);
+//        gc.fillText("Score: " + score, 20, 20);
+//        gc.fillText("Lives: " + lives, 20+700, 20);
+        if (is_paused) {
             gc.setFill(Color.LIGHTBLUE);
             gc.fillRect(screenWidth/2-screenWidth/4, screenHeight/2-screenHeight/8, screenWidth/2, screenHeight/4);
             gc.setFill(Color.BLACK);
@@ -185,20 +211,9 @@ public class GamePlay extends GameState {
             gc.fillText("Ấn Esc để tiếp tục",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+20);
             gc.fillText("Ấn R để trở về Restart",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+40);
         }
-        if(!ball.Is_begin()) {
-            gc.save(); // Lưu lại trạng thái hiện tại (font, màu, hiệu ứng,...)
-
-            gc.setEffect(new DropShadow(12, Color.web("#FF4500")));
-            gc.setFill(Color.web("#00C8FF"));
-            gc.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 54));
-            gc.setTextAlign(TextAlignment.CENTER);
-            gc.setTextBaseline(VPos.CENTER);
-            gc.fillText("Ấn SPACE để bắt đầu", screenWidth / 2, screenHeight / 2 - 80);
-
-            gc.restore(); // Khôi phục lại trạng thái trước đó
-
+        if (!ball.Is_begin()) {
+            startButton.draw(gc);
         }
-
     }
 
 }
