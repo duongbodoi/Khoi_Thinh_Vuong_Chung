@@ -40,9 +40,9 @@ public class GamePlay extends GameState {
         loadImage = new LoadImage();
         gamePause = new GamePause(screenWidth, screenHeight);
         nextLevel = new NextLevel(screenWidth, screenHeight);
-        startButton = new GameButton("",
-                screenWidth / 2 - 100, screenHeight / 2 - 40,
-                80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
+
+        startButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 40,
+                                    80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
 
         startGame();
         startButton.setOnClick(() -> ball.setIs_begin(true));
@@ -163,12 +163,14 @@ public class GamePlay extends GameState {
         }
     }
 
+    @Override
     public void handleMouseMoved(MouseEvent e) {
         double mouseX = e.getX();
         double mouseY = e.getY();
         startButton.checkHover(mouseX, mouseY);
     }
 
+    @Override
     public void handleMouseClicked(MouseEvent e) {
         double mouseX = e.getX();
         double mouseY = e.getY();
@@ -200,7 +202,7 @@ public class GamePlay extends GameState {
      * <p>Kiểm tra xem nó có tồn tại nữa ko để in ra</p>
      */
     public void renderer(GraphicsContext gc) {
-        gc.drawImage(loadImage.getBackgroundPlay(), 0, 60, screenWidth, screenHeight);
+        gc.drawImage(loadImage.getBackgroundPlay(), 0, 0, screenWidth, screenHeight);
         gc.drawImage(loadImage.getScoreFrame(),10, 0,60, 60);
         gc.drawImage(loadImage.getLifeFrame(),screenWidth - 100, 0,60, 60);
 

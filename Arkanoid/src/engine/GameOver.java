@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 public class GameOver extends GameState{
     public GameOver(GameManager gameManager) {
         super(gameManager);
+
     }
 
     @Override
