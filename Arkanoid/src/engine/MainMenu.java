@@ -3,12 +3,15 @@ package engine;
 import engine.InGamePlay.GamePlay;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 
 public class MainMenu extends GameState {
     private int screenWidth;
     private int screenHeight;
+    GameButton enterButton;
+    GameButton escButton;
     LoadImage loadImage;
 
     public MainMenu(GameManager gm) {
@@ -17,6 +20,16 @@ public class MainMenu extends GameState {
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
         loadImage = new LoadImage();
+
+        enterButton = new GameButton(screenWidth / 2, screenHeight / 2 - 280,
+                                    160, 60, loadImage.getPlayNormal(),
+                                    loadImage.getPlayHover());
+
+        escButton = new GameButton(screenWidth / 2, screenHeight / 2 - 200,
+                                    160, 60, loadImage.getEscNormal(),
+                                    loadImage.getEscHover());
+        enterButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager)));
+        escButton.setOnClick(() -> System.exit(0));
     }
 
     @Override
@@ -31,14 +44,28 @@ public class MainMenu extends GameState {
     public void updateGame() {}
 
     @Override
+    public void handleMouseMoved(MouseEvent e) {
+        enterButton.checkHover(e.getX(), e.getY());
+        escButton.checkHover(e.getX(), e.getY());
+    }
+
+    @Override
+    public void handleMouseClicked(MouseEvent e) {
+        enterButton.checkHover(e.getX(), e.getY());
+        escButton.checkHover(e.getX(), e.getY());
+        escButton.checkClick(e);
+        enterButton.checkClick(e);
+    }
+
+    @Override
     public void renderer(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.drawImage(loadImage.getBackgroundMain(),0, 0, screenWidth, screenHeight);
+        enterButton.draw(gc);
+        escButton.draw(gc);
         //gc.fillRect(0, 0, 800, 600);
         gc.setFill(Color.BLACK);
-        gc.fillText("MAIN MENU", 350, 250);
-        gc.fillText("Press ENTER to Play", 330, 280);
-        gc.fillText("Press ESC to Quit", 340, 310);
+        gc.drawImage(loadImage.getMenu(), 280, 0, 420, 420);
     }
 }
 
