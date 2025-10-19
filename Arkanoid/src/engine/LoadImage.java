@@ -19,6 +19,12 @@ public class LoadImage {
     private Image startNormal;
     private Image startHover;
 
+    private Image Menu;
+    private Image playNormal;
+    private Image playHover;
+    private Image escNormal;
+    private Image escHover;
+
     public LoadImage() {
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.png");
@@ -28,20 +34,30 @@ public class LoadImage {
         };
 
         powerUpBrick = new Image[] {
-
                 checkLoadImage("assets/IMAGE/Bblue1.png"),
                 checkLoadImage("assets/IMAGE/Bblue2.png"),
                 checkLoadImage("assets/IMAGE/Bblue3.png")
         };
 
         unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
+
+        backgroundMain = checkLoadImage("assets/IMAGE/background_main.png");
+        backgroundPlay = checkLoadImage("assets/IMAGE/background_play.png");
+
+        scoreFrame = checkLoadImage("assets/IMAGE/score.png");
+        lifeFrame = checkLoadImage("assets/IMAGE/life.png");
+
+        startNormal = checkLoadImage("assets/IMAGE/start_normal.png");
+        startHover = checkLoadImage("assets/IMAGE/start_hover.png");
+
+        Menu = checkLoadImage("assets/IMAGE/menu.png");
+
+        playNormal = checkLoadImage("assets/IMAGE/play_normal.png");
+        playHover = checkLoadImage("assets/IMAGE/play_hover.png");
+
+        escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
+        escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
     }
-
-
-
-
-
-
 
     private Image checkLoadImage(String imagePath) {
         try {
@@ -90,4 +106,23 @@ public class LoadImage {
         return startHover;
     }
 
+    public Image getMenu() {
+        return Menu;
+    }
+
+    public Image getPlayNormal() {
+        return playNormal;
+    }
+
+    public Image getPlayHover() {
+        return playHover;
+    }
+
+    public Image getEscNormal() {
+        return escNormal;
+    }
+
+    public Image getEscHover() {
+        return escHover;
+    }
 }
