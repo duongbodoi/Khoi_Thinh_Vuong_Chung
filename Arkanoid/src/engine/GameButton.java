@@ -9,7 +9,6 @@ import javafx.scene.effect.DropShadow;
 
 public class GameButton {
     private double x, y, width, height;
-    private String text;
     private boolean hovered;
     private Image normalImage;  // ảnh mặc định
     private Image hoverImage;
@@ -23,9 +22,8 @@ public class GameButton {
         return hovered;
     }
 
-    public GameButton(String text, double x, double y, double width, double height,
+    public GameButton(double x, double y, double width, double height,
                       Image normalImage, Image hoverImage) {
-        this.text = text;
         this.x = x;
         this.y = y;
         this.width = width;

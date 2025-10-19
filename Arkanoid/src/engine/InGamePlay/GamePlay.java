@@ -42,7 +42,7 @@ public class GamePlay extends GameState {
         nextLevel = new NextLevel(screenWidth, screenHeight);
 
         startButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 40,
-                80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
+                                    80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
 
         startGame();
         startButton.setOnClick(() -> ball.setIs_begin(true));
