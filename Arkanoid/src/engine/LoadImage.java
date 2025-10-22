@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class LoadImage {
+    private Image explosionSheet;
     private Image normalBrick;
     private Image[] strongBrick;
     private Image[] powerUpBrick;
@@ -68,6 +69,7 @@ public class LoadImage {
 
         //over
         backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
+        explosionSheet = checkLoadImage("assets/IMAGE/explosion.png");
 
         eNormal = checkLoadImage("assets/IMAGE/e_normal.png");
         eHover  = checkLoadImage("assets/IMAGE/e_hover.png");
@@ -145,6 +147,9 @@ public class LoadImage {
 
     public Image getEscHover() {
         return escHover;
+    }
+    public Image getExplosionSheet() {
+        return explosionSheet;
     }
 
     public Image getENormal() { return eNormal; }

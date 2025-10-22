@@ -212,6 +212,12 @@ public class GamePlay extends GameState {
         for (int i = bricks.size() - 1; i >= 0; i--) {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
+                new Explosion(
+                        brick.getX() + brick.getWidth() / 2,
+                        brick.getY() + brick.getHeight() / 2,
+                        gameManager.getEffectLayer(),
+                        loadImage
+                );
                 bricks.remove(brick);
                 score +=10;
             } else {
