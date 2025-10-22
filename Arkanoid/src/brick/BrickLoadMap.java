@@ -27,7 +27,7 @@ public class BrickLoadMap {
         int brickRows = lines.size();
         int brickCols = lines.get(0).split("\\s+").length;
 
-        int dbrick = 3;
+        int dbrick = 1;
         int dx = 10;
         int dy = 60;
         int brickWidth = (screenWidth - (brickCols + 1) * dbrick) / brickCols;
