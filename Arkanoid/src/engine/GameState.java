@@ -19,4 +19,3 @@ public abstract class GameState {
     public void handleMouseClicked(MouseEvent e) { }
 
 }
-

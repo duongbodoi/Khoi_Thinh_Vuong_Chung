@@ -3,10 +3,16 @@ package engine;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.StackPane;
 
 public class GameManager {
+    private StackPane root;
     private GameState currentState;
+    private Pane effectLayer;
     private GraphicsContext gc;
+    private Canvas canvas;
     private int width, height;
 
     public int getWidth() {
@@ -17,10 +23,18 @@ public class GameManager {
         return height;
     }
 
-    public GameManager(GraphicsContext gc, int width, int height) {
-        this.gc = gc;
+    public GameManager(Canvas canvas, int width, int height) {
+        this.canvas = canvas;
+        this.gc = canvas.getGraphicsContext2D();
         this.width = width;
         this.height = height;
+
+        effectLayer = new Pane();
+        effectLayer.setPickOnBounds(false);
+
+        root = new StackPane();
+        root.getChildren().addAll(canvas, effectLayer);
+
         changeState(new MainMenu(this)); // Bắt đầu ở menu
     }
 
@@ -35,6 +49,14 @@ public class GameManager {
     public void updateGame() {
         if (currentState != null)
             currentState.updateGame();
+    }
+
+    public Pane getEffectLayer() {   // ✅ getter cho layer hiệu ứng
+        return effectLayer;
+    }
+
+    public StackPane getRoot() {
+        return root;
     }
 
     public void renderer() {

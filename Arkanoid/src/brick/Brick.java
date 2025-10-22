@@ -47,10 +47,10 @@ public class Brick extends GameObject {
         if (hitPoints > 0) {
             hitPoints--;
 
-                if (images != null && hitPoints > 0) {
-                    int index = Math.min(images.length - hitPoints, images.length - 1);
-                    this.image = images[index];
-                }
+            if (images != null && hitPoints > 0) {
+                int index = Math.min(images.length - hitPoints, images.length - 1);
+                this.image = images[index];
+            }
         } else {
             destroy = true;
         }
