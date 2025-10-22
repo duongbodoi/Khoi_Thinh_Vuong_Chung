@@ -109,6 +109,9 @@ public class LoadImage {
     public Image[] getPowerUpBrick() {
         return powerUpBrick;
     }
+    public Image[] getSoilBrick() {
+        return  soilBrick;
+    }
 
     public Image getUnbreakBrick() {
         return unbreakBrick;
