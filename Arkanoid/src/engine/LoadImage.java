@@ -12,6 +12,7 @@ public class LoadImage {
 
     private Image backgroundMain;
     private Image backgroundPlay;
+    private Image backgroundOver;
 
     private Image scoreFrame;
     private Image lifeFrame;
@@ -24,6 +25,13 @@ public class LoadImage {
     private Image playHover;
     private Image escNormal;
     private Image escHover;
+
+    private Image eNormal;
+    private Image eHover;
+    private Image rNormal;
+    private Image rHover;
+    private Image xNormal;
+    private Image xHover;
 
     public LoadImage() {
 
@@ -57,6 +65,18 @@ public class LoadImage {
 
         escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
         escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
+
+        //over
+        backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
+
+        eNormal = checkLoadImage("assets/IMAGE/e_normal.png");
+        eHover  = checkLoadImage("assets/IMAGE/e_hover.png");
+
+        rNormal = checkLoadImage("assets/IMAGE/r_normal.png");
+        rHover  = checkLoadImage("assets/IMAGE/r_hover.png");
+
+        xNormal = checkLoadImage("assets/IMAGE/x_normal.png");
+        xHover  = checkLoadImage("assets/IMAGE/x_hover.png");
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -92,6 +112,7 @@ public class LoadImage {
     public Image getBackgroundPlay(){
         return backgroundPlay;
     }
+    public Image getBackgroundOver() { return backgroundOver; }
 
     public Image getScoreFrame() {
         return scoreFrame;
@@ -125,4 +146,11 @@ public class LoadImage {
     public Image getEscHover() {
         return escHover;
     }
+
+    public Image getENormal() { return eNormal; }
+    public Image getEHover()  { return eHover; }
+    public Image getRNormal() { return rNormal; }
+    public Image getRHover()  { return rHover; }
+    public Image getXNormal() { return xNormal; }
+    public Image getXHover()  { return xHover; }
 }

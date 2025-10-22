@@ -165,16 +165,12 @@ public class GamePlay extends GameState {
 
     @Override
     public void handleMouseMoved(MouseEvent e) {
-        double mouseX = e.getX();
-        double mouseY = e.getY();
-        startButton.checkHover(mouseX, mouseY);
+        startButton.checkHover(e.getX(), e.getY());
     }
 
     @Override
     public void handleMouseClicked(MouseEvent e) {
-        double mouseX = e.getX();
-        double mouseY = e.getY();
-        startButton.checkHover(mouseX, mouseY); // luôn cập nhật hover trước click
+        startButton.checkHover(e.getX(), e.getY());
         startButton.checkClick(e);
     }
 
