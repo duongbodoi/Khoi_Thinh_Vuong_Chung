@@ -53,6 +53,6 @@ public class Explosion {
         timeline.setOnFinished(e -> root.getChildren().remove(view));
         timeline.play();
 
-        System.out.println("🔥 Explosion started at (" + x + ", " + y + ")");
+        System.out.println("Explosion started at (" + x + ", " + y + ")");
     }
 }
