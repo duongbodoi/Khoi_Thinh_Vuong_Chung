@@ -65,7 +65,7 @@ public class MainMenu extends GameState {
         escButton.draw(gc);
         //gc.fillRect(0, 0, 800, 600);
         gc.setFill(Color.BLACK);
-        gc.drawImage(loadImage.getMenu(), 280, 0, 420, 420);
+        gc.drawImage(loadImage.getMenu(), 300, 0, 350, 350);
     }
 }
 
