@@ -51,8 +51,6 @@ public class NextLevel {
 
     public void renderer(GraphicsContext gc) {
         if (isFinished) {
-            gc.setFill(Color.GREEN);
-            gc.fillRect(screenWidth / 2 - screenWidth / 8, screenHeight / 2 - screenHeight / 8, screenWidth / 4, screenHeight / 4);
             gc.setFill(Color.BLACK);
             gc.fillText("Press SPACE to continue", screenWidth / 2, screenHeight / 2);
         }
