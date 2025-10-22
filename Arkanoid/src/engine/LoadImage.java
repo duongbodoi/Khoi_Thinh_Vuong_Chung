@@ -9,6 +9,7 @@ public class LoadImage {
     private Image normalBrick;
     private Image[] strongBrick;
     private Image[] powerUpBrick;
+    private Image[] soilBrick;
     private Image unbreakBrick;
 
     private Image backgroundMain;
@@ -47,7 +48,12 @@ public class LoadImage {
                 checkLoadImage("assets/IMAGE/Bblue2.png"),
                 checkLoadImage("assets/IMAGE/Bblue3.png")
         };
-
+        soilBrick = new Image[] {
+                checkLoadImage("assets/IMAGE/Blue1.png"),
+                checkLoadImage("assets/IMAGE/Bblue1.png"),
+                checkLoadImage("assets/IMAGE/Bblue2.png"),
+                checkLoadImage("assets/IMAGE/Bblue3.png")
+        };
         unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
 
         backgroundMain = checkLoadImage("assets/IMAGE/background_main.png");

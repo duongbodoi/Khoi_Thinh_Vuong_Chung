@@ -57,6 +57,8 @@ public class BrickLoadMap {
                         //imagePath = "assets/IMAGE/blue.png";
                         bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick()));
                         break;
+                    case 4:
+                        bricks.add(new SoilBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getSoilBrick()));
                     case 100:
                         //imagePath = "assets/IMAGE/black.png";
                         bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getUnbreakBrick()));
