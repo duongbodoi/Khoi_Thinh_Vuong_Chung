@@ -3,6 +3,7 @@ package engine.InGamePlay;
 import brick.BrickLoadMap;
 
 import brick.Brick;
+import brick.StrongBrick;
 import engine.*;
 import entity.Ball;
 import entity.Paddle;
