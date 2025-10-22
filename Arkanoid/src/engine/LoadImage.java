@@ -37,16 +37,16 @@ public class LoadImage {
 
     public LoadImage() {
 
-        normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.png");
+        normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
         strongBrick = new Image[] {
-                checkLoadImage("assets/IMAGE/Bred1.png"),
-                checkLoadImage("assets/IMAGE/Bred2.png")
+                checkLoadImage("assets/IMAGE/iceB1.png"),
+                checkLoadImage("assets/IMAGE/iceB2.png")
         };
 
         powerUpBrick = new Image[] {
-                checkLoadImage("assets/IMAGE/Bblue1.png"),
-                checkLoadImage("assets/IMAGE/Bblue2.png"),
-                checkLoadImage("assets/IMAGE/Bblue3.png")
+                checkLoadImage("assets/IMAGE/firebirck1.png"),
+                checkLoadImage("assets/IMAGE/firebirck2.png"),
+                checkLoadImage("assets/IMAGE/firebirck3.png")
         };
         soilBrick = new Image[] {
                 checkLoadImage("assets/IMAGE/Blue1.png"),
