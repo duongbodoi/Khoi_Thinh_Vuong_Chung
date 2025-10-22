@@ -25,8 +25,8 @@ public class GameOver extends GameState {
 
         EButton = new GameButton(
                 screenWidth / 2.0 - screenWidth * 0.25 - screenWidth * 0.05,
-                screenHeight * 0.7,
-                screenWidth * 0.1,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
                 screenHeight * 0.1,
                 loadImage.getENormal(),
                 loadImage.getEHover()
@@ -34,8 +34,8 @@ public class GameOver extends GameState {
 
         RButton = new GameButton(
                 screenWidth / 2.0 - (screenWidth * 0.1) / 2,
-                screenHeight * 0.7,
-                screenWidth * 0.1,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
                 screenHeight * 0.1,
                 loadImage.getRNormal(),
                 loadImage.getRHover()
@@ -43,8 +43,8 @@ public class GameOver extends GameState {
 
         XButton = new GameButton(
                 screenWidth / 2.0 + screenWidth * 0.25 + screenWidth * 0.05 - screenWidth * 0.1,
-                screenHeight * 0.7,
-                screenWidth * 0.1,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
                 screenHeight * 0.1,
                 loadImage.getXNormal(),
                 loadImage.getXHover()
