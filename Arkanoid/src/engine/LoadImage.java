@@ -49,10 +49,10 @@ public class LoadImage {
                 checkLoadImage("assets/IMAGE/firebirck3.png")
         };
         soilBrick = new Image[] {
-                checkLoadImage("assets/IMAGE/Blue1.png"),
-                checkLoadImage("assets/IMAGE/Bblue1.png"),
-                checkLoadImage("assets/IMAGE/Bblue2.png"),
-                checkLoadImage("assets/IMAGE/Bblue3.png")
+                checkLoadImage("assets/IMAGE/soidB1.png"),
+                checkLoadImage("assets/IMAGE/soidB2.png"),
+                checkLoadImage("assets/IMAGE/soidB3.png"),
+                checkLoadImage("assets/IMAGE/soidB4.png")
         };
         unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
 
