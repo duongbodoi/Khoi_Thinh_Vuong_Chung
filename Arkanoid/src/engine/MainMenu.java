@@ -21,13 +21,14 @@ public class MainMenu extends GameState {
         screenWidth=gameManager.getWidth();
         loadImage = new LoadImage();
 
-        enterButton = new GameButton(screenWidth / 2, screenHeight / 2 - 280,
-                                    160, 60, loadImage.getPlayNormal(),
+        enterButton = new GameButton(screenWidth / 2 - 90, screenHeight / 2 - 140,
+                                    180, 90, loadImage.getPlayNormal(),
                                     loadImage.getPlayHover());
 
-        escButton = new GameButton(screenWidth / 2, screenHeight / 2 - 200,
-                                    160, 60, loadImage.getEscNormal(),
+        escButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 70,
+                                    180, 90, loadImage.getEscNormal(),
                                     loadImage.getEscHover());
+
         enterButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager)));
         escButton.setOnClick(() -> System.exit(0));
     }
@@ -65,7 +66,7 @@ public class MainMenu extends GameState {
         escButton.draw(gc);
         //gc.fillRect(0, 0, 800, 600);
         gc.setFill(Color.BLACK);
-        gc.drawImage(loadImage.getMenu(), 300, 0, 350, 350);
+        gc.drawImage(loadImage.getMenu(), 150, -10, 500, 200);
     }
 }
 
