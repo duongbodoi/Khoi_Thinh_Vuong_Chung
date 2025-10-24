@@ -45,6 +45,7 @@ public class LoadImage {
     private Image esc1Hover;
     private Image pauseImage;
 
+    private Image aimArrow;
     public LoadImage() {
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
@@ -111,6 +112,8 @@ public class LoadImage {
 
         pauseImage = checkLoadImage("assets/IMAGE/pause.png");
         backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
+        //
+        aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -224,5 +227,9 @@ public class LoadImage {
 
     public Image getBackgroundPause() {
         return backgroundPause;
+    }
+
+    public Image getAimArrow() {
+        return aimArrow;
     }
 }
