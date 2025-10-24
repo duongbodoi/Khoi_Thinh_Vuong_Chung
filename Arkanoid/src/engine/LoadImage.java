@@ -15,6 +15,7 @@ public class LoadImage {
     private Image backgroundMain;
     private Image backgroundPlay;
     private Image backgroundOver;
+    private Image backgroundVictory;
 
     private Image scoreFrame;
     private Image lifeFrame;
@@ -34,6 +35,15 @@ public class LoadImage {
     private Image rHover;
     private Image xNormal;
     private Image xHover;
+
+    private Image backgroundPause;
+    private Image e1Normal;
+    private Image e1Hover;
+    private Image r1Normal;
+    private Image r1Hover;
+    private Image esc1Normal;
+    private Image esc1Hover;
+    private Image pauseImage;
 
     public LoadImage() {
 
@@ -73,6 +83,9 @@ public class LoadImage {
         escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
         escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
 
+        //win
+        backgroundVictory = checkLoadImage("assets/IMAGE/background_win.png");
+
         //over
         backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
         explosionSheet = checkLoadImage("assets/IMAGE/explosion.png");
@@ -85,6 +98,19 @@ public class LoadImage {
 
         xNormal = checkLoadImage("assets/IMAGE/x_normal.png");
         xHover  = checkLoadImage("assets/IMAGE/x_hover.png");
+
+        //pause
+        e1Normal = checkLoadImage("assets/IMAGE/e1_normal.png");
+        e1Hover  = checkLoadImage("assets/IMAGE/e1_hover.png");
+
+        r1Normal = checkLoadImage("assets/IMAGE/r1_normal.png");
+        r1Hover  = checkLoadImage("assets/IMAGE/r1_hover.png");
+
+        esc1Normal = checkLoadImage("assets/IMAGE/esc1_normal.png");
+        esc1Hover  = checkLoadImage("assets/IMAGE/esc1_hover.png");
+
+        pauseImage = checkLoadImage("assets/IMAGE/pause.png");
+        backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -167,4 +193,36 @@ public class LoadImage {
     public Image getRHover()  { return rHover; }
     public Image getXNormal() { return xNormal; }
     public Image getXHover()  { return xHover; }
+
+    public Image getE1Normal() {
+        return e1Normal;
+    }
+
+    public Image getE1Hover() {
+        return e1Hover;
+    }
+
+    public Image getR1Normal() {
+        return r1Normal;
+    }
+
+    public Image getR1Hover() {
+        return r1Hover;
+    }
+
+    public Image getEsc1Normal() {
+        return esc1Normal;
+    }
+
+    public Image getEsc1Hover() {
+        return esc1Hover;
+    }
+
+    public Image getPauseImage() {
+        return pauseImage;
+    }
+
+    public Image getBackgroundPause() {
+        return backgroundPause;
+    }
 }
