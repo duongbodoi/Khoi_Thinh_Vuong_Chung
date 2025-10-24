@@ -59,6 +59,7 @@ public class BrickLoadMap {
                         break;
                     case 4:
                         bricks.add(new SoilBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getSoilBrick()));
+                        break;
                     case 100:
                         //imagePath = "assets/IMAGE/black.png";
                         bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getUnbreakBrick()));
