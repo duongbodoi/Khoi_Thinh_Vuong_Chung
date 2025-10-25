@@ -210,15 +210,15 @@ public class GamePlay extends GameState {
      */
     public void renderer(GraphicsContext gc) {
         gc.drawImage(loadImage.getBackgroundPlay(), 0, 0, screenWidth, screenHeight);
-        gc.drawImage(loadImage.getScoreFrame(),10, 0,60, 60);
-        gc.drawImage(loadImage.getLifeFrame(),screenWidth - 100, 0,60, 60);
+        gc.drawImage(loadImage.getScoreFrame(),0, 0,100, 80);
+        gc.drawImage(loadImage.getLifeFrame(),screenWidth - 130, 0,100, 80);
 
-        gc.setFont(Font.font("Impact", FontWeight.BOLD, 28));
-        gc.setFill(Color.web("#FFD700"));
-        gc.fillText("" + score, 80, 40);
+        gc.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 28));
+        gc.setFill(Color.web("#00AA00"));
+        gc.fillText("" + score, 90, 50);
 
-        gc.setFill(Color.web("#FF4040"));
-        gc.fillText("" + lives, screenWidth - 30, 40);
+        gc.setFill(Color.web("#8B0000"));
+        gc.fillText("" + lives, screenWidth - 40, 50);
 
         for (int i = bricks.size() - 1; i >= 0; i--) {
             Brick brick = bricks.get(i);

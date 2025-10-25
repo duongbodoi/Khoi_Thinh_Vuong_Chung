@@ -23,6 +23,7 @@ public class LoadImage {
     private Image startNormal;
     private Image startHover;
 
+    private Image nameGame;
     private Image Menu;
     private Image playNormal;
     private Image playHover;
@@ -76,6 +77,7 @@ public class LoadImage {
         startHover = checkLoadImage("assets/IMAGE/start_hover.png");
 
         Menu = checkLoadImage("assets/IMAGE/menu.png");
+        nameGame = checkLoadImage("assets/IMAGE/nameGame.png");
 
         playNormal = checkLoadImage("assets/IMAGE/play_normal.png");
         playHover = checkLoadImage("assets/IMAGE/play_hover.png");
@@ -150,6 +152,9 @@ public class LoadImage {
         return backgroundPlay;
     }
     public Image getBackgroundOver() { return backgroundOver; }
+    public Image getBackgroundVictory() {
+        return backgroundVictory;
+    }
 
     public Image getScoreFrame() {
         return scoreFrame;
@@ -224,5 +229,9 @@ public class LoadImage {
 
     public Image getBackgroundPause() {
         return backgroundPause;
+    }
+
+    public Image getNameGame() {
+        return nameGame;
     }
 }
