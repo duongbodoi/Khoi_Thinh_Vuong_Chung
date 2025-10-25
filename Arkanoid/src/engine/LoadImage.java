@@ -46,7 +46,14 @@ public class LoadImage {
     private Image pauseImage;
 
     private Image aimArrow;
+
+    private Image[] ball;
     public LoadImage() {
+        ball =new Image[] {
+                checkLoadImage("assets/IMAGE/iceBall.png"),
+                checkLoadImage("assets/IMAGE/fireBall.png")
+
+        };
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
         strongBrick = new Image[] {
@@ -231,5 +238,8 @@ public class LoadImage {
 
     public Image getAimArrow() {
         return aimArrow;
+    }
+    public Image[] getBall() {
+        return ball;
     }
 }

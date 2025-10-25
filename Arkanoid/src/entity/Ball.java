@@ -4,6 +4,7 @@ import base.MovableObject;
 import brick.Brick;
 import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
@@ -18,6 +19,7 @@ public class Ball extends MovableObject {
     public static final int SPEED = 9;
     protected double directionX, directionY;
     protected double angle = 90;
+    protected Image[] images;
     boolean is_dead = false;
     boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
@@ -35,14 +37,15 @@ public class Ball extends MovableObject {
      * @param directionX goc x
      * @param directionY goc y
      */
-    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY) {
+    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY, Image[] images) {
         super(x, y, width, height, directionX*speed, directionY*speed);
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
-
+        this.images = images;
 
     }
+
     public boolean is_dead() {
         return is_dead;
     }
@@ -68,25 +71,25 @@ public class Ball extends MovableObject {
                     && varxL < varyB
                     && dx > 0) {
                 dx *= -1;
-                x -= (int)varxL;
+                x -= (int)varxL+10;
             } else if (varxR < varxL
                     && varxR < varyT
                     && varxR < varyB
                     && dx < 0) {
                 dx *= -1;
-                x += (int)varxR;
+                x += (int)varxR+10;
             } else if (varyT < varyB
                     && varyT < varxL
                     && varyT < varxR
                     && dy > 0) {
                 dy *= -1;
-                y -= (int)varyT;
+                y -= (int)varyT+10;
             } else if (varyB < varyT
                     && varyB < varxL
                     && varyB < varxR
                     && dy < 0) {
                 dy *= -1;
-                y += (int)varyB;
+                y += (int)varyB+10;
             }
 
         }
@@ -196,8 +199,8 @@ public class Ball extends MovableObject {
     }
     @Override
     public void render(GraphicsContext gc) {
-        System.out.println(directionX + " " + directionY);
-        gc.fillOval(x, y, width, height);
+        image=images[1];
+        super.render(gc);
 
     }
 }

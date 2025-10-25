@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class Angle extends GameObject {
     int angle;
     boolean moveR;
-    public static final int  SPEED =1;
+    public static final int  SPEED =2;
 
     public Angle(int x, int y, int width, int height, Image image) {
         super(x, y, width, height, image);
