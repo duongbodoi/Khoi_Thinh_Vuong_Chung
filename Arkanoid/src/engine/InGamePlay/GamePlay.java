@@ -71,7 +71,8 @@ public class GamePlay extends GameState {
         ball = new Ball(
                 paddle.getX() + paddle.getWidth() / 2 - 7,
                 paddle.getY() - 15,
-                14, 14, 6, 0.6, -0.8
+                20, 20, 6, 0.6, -0.8,
+                loadImage.getBall()
         );
 
         try {
@@ -246,7 +247,9 @@ public class GamePlay extends GameState {
         gamePause.rendererPause(gc);
         if (!ball.Is_begin()) {
             startButton.draw(gc);
-            aimAngle.render(gc,ball);
+            if(!nextLevel.isFinished()) {
+                aimAngle.render(gc, ball);
+            }
         }
 
     }
