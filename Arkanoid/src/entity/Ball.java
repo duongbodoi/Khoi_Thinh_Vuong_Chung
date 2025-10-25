@@ -2,6 +2,7 @@ package entity;
 import base.GameObject;
 import base.MovableObject;
 import brick.Brick;
+import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
@@ -17,7 +18,6 @@ public class Ball extends MovableObject {
     public static final int SPEED = 9;
     protected double directionX, directionY;
     protected double angle = 90;
-    boolean angleR= true;
     boolean is_dead = false;
     boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
@@ -25,7 +25,6 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -41,6 +40,8 @@ public class Ball extends MovableObject {
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
+
+
     }
     public boolean is_dead() {
         return is_dead;
@@ -155,7 +156,7 @@ public class Ball extends MovableObject {
     }
     @Override
     public void update() {
-
+        System.out.println();
         move();
         if(x>= GAME_WIDTH-getWidth()) {
             dx*=-1;
@@ -182,11 +183,21 @@ public class Ball extends MovableObject {
         yo = getY() + (double) getHeight() / 2;
 
     }
+    public void setMoveBegin(int aimAngle) {
+        System.out.println("Góc lúc này là: "+ aimAngle);
+        double rad = Math.toRadians(180-aimAngle);
+        directionX = Math.cos(rad);
+        directionY = -Math.sin(rad);
+        dx = directionX * speed;
+        dy = directionY * speed;
+        System.out.println("dx lấy ra là " +directionX);
+        System.out.println("dy lấy ra là " +directionY);
 
+    }
     @Override
     public void render(GraphicsContext gc) {
+        System.out.println(directionX + " " + directionY);
         gc.fillOval(x, y, width, height);
-
 
     }
 }

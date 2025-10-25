@@ -1,5 +1,9 @@
 package engine.InGamePlay;
 
+import engine.GameButton;
+import javafx.scene.input.MouseEvent;
+import engine.GameState;
+import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -7,10 +11,27 @@ public class GamePause {
     private boolean is_paused;
     private int screenWidth;
     private int screenHeight;
-    public GamePause(int screen_width, int screen_height) {
+    private LoadImage loadImage;
+
+    private GameButton e1Button;
+    private GameButton r1Button;
+    private GameButton esc1Button;
+
+    public GamePause(int screen_width, int screen_height, LoadImage loadImage) {
         is_paused = false;
         this.screenWidth = screen_width;
         this.screenHeight = screen_height;
+        this.loadImage = loadImage;
+
+        double baseX = screenWidth / 2.0 - 100;
+        double baseY = screenHeight / 2.0 - 20;
+
+        e1Button = new GameButton(baseX - 50, baseY + 40, 60, 60,
+                loadImage.getE1Normal(), loadImage.getE1Hover());
+        r1Button = new GameButton(baseX + 50, baseY + 40, 60, 60,
+                loadImage.getR1Normal(), loadImage.getR1Hover());
+        esc1Button = new GameButton(baseX + 140, baseY + 40, 140, 60,
+                loadImage.getEsc1Normal(), loadImage.getEsc1Hover());
     }
 
     public boolean Is_pause() {
@@ -22,12 +43,41 @@ public class GamePause {
     }
     public void rendererPause(GraphicsContext gc) {
         if (is_paused) {
-            gc.setFill(Color.LIGHTBLUE);
-            gc.fillRect(screenWidth/2-screenWidth/4, screenHeight/2-screenHeight/8, screenWidth/2, screenHeight/4);
-            gc.setFill(Color.BLACK);
-            gc.fillText("Ấn E để trở về MainMenu",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80);
-            gc.fillText("Ấn Esc để tiếp tục",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+20);
-            gc.fillText("Ấn R để trở về Restart",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+40);
+                gc.drawImage(
+                        loadImage.getBackgroundPause(),
+                        screenWidth / 2.0 - screenWidth / 4.0,
+                        screenHeight / 2.0 - screenHeight / 8.0,
+                        screenWidth / 2.0,
+                        screenHeight / 4.0);
+            gc.drawImage(loadImage.getPauseImage(),
+                    screenWidth / 2.0 - (screenWidth * 0.15),
+                    screenHeight / 2.0 - screenHeight / 8.0 + 10,
+                    screenWidth * 0.3,
+                    screenHeight * 0.1);
+
+            e1Button.draw(gc);
+            r1Button.draw(gc);
+            esc1Button.draw(gc);
+        }
+    }
+
+    public void handleMouseMoved(double x, double y) {
+        if (is_paused) {
+            e1Button.checkHover(x, y);
+            r1Button.checkHover(x, y);
+            esc1Button.checkHover(x, y);
+        }
+    }
+
+    public void handleMouseClicked(double x, double y, Runnable onE, Runnable onR, Runnable onEsc) {
+        if (is_paused) {
+            e1Button.checkHover(x, y);
+            r1Button.checkHover(x, y);
+            esc1Button.checkHover(x, y);
+
+            if (e1Button.isHovered()) onE.run();
+            if (r1Button.isHovered()) onR.run();
+            if (esc1Button.isHovered()) onEsc.run();
         }
     }
 }

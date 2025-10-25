@@ -5,6 +5,7 @@ import brick.BrickLoadMap;
 import brick.Brick;
 import brick.StrongBrick;
 import engine.*;
+import entity.Angle;
 import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,20 +29,19 @@ public class GamePlay extends GameState {
     private int screenWidth;
     private int screenHeight;
     //boolean is_paused = false;
-    GamePause gamePause;
+    private GamePause gamePause;
     //boolean is_victory = false;
-    NextLevel nextLevel;
-    LoadImage loadImage;
-    GameButton startButton;
-
+    private NextLevel nextLevel;LoadImage loadImage;
+    private GameButton startButton;
+    private Angle aimAngle;
     public GamePlay(GameManager gameManager) {
         super(gameManager);
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
         loadImage = new LoadImage();
-        gamePause = new GamePause(screenWidth, screenHeight);
+        gamePause = new GamePause(screenWidth, screenHeight, loadImage);
         nextLevel = new NextLevel(screenWidth, screenHeight);
-
+        aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
         startButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 40,
                                     80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
 
@@ -89,6 +89,7 @@ public class GamePlay extends GameState {
                 ball.update();
             } else {
                 ball.resetBegin(paddle);
+                aimAngle.update();
             }
             checkCollisions();
             gameOver();
@@ -117,7 +118,10 @@ public class GamePlay extends GameState {
                     case RIGHT -> paddle.moveRight(true);
                     case SPACE -> {
                         if(nextLevel.isFinished()) nextLevel.setContinue(true);
-                        else ball.setIs_begin(true);
+                        else {
+                            ball.setMoveBegin(aimAngle.getAngle());
+                            ball.setIs_begin(true);
+                        }
                     }
                     case ESCAPE -> {
                         if(gamePause.Is_pause()) gamePause.setIs_pause(false);
@@ -164,15 +168,26 @@ public class GamePlay extends GameState {
         }
     }
 
-    @Override
     public void handleMouseMoved(MouseEvent e) {
-        startButton.checkHover(e.getX(), e.getY());
+        if (gamePause.Is_pause()) {
+            gamePause.handleMouseMoved(e.getX(), e.getY());
+        } else {
+            startButton.checkHover(e.getX(), e.getY());
+        }
     }
 
     @Override
     public void handleMouseClicked(MouseEvent e) {
-        startButton.checkHover(e.getX(), e.getY());
-        startButton.checkClick(e);
+        if (gamePause.Is_pause()) {
+            gamePause.handleMouseClicked(
+                    e.getX(),
+                    e.getY(),
+                    () -> gameManager.changeState(new MainMenu(gameManager)), // onE
+                    () -> gameManager.changeState(new GamePlay(gameManager)), // onR
+                    () -> gamePause.setIs_pause(false));// onEsc
+        } else {
+            startButton.checkClick(e);
+        }
     }
 
     /**
@@ -231,6 +246,7 @@ public class GamePlay extends GameState {
         gamePause.rendererPause(gc);
         if (!ball.Is_begin()) {
             startButton.draw(gc);
+            aimAngle.render(gc,ball);
         }
 
     }
