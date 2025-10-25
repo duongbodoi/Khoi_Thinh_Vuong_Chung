@@ -2,7 +2,9 @@ package entity;
 import base.GameObject;
 import base.MovableObject;
 import brick.Brick;
+import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
@@ -17,7 +19,7 @@ public class Ball extends MovableObject {
     public static final int SPEED = 9;
     protected double directionX, directionY;
     protected double angle = 90;
-    boolean angleR= true;
+    protected Image[] images;
     boolean is_dead = false;
     boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
@@ -25,7 +27,6 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -36,12 +37,15 @@ public class Ball extends MovableObject {
      * @param directionX goc x
      * @param directionY goc y
      */
-    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY) {
+    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY, Image[] images) {
         super(x, y, width, height, directionX*speed, directionY*speed);
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
+        this.images = images;
+
     }
+
     public boolean is_dead() {
         return is_dead;
     }
@@ -67,25 +71,25 @@ public class Ball extends MovableObject {
                     && varxL < varyB
                     && dx > 0) {
                 dx *= -1;
-                x -= (int)varxL;
+                x -= (int)varxL+10;
             } else if (varxR < varxL
                     && varxR < varyT
                     && varxR < varyB
                     && dx < 0) {
                 dx *= -1;
-                x += (int)varxR;
+                x += (int)varxR+10;
             } else if (varyT < varyB
                     && varyT < varxL
                     && varyT < varxR
                     && dy > 0) {
                 dy *= -1;
-                y -= (int)varyT;
+                y -= (int)varyT+10;
             } else if (varyB < varyT
                     && varyB < varxL
                     && varyB < varxR
                     && dy < 0) {
                 dy *= -1;
-                y += (int)varyB;
+                y += (int)varyB+10;
             }
 
         }
@@ -155,7 +159,7 @@ public class Ball extends MovableObject {
     }
     @Override
     public void update() {
-
+        System.out.println();
         move();
         if(x>= GAME_WIDTH-getWidth()) {
             dx*=-1;
@@ -182,11 +186,21 @@ public class Ball extends MovableObject {
         yo = getY() + (double) getHeight() / 2;
 
     }
+    public void setMoveBegin(int aimAngle) {
+        System.out.println("Góc lúc này là: "+ aimAngle);
+        double rad = Math.toRadians(180-aimAngle);
+        directionX = Math.cos(rad);
+        directionY = -Math.sin(rad);
+        dx = directionX * speed;
+        dy = directionY * speed;
+        System.out.println("dx lấy ra là " +directionX);
+        System.out.println("dy lấy ra là " +directionY);
 
+    }
     @Override
     public void render(GraphicsContext gc) {
-        gc.fillOval(x, y, width, height);
-
+        image=images[1];
+        super.render(gc);
 
     }
 }

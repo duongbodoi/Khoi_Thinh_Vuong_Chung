@@ -1,5 +1,6 @@
 package base;
 
+import engine.GameManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -27,7 +28,9 @@ public abstract class GameObject {
     public GameObject() {
     }
 
-    ;
+    public GameObject(Image image) {
+        this.image = image;
+    }
 
     public GameObject(int x, int y) {
         this.x = x;

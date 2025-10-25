@@ -46,7 +46,15 @@ public class LoadImage {
     private Image esc1Hover;
     private Image pauseImage;
 
+    private Image aimArrow;
+
+    private Image[] ball;
     public LoadImage() {
+        ball =new Image[] {
+                checkLoadImage("assets/IMAGE/iceBall.png"),
+                checkLoadImage("assets/IMAGE/fireBall.png")
+
+        };
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
         strongBrick = new Image[] {
@@ -113,6 +121,8 @@ public class LoadImage {
 
         pauseImage = checkLoadImage("assets/IMAGE/pause.png");
         backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
+        //
+        aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -231,7 +241,15 @@ public class LoadImage {
         return backgroundPause;
     }
 
+
     public Image getNameGame() {
         return nameGame;
+    }
+
+    public Image getAimArrow() {
+        return aimArrow;
+    }
+    public Image[] getBall() {
+        return ball;
     }
 }
