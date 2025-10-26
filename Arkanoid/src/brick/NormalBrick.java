@@ -1,7 +1,10 @@
 package brick;
 
+import engine.LoadImage;
+import engine.NormalExplosion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 //CHIẾN
 public class NormalBrick extends Brick {
@@ -11,6 +14,10 @@ public class NormalBrick extends Brick {
     }
 
 
+    @Override
+    public void createExplosion(Pane root, LoadImage loader) {
+        new NormalExplosion(x + width / 2.0, y + height / 2.0, root, loader);
+    }
 
     @Override
     public void render(GraphicsContext gc) {
