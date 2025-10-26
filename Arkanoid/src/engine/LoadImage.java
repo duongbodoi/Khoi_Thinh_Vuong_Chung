@@ -5,12 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class LoadImage {
-    private Image explosionSheet;
     private Image normalBrick;
     private Image[] strongBrick;
     private Image[] powerUpBrick;
     private Image[] soilBrick;
     private Image unbreakBrick;
+
+    private Image normalExplosion;
+    private Image strongExplosion;
+    private Image powerUpExplosion;
+    private Image soilExplosion;
 
     private Image backgroundMain;
     private Image backgroundPlay;
@@ -73,6 +77,11 @@ public class LoadImage {
                 checkLoadImage("assets/IMAGE/soidB3.png"),
                 checkLoadImage("assets/IMAGE/soidB4.png")
         };
+        normalExplosion = checkLoadImage("assets/IMAGE/explosion1.png");
+        strongExplosion = checkLoadImage("assets/IMAGE/explosion4.png");
+        powerUpExplosion = checkLoadImage("assets/IMAGE/explosion2.png");
+        soilExplosion = checkLoadImage("assets/IMAGE/explosion3.png");
+
         unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
 
         backgroundMain = checkLoadImage("assets/IMAGE/background_main.png");
@@ -98,7 +107,6 @@ public class LoadImage {
 
         //over
         backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
-        explosionSheet = checkLoadImage("assets/IMAGE/explosion.png");
 
         eNormal = checkLoadImage("assets/IMAGE/e_normal.png");
         eHover  = checkLoadImage("assets/IMAGE/e_hover.png");
@@ -198,9 +206,6 @@ public class LoadImage {
     public Image getEscHover() {
         return escHover;
     }
-    public Image getExplosionSheet() {
-        return explosionSheet;
-    }
 
     public Image getENormal() { return eNormal; }
     public Image getEHover()  { return eHover; }
@@ -208,6 +213,22 @@ public class LoadImage {
     public Image getRHover()  { return rHover; }
     public Image getXNormal() { return xNormal; }
     public Image getXHover()  { return xHover; }
+
+    public Image getNormalExplosion() {
+        return normalExplosion;
+    }
+
+    public Image getPowerUpExplosion() {
+        return powerUpExplosion;
+    }
+
+    public Image getSoilExplosion() {
+        return soilExplosion;
+    }
+
+    public Image getStrongExplosion() {
+        return strongExplosion;
+    }
 
     public Image getE1Normal() {
         return e1Normal;
