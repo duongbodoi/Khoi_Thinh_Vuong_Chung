@@ -94,7 +94,7 @@ public class GameVictory extends GameState {
 
     @Override
     public void renderer(GraphicsContext gc) {
-        gc.drawImage(loadImage.getBackgroundOver(), 0, 0, screenWidth, screenHeight);
+        gc.drawImage(loadImage.getBackgroundVictory(), 0, 0, screenWidth, screenHeight);
         EButton.draw(gc);
         XButton.draw(gc);
         RButton.draw(gc);
