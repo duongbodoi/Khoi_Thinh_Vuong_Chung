@@ -42,12 +42,8 @@ public class GamePlay extends GameState {
         gamePause = new GamePause(screenWidth, screenHeight, loadImage);
         nextLevel = new NextLevel(screenWidth, screenHeight);
         aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
-        startButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 40,
-                                    80, 80, loadImage.getStartNormal(), loadImage.getStartHover());
 
         startGame();
-        startButton.setOnClick(() -> ball.setIs_begin(true));
-
     }
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
@@ -78,7 +74,7 @@ public class GamePlay extends GameState {
         try {
             bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth, loadImage);
         } catch (Exception e) {
-            System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
+            System.out.println("Không thể đọc file map" + e.getMessage());
         }
     }
 
@@ -170,25 +166,15 @@ public class GamePlay extends GameState {
     }
 
     public void handleMouseMoved(MouseEvent e) {
-        if (gamePause.Is_pause()) {
             gamePause.handleMouseMoved(e.getX(), e.getY());
-        } else {
-            startButton.checkHover(e.getX(), e.getY());
-        }
     }
 
     @Override
     public void handleMouseClicked(MouseEvent e) {
-        if (gamePause.Is_pause()) {
-            gamePause.handleMouseClicked(
-                    e.getX(),
-                    e.getY(),
+            gamePause.handleMouseClicked(e.getX(), e.getY(),
                     () -> gameManager.changeState(new MainMenu(gameManager)), // onE
                     () -> gameManager.changeState(new GamePlay(gameManager)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
-        } else {
-            startButton.checkClick(e);
-        }
     }
 
     /**
@@ -241,12 +227,11 @@ public class GamePlay extends GameState {
         nextLevel.renderer(gc);
         gamePause.rendererPause(gc);
         if (!ball.Is_begin()) {
-            startButton.draw(gc);
+            gc.drawImage(loadImage.getSpace(), screenWidth/ 2 - 250, screenHeight / 2 - 350, 500, 600);
             if(!nextLevel.isFinished()) {
                 aimAngle.render(gc, ball);
             }
         }
 
     }
-
 }
