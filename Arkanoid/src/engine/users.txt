@@ -1,0 +1,4 @@
+duong:12345:DuongNickname:5000:3
+nguyen:abc:NguyenN:1200:1
+duongbodoithe:hehehhe:duongbodoi:1000:2
+duongw:12345:quabodoi:0:0

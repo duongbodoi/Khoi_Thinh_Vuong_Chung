@@ -33,9 +33,11 @@ public class GamePlay extends GameState {
     private GameButton startButton;
     private Angle aimAngle;
     private String curentMap;
-    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap) {
+    private User currentUser;
+    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap,User currentUser) {
         super(gameManager,loadImage);
         this.curentMap = curentMap;
+        this.currentUser=currentUser;
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
 
@@ -125,11 +127,11 @@ public class GamePlay extends GameState {
                     }
                     case R -> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap));
+                            gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap,currentUser));
                     }
                     case E-> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new MainMenu(gameManager,loadImage));
+                            gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
                     }
                 }
                 break;
@@ -174,9 +176,10 @@ public class GamePlay extends GameState {
             gamePause.handleMouseClicked(
                     e.getX(),
                     e.getY(),
-                    () -> gameManager.changeState(new MainMenu(gameManager,loadImage)), // onE
-                    () -> gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap)), // onR
+                    () -> gameManager.changeState(new MainMenu(gameManager, loadImage,currentUser)), // onE
+                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage, curentMap,currentUser)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
+        }
     }
 
     /**
@@ -186,7 +189,7 @@ public class GamePlay extends GameState {
      */
     public void gameOver() {
         if(lives <= 0) {
-            gameManager.changeState(new GameOver(gameManager,loadImage));
+            gameManager.changeState(new GameOver(gameManager,loadImage,currentUser));
         }
     }
     public void checkLevel() {

@@ -12,10 +12,10 @@ public class MainMenu extends GameState {
     private int screenHeight;
     GameButton enterButton;
     GameButton escButton;
-
-    public MainMenu(GameManager gm,LoadImage loadImage) {
+    User CurrentUser;
+    public MainMenu(GameManager gm,LoadImage loadImage,User currentUser) {
         super(gm,loadImage);
-
+        this.CurrentUser=currentUser;
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
 
@@ -27,14 +27,14 @@ public class MainMenu extends GameState {
                                     180, 90, loadImage.getEscNormal(),
                                     loadImage.getEscHover());
 
-        enterButton.setOnClick(() -> gameManager.changeState(new SelectMap(gameManager,loadImage)));
+        enterButton.setOnClick(() -> gameManager.changeState(new SelectMap(gameManager,loadImage,currentUser)));
         escButton.setOnClick(() -> System.exit(0));
     }
 
     @Override
     public void handleInput(KeyEvent e) {
             switch (e.getCode()) {
-                case ENTER -> gameManager.changeState(new SelectMap(gameManager,loadImage));
+                //case ENTER -> gameManager.changeState(new SelectMap(gameManager,loadImage,CurrentUser));
                 case ESCAPE -> System.exit(3);
             }
     }

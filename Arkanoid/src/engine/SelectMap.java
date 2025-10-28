@@ -13,13 +13,18 @@ public class SelectMap extends GameState{
     GameButton Map5;
     private int screenWidth;
     private int screenHeight;
-
-
-    public SelectMap(GameManager gameManager,LoadImage loadImage) {
+    private User currentUser;
+    private boolean[] isLock = new boolean[6];
+    public SelectMap(GameManager gameManager,LoadImage loadImage,User currentUser) {
         super(gameManager,loadImage);
+        this.currentUser=currentUser;
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
-
+        for(int i=1;i<=5;i++) {
+            if(i>currentUser.getCurrentLevel()) {
+                isLock[i]=true;
+            }
+        }
         Map1 = new GameButton(
                 215,
                 485,
@@ -55,19 +60,19 @@ public class SelectMap extends GameState{
                 loadImage.getBall()[1]
         );
         Map5 = new GameButton(
-                470,
-                370,
+                430,
+                590,
                 50,
                 50,
                 loadImage.getBall()[0],
                 loadImage.getBall()[1]
         );
 
-        Map1.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map1.txt")));
-        Map2.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map2.txt")));
-        Map3.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map3.txt")));
-        Map4.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map4.txt")));
-        Map5.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map5.txt")));
+        if(!isLock[1]) Map1.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map1.txt",currentUser)));
+        if(!isLock[2]) Map2.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map2.txt",currentUser)));
+        if(!isLock[3]) Map3.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map3.txt",currentUser)));
+        if(!isLock[4]) Map4.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map4.txt",currentUser)));
+        if(!isLock[5]) Map5.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map5.txt",currentUser)));
 
     }
 
@@ -75,7 +80,7 @@ public class SelectMap extends GameState{
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager,loadImage));
+                gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
                 break;
             case X:
                 System.exit(19);
