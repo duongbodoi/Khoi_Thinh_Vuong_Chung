@@ -2,16 +2,11 @@ package brick;
 
 import base.GameObject;
 import engine.LoadImage;
-import engine.NormalExplosion;
+import engine.Explosion.NormalExplosion;
 import javafx.scene.canvas.GraphicsContext;
-import java.io.FileInputStream;
 import javafx.scene.image.Image;
-import java.io.FileNotFoundException;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-
-import java.util.Objects;
 
 // CHIẾN
 public abstract class Brick extends GameObject {
