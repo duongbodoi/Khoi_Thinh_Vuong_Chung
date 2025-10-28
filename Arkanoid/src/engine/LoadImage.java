@@ -50,11 +50,14 @@ public class LoadImage {
     private Image esc1Hover;
     private Image pauseImage;
 
+    private  Image space;
+
     private Image aimArrow;
 
     private Image selectMap;
 
     private Image[] ball;
+
     public LoadImage() {
         ball =new Image[] {
                 checkLoadImage("assets/IMAGE/iceBall.png"),
@@ -91,6 +94,8 @@ public class LoadImage {
 
         scoreFrame = checkLoadImage("assets/IMAGE/score.png");
         lifeFrame = checkLoadImage("assets/IMAGE/life.png");
+
+        space = checkLoadImage("assets/IMAGE/space.png");
 
         startNormal = checkLoadImage("assets/IMAGE/start_normal.png");
         startHover = checkLoadImage("assets/IMAGE/start_hover.png");
