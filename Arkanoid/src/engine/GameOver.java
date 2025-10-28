@@ -12,13 +12,14 @@ public class GameOver extends GameState {
     GameButton RButton;
     private int screenWidth;
     private int screenHeight;
-
-
-    public GameOver(GameManager gameManager,LoadImage loadImage) {
+    private User currentUser;
+    private UserManager userManager = new UserManager();
+    public GameOver(GameManager gameManager,LoadImage loadImage,User currentUser) {
         super(gameManager,loadImage);
+        this.currentUser=currentUser;
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
-
+        userManager.LoadUsers();
         EButton = new GameButton(
                 screenWidth / 2.0 - screenWidth * 0.18 - screenWidth * 0.05,
                 screenHeight * 0.6 + 5,
@@ -46,7 +47,7 @@ public class GameOver extends GameState {
                 loadImage.getXHover()
         );
 
-        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage)));
+        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser)));
         XButton.setOnClick(() -> System.exit(19));
         //RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage)));
     }
@@ -55,7 +56,7 @@ public class GameOver extends GameState {
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager,loadImage));
+                gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
                 break;
             case X:
                 System.exit(19);
@@ -94,5 +95,10 @@ public class GameOver extends GameState {
         EButton.draw(gc);
         XButton.draw(gc);
         RButton.draw(gc);
+        gc.drawImage(loadImage.getBgrlogin(), 275, 30, screenWidth/3, screenHeight/3);
+        int y =30;
+        for(User user : userManager.getUsers()) {
+            gc.fillText(user.toString(),275, y+=50);
+        }
     }
 }

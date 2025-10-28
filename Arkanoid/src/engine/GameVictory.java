@@ -46,7 +46,7 @@ public class GameVictory extends GameState {
                 loadImage.getXHover()
         );
 
-        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage)));
+        //EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,)));
         XButton.setOnClick(() -> System.exit(19));
         //RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage)));
     }
@@ -55,7 +55,7 @@ public class GameVictory extends GameState {
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager,loadImage));
+                //gameManager.changeState(new MainMenu(gameManager,loadImage));
                 break;
             case X:
                 System.exit(19);
