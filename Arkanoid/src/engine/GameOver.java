@@ -10,16 +10,12 @@ public class GameOver extends GameState {
     GameButton EButton;
     GameButton XButton;
     GameButton RButton;
-    LoadImage loadImage;
     private int screenWidth;
     private int screenHeight;
 
 
-    public GameOver(GameManager gameManager) {
-        super(gameManager);
-
-        loadImage = new LoadImage();
-
+    public GameOver(GameManager gameManager,LoadImage loadImage) {
+        super(gameManager,loadImage);
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
 
@@ -50,21 +46,21 @@ public class GameOver extends GameState {
                 loadImage.getXHover()
         );
 
-        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager)));
+        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage)));
         XButton.setOnClick(() -> System.exit(19));
-        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager)));
+        //RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage)));
     }
 
     @Override
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager));
+                gameManager.changeState(new MainMenu(gameManager,loadImage));
                 break;
             case X:
                 System.exit(19);
             case R:
-                gameManager.changeState(new GamePlay(gameManager));
+                //gameManager.changeState(new GamePlay(gameManager,loadImage));
                 break;
         }
     }

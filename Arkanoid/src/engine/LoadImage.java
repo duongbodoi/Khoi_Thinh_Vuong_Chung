@@ -52,6 +52,8 @@ public class LoadImage {
 
     private Image aimArrow;
 
+    private Image selectMap;
+
     private Image[] ball;
     public LoadImage() {
         ball =new Image[] {
@@ -131,6 +133,8 @@ public class LoadImage {
         backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
         //
         aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
+        // select lv
+        selectMap = checkLoadImage("assets/IMAGE/selectMap.jpg");
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -272,5 +276,8 @@ public class LoadImage {
     }
     public Image[] getBall() {
         return ball;
+    }
+    public Image getSelectMap() {
+        return selectMap;
     }
 }

@@ -28,17 +28,17 @@ public class GamePlay extends GameState {
     private String gameState;
     private int screenWidth;
     private int screenHeight;
-    //boolean is_paused = false;
     private GamePause gamePause;
-    //boolean is_victory = false;
-    private NextLevel nextLevel;LoadImage loadImage;
+    private NextLevel nextLevel;
     private GameButton startButton;
     private Angle aimAngle;
-    public GamePlay(GameManager gameManager) {
-        super(gameManager);
+    private String curentMap;
+    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap) {
+        super(gameManager,loadImage);
+        this.curentMap = curentMap;
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
-        loadImage = new LoadImage();
+
         gamePause = new GamePause(screenWidth, screenHeight, loadImage);
         nextLevel = new NextLevel(screenWidth, screenHeight);
         aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
@@ -55,7 +55,6 @@ public class GamePlay extends GameState {
 
         score = 0;
         lives = 3;
-        gameState = "PLAYING";
         // Tạo Paddle
         int paddleWidth = screenWidth / 8;
         int paddleHeight = screenHeight / 40;
@@ -76,7 +75,7 @@ public class GamePlay extends GameState {
         );
 
         try {
-            bricks = BrickLoadMap.loadBricks("assets/map1.txt", screenWidth, loadImage);
+            bricks = BrickLoadMap.loadBricks(curentMap, screenWidth, loadImage);
         } catch (Exception e) {
             System.out.println("Không thể đọc file map, tạo map mặc định: " + e.getMessage());
         }
@@ -130,11 +129,11 @@ public class GamePlay extends GameState {
                     }
                     case R -> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new GamePlay(gameManager));
+                            gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap));
                     }
                     case E-> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new MainMenu(gameManager));
+                            gameManager.changeState(new MainMenu(gameManager,loadImage));
                     }
                 }
                 break;
@@ -183,8 +182,8 @@ public class GamePlay extends GameState {
             gamePause.handleMouseClicked(
                     e.getX(),
                     e.getY(),
-                    () -> gameManager.changeState(new MainMenu(gameManager)), // onE
-                    () -> gameManager.changeState(new GamePlay(gameManager)), // onR
+                    () -> gameManager.changeState(new MainMenu(gameManager,loadImage)), // onE
+                    () -> gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
         } else {
             startButton.checkClick(e);
@@ -198,7 +197,7 @@ public class GamePlay extends GameState {
      */
     public void gameOver() {
         if(lives <= 0) {
-            gameManager.changeState(new GameOver(gameManager));
+            gameManager.changeState(new GameOver(gameManager,loadImage));
         }
     }
     public void checkLevel() {
@@ -206,7 +205,7 @@ public class GamePlay extends GameState {
             nextLevel.setFinished(true);
             ball.setIs_begin(false);
             ball.resetBegin(paddle);
-            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager));
+            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage));
         }
     }
 

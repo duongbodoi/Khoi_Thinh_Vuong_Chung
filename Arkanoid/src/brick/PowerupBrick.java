@@ -1,7 +1,7 @@
 package brick;
 
 import engine.LoadImage;
-import engine.PowerUpExplosion;
+import engine.Explosion.PowerUpExplosion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
