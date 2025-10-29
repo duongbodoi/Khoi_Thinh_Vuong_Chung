@@ -59,6 +59,7 @@ public class LoadImage {
     private Image login;
     private Image signup;
     private Image bgrlogin;
+    private Image lock;
     public LoadImage() {
 
 
@@ -145,6 +146,7 @@ public class LoadImage {
         aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
         // select lv
         selectMap = checkLoadImage("assets/IMAGE/selectMap.jpg");
+        lock = checkLoadImage(("assets/IMAGE/lock.png"));
         //
 
     }
@@ -310,5 +312,8 @@ public class LoadImage {
 
     public Image getBgrlogin() {
         return bgrlogin;
+    }
+    public Image getLock() {
+        return lock;
     }
 }
