@@ -23,8 +23,6 @@ public class LoadImage {
 
     private Image scoreFrame;
     private Image lifeFrame;
-
-
     private Image nameGame;
     private Image Menu;
     private Image playNormal;
@@ -52,14 +50,29 @@ public class LoadImage {
 
     private Image aimArrow;
 
+    private Image selectMap;
+
     private Image[] ball;
 
+    private Image username;
+    private Image password;
+    private Image login;
+    private Image signup;
+    private Image bgrlogin;
     public LoadImage() {
+
+
         ball =new Image[] {
                 checkLoadImage("assets/IMAGE/iceBall.png"),
                 checkLoadImage("assets/IMAGE/fireBall.png")
 
         };
+
+        username = checkLoadImage("assets/IMAGE/username.png");
+        password = checkLoadImage("assets/IMAGE/password.png");
+        login = checkLoadImage("assets/IMAGE/login.png");
+        signup = checkLoadImage("assets/IMAGE/sign up.png");
+        bgrlogin = checkLoadImage("assets/IMAGE/bgrlogin.png");
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
         strongBrick = new Image[] {
@@ -93,15 +106,11 @@ public class LoadImage {
 
         space = checkLoadImage("assets/IMAGE/space.png");
 
-
         Menu = checkLoadImage("assets/IMAGE/menu.png");
         nameGame = checkLoadImage("assets/IMAGE/nameGame.png");
 
         playNormal = checkLoadImage("assets/IMAGE/play_normal.png");
         playHover = checkLoadImage("assets/IMAGE/play_hover.png");
-
-        escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
-        escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
 
         //win
         backgroundVictory = checkLoadImage("assets/IMAGE/background_win.png");
@@ -125,6 +134,8 @@ public class LoadImage {
         r1Normal = checkLoadImage("assets/IMAGE/r1_normal.png");
         r1Hover  = checkLoadImage("assets/IMAGE/r1_hover.png");
 
+        escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
+        escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
         esc1Normal = checkLoadImage("assets/IMAGE/esc1_normal.png");
         esc1Hover  = checkLoadImage("assets/IMAGE/esc1_hover.png");
 
@@ -132,6 +143,10 @@ public class LoadImage {
         backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
         //
         aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
+        // select lv
+        selectMap = checkLoadImage("assets/IMAGE/selectMap.jpg");
+        //
+
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -181,6 +196,7 @@ public class LoadImage {
     public Image getLifeFrame() {
         return lifeFrame;
     }
+
 
     public Image getMenu() {
         return Menu;
@@ -268,7 +284,31 @@ public class LoadImage {
     public Image[] getBall() {
         return ball;
     }
+    public Image getSelectMap() {
+        return selectMap;
+    }
+
     public Image getSpace() {
         return space;
+    }
+
+    public Image getUsername() {
+        return username;
+    }
+
+    public Image getPassword() {
+        return password;
+    }
+
+    public Image getLogin() {
+        return login;
+    }
+
+    public Image getSignup() {
+        return signup;
+    }
+
+    public Image getBgrlogin() {
+        return bgrlogin;
     }
 }

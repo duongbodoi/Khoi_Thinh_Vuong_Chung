@@ -14,7 +14,8 @@ public class GameManager {
     private GraphicsContext gc;
     private Canvas canvas;
     private int width, height;
-
+    private LoadImage loadImage;
+    private UserManager userManager;
     public int getWidth() {
         return width;
     }
@@ -23,19 +24,20 @@ public class GameManager {
         return height;
     }
 
-    public GameManager(Canvas canvas, int width, int height) {
+    public GameManager(Canvas canvas, int width, int height, LoadImage loadImage,UserManager userManager) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.width = width;
         this.height = height;
-
+        this.loadImage = loadImage;
+        this.userManager = userManager;
         effectLayer = new Pane();
         effectLayer.setPickOnBounds(false);
 
         root = new StackPane();
         root.getChildren().addAll(canvas, effectLayer);
 
-        changeState(new MainMenu(this)); // Bắt đầu ở menu
+        changeState(new GameLogin(this,loadImage,userManager)); // Bắt đầu ở menu
     }
 
     public void changeState(GameState newState) {
