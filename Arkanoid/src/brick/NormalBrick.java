@@ -1,13 +1,22 @@
 package brick;
 
+import engine.LoadImage;
+import engine.ExplosionControl.NormalExplosion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 //CHIẾN
 public class NormalBrick extends Brick {
     //gần như tương tự chỉ overide lại các hàm cha là được
     public NormalBrick (int x, int y, int width, int height, int hitPoint, String type, Image image) {
         super(x, y, width, height, hitPoint, type, image);
+    }
+
+
+    @Override
+    public void createExplosion(Pane root, LoadImage loader) {
+        new NormalExplosion(x + width / 2.0, y + height / 2.0, root, loader);
     }
 
 

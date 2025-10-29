@@ -1,20 +1,23 @@
 package brick;
 
 import base.GameObject;
+import engine.LoadImage;
+import engine.ExplosionControl.NormalExplosion;
 import javafx.scene.canvas.GraphicsContext;
-import java.io.FileInputStream;
 import javafx.scene.image.Image;
-import java.io.FileNotFoundException;
-import javafx.scene.paint.Color;
+
+import javafx.scene.layout.Pane;
 
 import java.util.Objects;
 
 // CHIẾN
-public class Brick extends GameObject {
+public abstract class Brick extends GameObject {
     protected int hitPoints;
     protected boolean destroy;
     protected String type;
     protected Image[] images;
+    protected Pane root;
+    protected LoadImage loader;
     public Brick(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.destroy = false;
@@ -39,6 +42,9 @@ public class Brick extends GameObject {
     public Brick() {
     }
 
+    public void createExplosion(Pane root, LoadImage loader) {
+        new NormalExplosion(x + width / 2.0, y + height / 2.0, root, loader);
+    }
     /**
      * Thực hiện thao tác giảm hitPoints.
      * Thực hiện khi kiểm tra method Checkcolision ở GameManager

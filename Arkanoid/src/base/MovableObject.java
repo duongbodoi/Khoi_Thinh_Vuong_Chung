@@ -1,7 +1,7 @@
 package base;
 public abstract class MovableObject extends GameObject{
     protected  double dx, dy;
-
+    
     public MovableObject(){};
 
     public MovableObject(int x, int y, int width, int height, double dx, double dy) {
@@ -14,6 +14,4 @@ public abstract class MovableObject extends GameObject{
         x += dx;
         y += dy;
     }
-
-
 }

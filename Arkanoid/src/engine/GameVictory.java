@@ -3,19 +3,65 @@ package engine;
 import engine.InGamePlay.GamePlay;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class GameVictory extends GameState {
-    public GameVictory(GameManager gameManager) {
-        super(gameManager);
+    GameButton EButton;
+    GameButton XButton;
+    GameButton RButton;
+    private int screenWidth;
+    private int screenHeight;
+
+
+    public GameVictory(GameManager gameManager,LoadImage loadImage) {
+        super(gameManager,loadImage);
+        screenWidth = gameManager.getWidth();
+        screenHeight = gameManager.getHeight();
+
+        EButton = new GameButton(
+                screenWidth / 2.0 - screenWidth * 0.25 - screenWidth * 0.05,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
+                screenHeight * 0.1,
+                loadImage.getENormal(),
+                loadImage.getEHover()
+        );
+
+        RButton = new GameButton(
+                screenWidth / 2.0 - (screenWidth * 0.1) / 2,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
+                screenHeight * 0.1,
+                loadImage.getRNormal(),
+                loadImage.getRHover()
+        );
+
+        XButton = new GameButton(
+                screenWidth / 2.0 + screenWidth * 0.25 + screenWidth * 0.05 - screenWidth * 0.1,
+                screenHeight * 0.2,
+                screenWidth * 0.13,
+                screenHeight * 0.1,
+                loadImage.getXNormal(),
+                loadImage.getXHover()
+        );
+
+        //EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,)));
+        XButton.setOnClick(() -> System.exit(19));
+        //RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage)));
     }
 
     @Override
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
-            case E: gameManager.changeState(new MainMenu(gameManager)); break;
-            case X: System.exit(19);
-            case R : gameManager.changeState(new GamePlay(gameManager)); break;
+            case E:
+                //gameManager.changeState(new MainMenu(gameManager,loadImage));
+                break;
+            case X:
+                System.exit(19);
+            case R:
+                //gameManager.changeState(new GamePlay(gameManager,loadImage));
+                break;
         }
     }
 
@@ -25,13 +71,28 @@ public class GameVictory extends GameState {
     }
 
     @Override
+    public void handleMouseMoved(MouseEvent e) {
+        EButton.checkHover(e.getX(), e.getY());
+        XButton.checkHover(e.getX(), e.getY());
+        RButton.checkHover(e.getX(), e.getY());
+    }
+
+    @Override
+    public void handleMouseClicked(MouseEvent e) {
+        EButton.checkHover(e.getX(), e.getY());
+        XButton.checkHover(e.getX(), e.getY());
+        RButton.checkHover(e.getX(), e.getY());
+
+        EButton.checkClick(e);
+        XButton.checkClick(e);
+        RButton.checkClick(e);
+    }
+
+    @Override
     public void renderer(GraphicsContext gc) {
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, 800, 600);
-        gc.setFill(Color.BLACK);
-        gc.fillText("Congratulate", 350, 250);
-        gc.fillText("Press E to back to Mainmenu", 330, 280);
-        gc.fillText("Press X to quit", 340, 310);
-        gc.fillText("Press R to restart", 340, 340);
+        gc.drawImage(loadImage.getBackgroundVictory(), 0, 0, screenWidth, screenHeight);
+        EButton.draw(gc);
+        XButton.draw(gc);
+        RButton.draw(gc);
     }
 }

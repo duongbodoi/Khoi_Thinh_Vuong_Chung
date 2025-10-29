@@ -1,7 +1,10 @@
 package brick;
 
+import engine.LoadImage;
+import engine.ExplosionControl.SoilExplosion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 //CHIẾN
 public class SoilBrick extends Brick {
@@ -11,6 +14,10 @@ public class SoilBrick extends Brick {
     }
 
 
+    @Override
+    public void createExplosion(Pane root, LoadImage loader) {
+        new SoilExplosion(x + width / 2.0, y + height / 2.0, root, loader);
+    }
 
     @Override
     public void render(GraphicsContext gc) {
@@ -19,7 +26,7 @@ public class SoilBrick extends Brick {
                 gc.drawImage(image, x, y, width, height);
             } else {
                 // fallback — nếu ảnh không tồn tại, vẽ tạm để debug
-                gc.setFill(javafx.scene.paint.Color.GREEN);
+                gc.setFill(javafx.scene.paint.Color.BROWN);
                 gc.fillRect(x, y, width, height);
                 gc.setStroke(javafx.scene.paint.Color.BLACK);
                 gc.strokeRect(x, y, width, height);

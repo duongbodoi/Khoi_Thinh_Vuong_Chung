@@ -14,10 +14,12 @@ public class NextLevel {
     private int screenWidth;
     private int screenHeight;
     private boolean isContinue;
+    LoadImage loadImage;
     int level;
     public NextLevel(int screen_width, int screen_height) {
         isVictory = false;
         isFinished = false;
+        loadImage = new LoadImage();
         this.screenWidth = screen_width;
         this.screenHeight = screen_height;
         level = 1;
@@ -51,8 +53,7 @@ public class NextLevel {
 
     public void renderer(GraphicsContext gc) {
         if (isFinished) {
-            gc.setFill(Color.BLACK);
-            gc.fillText("Press SPACE to continue", screenWidth / 2, screenHeight / 2);
+            gc.drawImage(loadImage.getSpace(), screenWidth/ 2 - 250, screenHeight / 2 - 350, 500, 600);
         }
     }
     public List<Brick> loadNextLevel(LoadImage loadImage) {

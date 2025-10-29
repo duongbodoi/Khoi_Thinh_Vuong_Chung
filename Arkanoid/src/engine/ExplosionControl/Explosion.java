@@ -1,4 +1,4 @@
-package engine;
+package engine.ExplosionControl;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,13 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class Explosion {
+public abstract class Explosion {
     private static final int FRAME_COLS = 3;
     private static final int FRAME_ROWS = 3;
     private static final double FRAME_DURATION = 0.06;
 
-    public Explosion(double x, double y, Pane root, LoadImage loader) {
-        Image explosionSheet = loader.getExplosionSheet();
+    protected Image explosionSheet;
+    protected double scale = 0.5;
+
+    public Explosion(double x, double y, Pane root, Image explosionSheet) {
+        this.explosionSheet = explosionSheet;
         if (explosionSheet == null) {
             System.err.println("Ảnh explosionSheet bị null — kiểm tra đường dẫn!");
             return;
@@ -23,7 +26,6 @@ public class Explosion {
         double frameWidth = explosionSheet.getWidth() / FRAME_COLS;
         double frameHeight = explosionSheet.getHeight() / FRAME_ROWS;
 
-        double scale = 0.6;
 
         ImageView view = new ImageView(explosionSheet);
         view.setViewport(new Rectangle2D(0, 0, frameWidth, frameHeight));
