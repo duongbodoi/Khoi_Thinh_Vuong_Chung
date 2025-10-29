@@ -23,6 +23,7 @@ public class LoadImage {
 
     private Image scoreFrame;
     private Image lifeFrame;
+
     private Image nameGame;
     private Image Menu;
     private Image playNormal;
@@ -59,6 +60,7 @@ public class LoadImage {
     private Image login;
     private Image signup;
     private Image bgrlogin;
+    private Image lock;
     public LoadImage() {
 
 
@@ -145,6 +147,7 @@ public class LoadImage {
         aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
         // select lv
         selectMap = checkLoadImage("assets/IMAGE/selectMap.jpg");
+        lock = checkLoadImage(("assets/IMAGE/lock.png"));
         //
 
     }
@@ -196,7 +199,6 @@ public class LoadImage {
     public Image getLifeFrame() {
         return lifeFrame;
     }
-
 
     public Image getMenu() {
         return Menu;
@@ -310,5 +312,8 @@ public class LoadImage {
 
     public Image getBgrlogin() {
         return bgrlogin;
+    }
+    public Image getLock() {
+        return lock;
     }
 }

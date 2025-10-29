@@ -189,7 +189,7 @@ public class GamePlay extends GameState {
      */
     public void gameOver() {
         if(lives <= 0) {
-            gameManager.changeState(new GameOver(gameManager,loadImage,currentUser));
+            gameManager.changeState(new GameOver(gameManager,loadImage,currentUser,curentMap));
         }
     }
     public void checkLevel() {

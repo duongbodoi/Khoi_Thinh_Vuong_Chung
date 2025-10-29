@@ -31,7 +31,7 @@ public class SelectMap extends GameState{
                 50,
                 50,
                 loadImage.getBall()[0],
-                loadImage.getBall()[1]
+                ( isLock[1] ? loadImage.getLock() : loadImage.getBall()[1])
         );
 
         Map2 = new GameButton(
@@ -40,7 +40,7 @@ public class SelectMap extends GameState{
                 50,
                 50,
                 loadImage.getBall()[0],
-                loadImage.getBall()[1]
+                ( isLock[2] ? loadImage.getLock() : loadImage.getBall()[1])
         );
 
         Map3 = new GameButton(
@@ -49,7 +49,7 @@ public class SelectMap extends GameState{
                 50,
                 50,
                 loadImage.getBall()[0],
-                loadImage.getBall()[1]
+                ( isLock[3] ? loadImage.getLock() : loadImage.getBall()[1])
         );
         Map4 = new GameButton(
                 470,
@@ -57,7 +57,7 @@ public class SelectMap extends GameState{
                 50,
                 50,
                 loadImage.getBall()[0],
-                loadImage.getBall()[1]
+                ( isLock[4] ? loadImage.getLock() : loadImage.getBall()[1])
         );
         Map5 = new GameButton(
                 430,
@@ -65,7 +65,7 @@ public class SelectMap extends GameState{
                 50,
                 50,
                 loadImage.getBall()[0],
-                loadImage.getBall()[1]
+                ( isLock[5] ? loadImage.getLock() : loadImage.getBall()[1])
         );
 
         if(!isLock[1]) Map1.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,"assets/map1.txt",currentUser)));
