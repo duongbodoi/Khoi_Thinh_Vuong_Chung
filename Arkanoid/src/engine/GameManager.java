@@ -53,7 +53,7 @@ public class GameManager {
             currentState.updateGame();
     }
 
-    public Pane getEffectLayer() {   // ✅ getter cho layer hiệu ứng
+    public Pane getEffectLayer() {   // getter cho layer hiệu ứng
         return effectLayer;
     }
 

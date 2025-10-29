@@ -45,7 +45,6 @@ public class Ball extends MovableObject {
         this.images = images;
 
     }
-
     public boolean is_dead() {
         return is_dead;
     }
@@ -161,13 +160,13 @@ public class Ball extends MovableObject {
     public void update() {
         System.out.println();
         move();
-        if(x>= GAME_WIDTH-getWidth()) {
-            dx*=-1;
-            x=GAME_WIDTH-getWidth();
+        if(x >= GAME_WIDTH - getWidth()) {
+            dx = -Math.abs(dx);
+            x = GAME_WIDTH - getWidth() -1; //lùi 1 pixel vào trong
         }
-        if(x<= 0) {
-            dx*=-1;
-            x=0;
+        if(x <= 0) {
+            dx = Math.abs(dx);
+            x = 1;
         }
         if(y>=GAME_HEIGHT-getHeight()) {
             is_dead = true;

@@ -1,9 +1,12 @@
 package engine.InGamePlay;
 
+<<<<<<< HEAD
+=======
 import engine.GameButton;
 import javafx.scene.input.MouseEvent;
 import engine.GameState;
 import engine.LoadImage;
+>>>>>>> main
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -11,6 +14,12 @@ public class GamePause {
     private boolean is_paused;
     private int screenWidth;
     private int screenHeight;
+<<<<<<< HEAD
+    public GamePause(int screen_width, int screen_height) {
+        is_paused = false;
+        this.screenWidth = screen_width;
+        this.screenHeight = screen_height;
+=======
     private LoadImage loadImage;
 
     private GameButton e1Button;
@@ -32,6 +41,7 @@ public class GamePause {
                 loadImage.getR1Normal(), loadImage.getR1Hover());
         esc1Button = new GameButton(baseX + 140, baseY + 40, 140, 60,
                 loadImage.getEsc1Normal(), loadImage.getEsc1Hover());
+>>>>>>> main
     }
 
     public boolean Is_pause() {
@@ -43,6 +53,14 @@ public class GamePause {
     }
     public void rendererPause(GraphicsContext gc) {
         if (is_paused) {
+<<<<<<< HEAD
+            gc.setFill(Color.LIGHTBLUE);
+            gc.fillRect(screenWidth/2-screenWidth/4, screenHeight/2-screenHeight/8, screenWidth/2, screenHeight/4);
+            gc.setFill(Color.BLACK);
+            gc.fillText("Ấn E để trở về MainMenu",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80);
+            gc.fillText("Ấn Esc để tiếp tục",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+20);
+            gc.fillText("Ấn R để trở về Restart",screenWidth/2-screenWidth/4+100, screenHeight/2-screenHeight/8+80+40);
+=======
                 gc.drawImage(
                         loadImage.getBackgroundPause(),
                         screenWidth / 2.0 - screenWidth / 4.0,
@@ -78,6 +96,7 @@ public class GamePause {
             if (e1Button.isHovered()) onE.run();
             if (r1Button.isHovered()) onR.run();
             if (esc1Button.isHovered()) onEsc.run();
+>>>>>>> main
         }
     }
 }
