@@ -24,8 +24,6 @@ public class LoadImage {
     private Image scoreFrame;
     private Image lifeFrame;
 
-    private Image startNormal;
-    private Image startHover;
 
     private Image nameGame;
     private Image Menu;
@@ -95,8 +93,6 @@ public class LoadImage {
 
         space = checkLoadImage("assets/IMAGE/space.png");
 
-        startNormal = checkLoadImage("assets/IMAGE/start_normal.png");
-        startHover = checkLoadImage("assets/IMAGE/start_hover.png");
 
         Menu = checkLoadImage("assets/IMAGE/menu.png");
         nameGame = checkLoadImage("assets/IMAGE/nameGame.png");
@@ -184,12 +180,6 @@ public class LoadImage {
     }
     public Image getLifeFrame() {
         return lifeFrame;
-    }
-    public Image getStartNormal() {
-        return startNormal;
-    }
-    public Image getStartHover() {
-        return startHover;
     }
 
     public Image getMenu() {
