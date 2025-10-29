@@ -23,14 +23,14 @@ public class GamePause {
         this.screenHeight = screen_height;
         this.loadImage = loadImage;
 
-        double baseX = screenWidth / 2.0 - 100;
+        double baseX = screenWidth / 2.0 - 70;
         double baseY = screenHeight / 2.0 - 20;
 
-        e1Button = new GameButton(baseX - 50, baseY + 40, 60, 60,
+        e1Button = new GameButton(baseX - 50, baseY + 40, 80, 80,
                 loadImage.getE1Normal(), loadImage.getE1Hover());
-        r1Button = new GameButton(baseX + 50, baseY + 40, 60, 60,
+        r1Button = new GameButton(baseX + 50, baseY + 40, 80, 80,
                 loadImage.getR1Normal(), loadImage.getR1Hover());
-        esc1Button = new GameButton(baseX + 140, baseY + 40, 140, 60,
+        esc1Button = new GameButton(baseX + 140, baseY + 40, 80, 80,
                 loadImage.getEsc1Normal(), loadImage.getEsc1Hover());
     }
 
@@ -46,14 +46,9 @@ public class GamePause {
                 gc.drawImage(
                         loadImage.getBackgroundPause(),
                         screenWidth / 2.0 - screenWidth / 4.0,
-                        screenHeight / 2.0 - screenHeight / 8.0,
+                        screenHeight / 2.0 - screenHeight / 4.0,
                         screenWidth / 2.0,
-                        screenHeight / 4.0);
-            gc.drawImage(loadImage.getPauseImage(),
-                    screenWidth / 2.0 - (screenWidth * 0.15),
-                    screenHeight / 2.0 - screenHeight / 8.0 + 10,
-                    screenWidth * 0.3,
-                    screenHeight * 0.1);
+                        screenHeight / 2.0);
 
             e1Button.draw(gc);
             r1Button.draw(gc);
