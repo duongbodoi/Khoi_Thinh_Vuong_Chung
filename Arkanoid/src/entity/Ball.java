@@ -2,7 +2,9 @@ package entity;
 import base.GameObject;
 import base.MovableObject;
 import brick.Brick;
+import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
@@ -17,7 +19,7 @@ public class Ball extends MovableObject {
     public static final int SPEED = 9;
     protected double directionX, directionY;
     protected double angle = 90;
-    boolean angleR= true;
+    protected Image[] images;
     boolean is_dead = false;
     boolean is_begin =false;
     // Vì là khối vuông nên ta cần chuẩn hoá sang hình tròn để va chạm được mượt mà
@@ -25,7 +27,6 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -36,11 +37,13 @@ public class Ball extends MovableObject {
      * @param directionX goc x
      * @param directionY goc y
      */
-    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY) {
+    public Ball(int x, int y, int width, int height, int speed, double directionX,double directionY, Image[] images) {
         super(x, y, width, height, directionX*speed, directionY*speed);
         this.speed = speed;
         this.directionX = directionX;
         this.directionY = directionY;
+        this.images = images;
+
     }
     public boolean is_dead() {
         return is_dead;
@@ -67,67 +70,51 @@ public class Ball extends MovableObject {
                     && varxL < varyB
                     && dx > 0) {
                 dx *= -1;
-                x -= (int)varxL;
+                x -= (int)varxL+10;
             } else if (varxR < varxL
                     && varxR < varyT
                     && varxR < varyB
                     && dx < 0) {
                 dx *= -1;
-                x += (int)varxR;
+                x += (int)varxR+10;
             } else if (varyT < varyB
                     && varyT < varxL
                     && varyT < varxR
                     && dy > 0) {
                 dy *= -1;
-                y -= (int)varyT;
+                y -= (int)varyT+10;
             } else if (varyB < varyT
                     && varyB < varxL
                     && varyB < varxR
                     && dy < 0) {
                 dy *= -1;
-                y += (int)varyB;
+                y += (int)varyB+10;
             }
 
         }
-        if (other instanceof Paddle) {
+        if(other instanceof Paddle) {
             double maxAngle = 89;
             double minAngle = 30;
-
-            // đẩy ra khỏi cạnh trên của paddle nếu đang chạm
-            if (varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
+            if(varyT < varyB && varyT < varxL && varyT < varxR && dy > 0) {
                 dy *= -1;
                 y -= (int) varyT;
             }
-
-            // tính góc bật dựa theo vị trí va chạm trên mặt paddle
-            double midPaddleX = other.getX() + (double) other.getWidth() / 2;
-            double xoPerMid = Math.abs(xo - midPaddleX) / (double) (other.getWidth() / 2);
-            xoPerMid = Math.max(0.0, Math.min(1.0, xoPerMid));
-
-            double angleDeg = maxAngle - xoPerMid * (maxAngle - minAngle);
-            double angleRad = Math.toRadians(angleDeg);
-
-            // hướng trái/phải dựa vào vị trí tương đối
-            double side = (xo > midPaddleX) ? +1.0 : -1.0;
-
-            // lấy tốc độ hiện tại (giữ nguyên độ lớn)
-            double spd = Math.hypot(dx, dy);
-            if (spd <= 0) spd = this.speed;       // fallback
-            if (spd <= 0) spd = 4;                // thêm fallback an toàn
-
-            // thiết lập vận tốc mới theo góc
-            dx = side * spd * Math.cos(angleRad);
-            dy = -Math.abs(spd * Math.sin(angleRad));  // luôn bật lên trên
-
-            // đảm bảo có vận tốc ngang tối thiểu để khỏi dính tường
-            double minAbsDx = 1.0;
-            if (Math.abs(dx) < minAbsDx) {
-                dx = side * minAbsDx;
-                // giữ tổng tốc độ gần spd
-                double remain = Math.max(0.5, Math.sqrt(Math.max(0, spd * spd - dx * dx)));
-                dy = -Math.abs(remain);
+            double midPaddleX = other.getX() + (double)other.getWidth() / 2;
+            if(xo>midPaddleX) {
+                dx=Math.abs(dx);
             }
-        }       
+            else {
+                dx=-Math.abs(dx);
+            }
+            double xoPerMid = Math.abs(xo - midPaddleX) /( double)(other.getWidth()/2);
+            angle = maxAngle - xoPerMid*(maxAngle - minAngle);
+            dx/=directionX;
+            dy/=directionY;
+            directionX = Math.cos(Math.toRadians(angle));
+            directionY = Math.sin(Math.toRadians(angle));
+            dx*=directionX;
+            dy*=directionY;
+        }
     }
 
     /**
@@ -171,7 +158,7 @@ public class Ball extends MovableObject {
     }
     @Override
     public void update() {
-
+        System.out.println();
         move();
         if(x >= GAME_WIDTH - getWidth()) {
             dx = -Math.abs(dx);
@@ -198,57 +185,21 @@ public class Ball extends MovableObject {
         yo = getY() + (double) getHeight() / 2;
 
     }
+    public void setMoveBegin(int aimAngle) {
+        System.out.println("Góc lúc này là: "+ aimAngle);
+        double rad = Math.toRadians(180-aimAngle);
+        directionX = Math.cos(rad);
+        directionY = -Math.sin(rad);
+        dx = directionX * speed;
+        dy = directionY * speed;
+        System.out.println("dx lấy ra là " +directionX);
+        System.out.println("dy lấy ra là " +directionY);
 
+    }
     @Override
     public void render(GraphicsContext gc) {
-        gc.fillOval(x, y, width, height);
+        image=images[1];
+        super.render(gc);
 
-
-    }
-
-    //Ngọc Anh làm đoạn này để dùng cho double ball
-    public int getSpeed() { return speed; }
-    public double getDx() { return dx; }
-    public double getDy() { return dy; }
-    public double getDirX() { return directionX; }
-    public double getDirY() { return directionY; }
-
-    public void setVelocity(double ndx, double ndy) {
-        this.dx = ndx;
-        this.dy = ndy;
-
-        double len = Math.sqrt(ndx * ndx + ndy * ndy);
-        if (len > 0) {
-            // cập nhật hướng chuẩn hoá
-            this.directionX = ndx / len;
-            this.directionY = ndy / len;
-
-            // scale về đúng "speed" của bóng
-            double target = (this.speed > 0) ? this.speed : len;
-            double s = target / len;
-            this.dx *= s;
-            this.dy *= s;
-        }
-
-        // bảo đảm có vận tốc ngang tối thiểu tránh dính tường
-        double minAbsDx = 1.0;
-        if (Math.abs(this.dx) < minAbsDx) {
-            this.dx = (this.dx >= 0 ? +1 : -1) * minAbsDx;
-        }
-    }
-
-    public Ball shallowCopy() {
-        return new Ball(this.x, this.y, this.width, this.height, this.speed, this.directionX, this.directionY);
-    }
-
-    //vị trí
-    public void nudge(int nx, int ny) {
-        this.x += nx;
-        this.y += ny;   
-    }
-
-    public void setPosition(int nx, int ny) {
-        this.x = nx;
-        this.y = ny;
     }
 }

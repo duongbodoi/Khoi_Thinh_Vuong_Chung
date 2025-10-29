@@ -5,23 +5,26 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class LoadImage {
-    private Image explosionSheet;
     private Image normalBrick;
     private Image[] strongBrick;
     private Image[] powerUpBrick;
     private Image[] soilBrick;
     private Image unbreakBrick;
 
+    private Image normalExplosion;
+    private Image strongExplosion;
+    private Image powerUpExplosion;
+    private Image soilExplosion;
+
     private Image backgroundMain;
     private Image backgroundPlay;
     private Image backgroundOver;
+    private Image backgroundVictory;
 
     private Image scoreFrame;
     private Image lifeFrame;
 
-    private Image startNormal;
-    private Image startHover;
-
+    private Image nameGame;
     private Image Menu;
     private Image playNormal;
     private Image playHover;
@@ -35,7 +38,43 @@ public class LoadImage {
     private Image xNormal;
     private Image xHover;
 
+    private Image backgroundPause;
+    private Image e1Normal;
+    private Image e1Hover;
+    private Image r1Normal;
+    private Image r1Hover;
+    private Image esc1Normal;
+    private Image esc1Hover;
+    private Image pauseImage;
+
+    private  Image space;
+
+    private Image aimArrow;
+
+    private Image selectMap;
+
+    private Image[] ball;
+
+    private Image username;
+    private Image password;
+    private Image login;
+    private Image signup;
+    private Image bgrlogin;
+    private Image lock;
     public LoadImage() {
+
+
+        ball =new Image[] {
+                checkLoadImage("assets/IMAGE/iceBall.png"),
+                checkLoadImage("assets/IMAGE/fireBall.png")
+
+        };
+
+        username = checkLoadImage("assets/IMAGE/username.png");
+        password = checkLoadImage("assets/IMAGE/password.png");
+        login = checkLoadImage("assets/IMAGE/login.png");
+        signup = checkLoadImage("assets/IMAGE/sign up.png");
+        bgrlogin = checkLoadImage("assets/IMAGE/bgrlogin.png");
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
         strongBrick = new Image[] {
@@ -49,11 +88,16 @@ public class LoadImage {
                 checkLoadImage("assets/IMAGE/firebirck3.png")
         };
         soilBrick = new Image[] {
-                checkLoadImage("assets/IMAGE/Blue1.png"),
-                checkLoadImage("assets/IMAGE/Bblue1.png"),
-                checkLoadImage("assets/IMAGE/Bblue2.png"),
-                checkLoadImage("assets/IMAGE/Bblue3.png")
+                checkLoadImage("assets/IMAGE/soidB1.png"),
+                checkLoadImage("assets/IMAGE/soidB2.png"),
+                checkLoadImage("assets/IMAGE/soidB3.png"),
+                checkLoadImage("assets/IMAGE/soidB4.png")
         };
+        normalExplosion = checkLoadImage("assets/IMAGE/explosion1.png");
+        strongExplosion = checkLoadImage("assets/IMAGE/explosion4.png");
+        powerUpExplosion = checkLoadImage("assets/IMAGE/explosion2.png");
+        soilExplosion = checkLoadImage("assets/IMAGE/explosion3.png");
+
         unbreakBrick = checkLoadImage("assets/IMAGE/Bblack.png");
 
         backgroundMain = checkLoadImage("assets/IMAGE/background_main.png");
@@ -62,20 +106,19 @@ public class LoadImage {
         scoreFrame = checkLoadImage("assets/IMAGE/score.png");
         lifeFrame = checkLoadImage("assets/IMAGE/life.png");
 
-        startNormal = checkLoadImage("assets/IMAGE/start_normal.png");
-        startHover = checkLoadImage("assets/IMAGE/start_hover.png");
+        space = checkLoadImage("assets/IMAGE/space.png");
 
         Menu = checkLoadImage("assets/IMAGE/menu.png");
+        nameGame = checkLoadImage("assets/IMAGE/nameGame.png");
 
         playNormal = checkLoadImage("assets/IMAGE/play_normal.png");
         playHover = checkLoadImage("assets/IMAGE/play_hover.png");
 
-        escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
-        escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
+        //win
+        backgroundVictory = checkLoadImage("assets/IMAGE/background_win.png");
 
         //over
         backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
-        explosionSheet = checkLoadImage("assets/IMAGE/explosion.png");
 
         eNormal = checkLoadImage("assets/IMAGE/e_normal.png");
         eHover  = checkLoadImage("assets/IMAGE/e_hover.png");
@@ -85,6 +128,28 @@ public class LoadImage {
 
         xNormal = checkLoadImage("assets/IMAGE/x_normal.png");
         xHover  = checkLoadImage("assets/IMAGE/x_hover.png");
+
+        //pause
+        e1Normal = checkLoadImage("assets/IMAGE/e1_normal.png");
+        e1Hover  = checkLoadImage("assets/IMAGE/e1_hover.png");
+
+        r1Normal = checkLoadImage("assets/IMAGE/r1_normal.png");
+        r1Hover  = checkLoadImage("assets/IMAGE/r1_hover.png");
+
+        escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
+        escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
+        esc1Normal = checkLoadImage("assets/IMAGE/esc1_normal.png");
+        esc1Hover  = checkLoadImage("assets/IMAGE/esc1_hover.png");
+
+        pauseImage = checkLoadImage("assets/IMAGE/pause.png");
+        backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
+        //
+        aimArrow = checkLoadImage("assets/IMAGE/aim_arrow.png");
+        // select lv
+        selectMap = checkLoadImage("assets/IMAGE/selectMap.jpg");
+        lock = checkLoadImage(("assets/IMAGE/lock.png"));
+        //
+
     }
 
     private Image checkLoadImage(String imagePath) {
@@ -124,18 +189,15 @@ public class LoadImage {
         return backgroundPlay;
     }
     public Image getBackgroundOver() { return backgroundOver; }
+    public Image getBackgroundVictory() {
+        return backgroundVictory;
+    }
 
     public Image getScoreFrame() {
         return scoreFrame;
     }
     public Image getLifeFrame() {
         return lifeFrame;
-    }
-    public Image getStartNormal() {
-        return startNormal;
-    }
-    public Image getStartHover() {
-        return startHover;
     }
 
     public Image getMenu() {
@@ -157,9 +219,6 @@ public class LoadImage {
     public Image getEscHover() {
         return escHover;
     }
-    public Image getExplosionSheet() {
-        return explosionSheet;
-    }
 
     public Image getENormal() { return eNormal; }
     public Image getEHover()  { return eHover; }
@@ -167,4 +226,94 @@ public class LoadImage {
     public Image getRHover()  { return rHover; }
     public Image getXNormal() { return xNormal; }
     public Image getXHover()  { return xHover; }
+
+    public Image getNormalExplosion() {
+        return normalExplosion;
+    }
+
+    public Image getPowerUpExplosion() {
+        return powerUpExplosion;
+    }
+
+    public Image getSoilExplosion() {
+        return soilExplosion;
+    }
+
+    public Image getStrongExplosion() {
+        return strongExplosion;
+    }
+
+    public Image getE1Normal() {
+        return e1Normal;
+    }
+
+    public Image getE1Hover() {
+        return e1Hover;
+    }
+
+    public Image getR1Normal() {
+        return r1Normal;
+    }
+
+    public Image getR1Hover() {
+        return r1Hover;
+    }
+
+    public Image getEsc1Normal() {
+        return esc1Normal;
+    }
+
+    public Image getEsc1Hover() {
+        return esc1Hover;
+    }
+
+    public Image getPauseImage() {
+        return pauseImage;
+    }
+
+    public Image getBackgroundPause() {
+        return backgroundPause;
+    }
+
+
+    public Image getNameGame() {
+        return nameGame;
+    }
+
+    public Image getAimArrow() {
+        return aimArrow;
+    }
+    public Image[] getBall() {
+        return ball;
+    }
+    public Image getSelectMap() {
+        return selectMap;
+    }
+
+    public Image getSpace() {
+        return space;
+    }
+
+    public Image getUsername() {
+        return username;
+    }
+
+    public Image getPassword() {
+        return password;
+    }
+
+    public Image getLogin() {
+        return login;
+    }
+
+    public Image getSignup() {
+        return signup;
+    }
+
+    public Image getBgrlogin() {
+        return bgrlogin;
+    }
+    public Image getLock() {
+        return lock;
+    }
 }
