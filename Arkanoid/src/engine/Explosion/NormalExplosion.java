@@ -1,5 +1,6 @@
-package engine;
+package engine.Explosion;
 
+import engine.LoadImage;
 import javafx.scene.layout.Pane;
 
 public class NormalExplosion extends Explosion {

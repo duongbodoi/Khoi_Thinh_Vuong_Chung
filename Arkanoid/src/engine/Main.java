@@ -7,6 +7,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Main extends Application {
 
     public static final int GAME_WIDTH = 800;
@@ -17,9 +19,13 @@ public class Main extends Application {
         // Tạo canvas
         Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        //
+        UserManager userManager = new UserManager();
+        userManager.LoadUsers();
+        List<User> users = userManager.getUsers();
+        LoadImage loadImage = new LoadImage();
         // Tạo GameManager
-        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT);
+        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT,loadImage,userManager);
 
         // Scene chỉ dùng root từ GameManager
         Scene scene = new Scene(gameManager.getRoot(), GAME_WIDTH, GAME_HEIGHT);
@@ -38,6 +44,10 @@ public class Main extends Application {
         scene.setOnKeyReleased(e -> gameManager.handleInput(e));
         scene.setOnMouseMoved(e -> gameManager.handleMouseMoved(e));
         scene.setOnMouseClicked(e -> gameManager.handleMouseClicked(e));
+
+        scene.setOnMouseMoved(e -> {
+            System.out.println("Mouse at: (" + (int)e.getX() + ", " + (int)e.getY() + ")");
+        });
 
         // Gán scene cho stage
         primaryStage.setScene(scene);
