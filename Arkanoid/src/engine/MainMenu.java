@@ -23,7 +23,7 @@ public class MainMenu extends GameState {
                                     180, 90, loadImage.getPlayNormal(),
                                     loadImage.getPlayHover());
 
-        escButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 + 60,
+        escButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 + 50,
                                     180, 90, loadImage.getEscNormal(),
                                     loadImage.getEscHover());
 
@@ -61,7 +61,6 @@ public class MainMenu extends GameState {
         gc.drawImage(loadImage.getBackgroundMain(),0, 0, screenWidth, screenHeight);
         enterButton.draw(gc);
         escButton.draw(gc);
-        //gc.fillRect(0, 0, 800, 600);
         gc.drawImage(loadImage.getNameGame(), 50, -80, 700, 400);
         gc.drawImage(loadImage.getMenu(), 150, 220, 500, 150);
     }

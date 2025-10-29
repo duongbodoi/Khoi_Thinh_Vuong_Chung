@@ -23,6 +23,7 @@ public class LoadImage {
 
     private Image scoreFrame;
     private Image lifeFrame;
+
     private Image nameGame;
     private Image Menu;
     private Image playNormal;
@@ -196,7 +197,6 @@ public class LoadImage {
     public Image getLifeFrame() {
         return lifeFrame;
     }
-
 
     public Image getMenu() {
         return Menu;
