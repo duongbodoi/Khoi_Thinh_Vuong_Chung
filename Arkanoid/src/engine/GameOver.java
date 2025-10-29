@@ -14,9 +14,11 @@ public class GameOver extends GameState {
     private int screenHeight;
     private User currentUser;
     private UserManager userManager = new UserManager();
-    public GameOver(GameManager gameManager,LoadImage loadImage,User currentUser) {
+    private String currentMap;
+    public GameOver(GameManager gameManager,LoadImage loadImage,User currentUser,String currentMap) {
         super(gameManager,loadImage);
         this.currentUser=currentUser;
+        this.currentMap=currentMap;
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
         userManager.LoadUsers();
@@ -49,7 +51,7 @@ public class GameOver extends GameState {
 
         EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser)));
         XButton.setOnClick(() -> System.exit(19));
-        //RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage)));
+        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,currentMap,currentUser)));
     }
 
     @Override

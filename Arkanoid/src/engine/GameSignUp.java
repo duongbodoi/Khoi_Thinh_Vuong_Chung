@@ -86,7 +86,7 @@ public class GameSignUp extends GameState {
         signUpButton.setOnClick(() -> {
             password = password.strip();
             username = username.strip();
-            User newUser= new User(username,password,nickname,0,0);
+            User newUser= new User(username,password,nickname,0,1);
             userManager.AddUser(newUser);
             gameManager.changeState(new MainMenu(gameManager,loadImage,newUser));
         });
