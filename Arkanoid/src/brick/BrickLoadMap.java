@@ -65,7 +65,7 @@ public class BrickLoadMap {
                         bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getUnbreakBrick()));
                         break;
                     default:
-                        System.out.println("⚠️ Không nhận diện được loại gạch: " + value);
+                        System.out.println("Không nhận diện được loại gạch: " + value);
                         break;
                 }
             }
