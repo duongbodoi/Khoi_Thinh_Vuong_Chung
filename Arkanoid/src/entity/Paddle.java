@@ -14,7 +14,7 @@ public class Paddle extends MovableObject {
 
     private final BallProvider ballProvider;
 
-    public Paddle(int x, int y, int width, int height, int dx, int dy, int speed) {
+    public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider) {
         super(x, y, width, height, dx, dy);
         this.speed = speed;
         this.currentPowerUp = null;
@@ -23,17 +23,7 @@ public class Paddle extends MovableObject {
         this.ballProvider = null;
     }
 
-    //phương thức khởi tạo với ball provider áp dụng cho double ball
-    public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider) {
-        super(x, y, width, height, dx, dy);
-        this.speed = speed;
-        this.currentPowerUp = null;
-        isLeft = false;
-        isRight = false;
-        this.ballProvider = ballProvider;
-    }
-
-    //lấy chiều dài của paddle vì cần update khi dùng power up
+    // lấy chiều dài của paddle vì cần update khi dùng power up
     public int getWidth() {
         return width;
     }
@@ -52,6 +42,7 @@ public class Paddle extends MovableObject {
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
     }
+
     @Override
     public void move() {
         if(isLeft) {

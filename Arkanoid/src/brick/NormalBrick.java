@@ -19,8 +19,6 @@ public class NormalBrick extends Brick {
         new NormalExplosion(x + width / 2.0, y + height / 2.0, root, loader);
     }
 
-
-
     @Override
     public void render(GraphicsContext gc) {
         if (!destroy) {

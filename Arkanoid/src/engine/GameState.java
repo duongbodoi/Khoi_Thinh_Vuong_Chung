@@ -7,10 +7,6 @@ import javafx.scene.input.MouseEvent;
 public abstract class GameState {
     protected GameManager gameManager;
     protected LoadImage loadImage;
-
-    public GameState(GameManager gameManager) {
-        this(gameManager, new LoadImage());
-    }
     public GameState(GameManager gameManager,LoadImage loadImage) {
         this.gameManager = gameManager;
         this.loadImage = loadImage;
