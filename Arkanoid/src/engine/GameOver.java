@@ -58,12 +58,15 @@ public class GameOver extends GameState {
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
+                userManager.saveAllUsers();
                 gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser));
                 break;
             case X:
+                userManager.saveAllUsers();
                 System.exit(19);
             case R:
-                //gameManager.changeState(new GamePlay(gameManager,loadImage));
+                userManager.saveAllUsers();
+                gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser));
                 break;
         }
     }
@@ -99,8 +102,8 @@ public class GameOver extends GameState {
         RButton.draw(gc);
         //gc.drawImage(loadImage.getBgrlogin(), 275, 30, screenWidth/3, screenHeight/3);
         int y =320;
-        for(User user : userManager.getUsers()) {
-            gc.fillText(user.toString(),230, y+=50);
+        for(int i =0;i<5;i++ ) {
+            gc.fillText(userManager.getUsers().get(i).toString(),230, y+=50);
         }
     }
 }
