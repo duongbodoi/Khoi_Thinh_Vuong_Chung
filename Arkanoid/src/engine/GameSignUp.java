@@ -23,8 +23,8 @@ public class GameSignUp extends GameState {
     boolean enterPassword = false;
     boolean enterNickname = false;
     List<User> userList;
-    public GameSignUp(GameManager gameManager,LoadImage loadImage,UserManager userManager) {
-        super(gameManager,loadImage);
+    public GameSignUp(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,UserManager userManager) {
+        super(gameManager,loadImage,loadSound);
         this.userManager=userManager;
         userList=userManager.getUsers();
         screenWidth = gameManager.getWidth();
@@ -88,7 +88,7 @@ public class GameSignUp extends GameState {
             username = username.strip();
             User newUser= new User(username,password,nickname,0,1);
             userManager.AddUser(newUser);
-            gameManager.changeState(new MainMenu(gameManager,loadImage,newUser));
+            gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,newUser));
         });
     }
 

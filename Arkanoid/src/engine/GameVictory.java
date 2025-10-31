@@ -14,8 +14,8 @@ public class GameVictory extends GameState {
     private int screenHeight;
 
 
-    public GameVictory(GameManager gameManager,LoadImage loadImage) {
-        super(gameManager,loadImage);
+    public GameVictory(GameManager gameManager,LoadImage loadImage,LoadSound loadSound) {
+        super(gameManager,loadImage,loadSound);
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
 

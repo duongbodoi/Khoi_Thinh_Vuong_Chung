@@ -24,8 +24,9 @@ public class Main extends Application {
         userManager.LoadUsers();
         List<User> users = userManager.getUsers();
         LoadImage loadImage = new LoadImage();
+        LoadSound loadSound = new LoadSound();
         // Tạo GameManager
-        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT,loadImage,userManager);
+        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT,loadImage,userManager,loadSound);
 
         // Scene chỉ dùng root từ GameManager
         Scene scene = new Scene(gameManager.getRoot(), GAME_WIDTH, GAME_HEIGHT);
