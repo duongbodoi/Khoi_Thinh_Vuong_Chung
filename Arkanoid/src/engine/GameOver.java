@@ -15,8 +15,8 @@ public class GameOver extends GameState {
     private User currentUser;
     private UserManager userManager = new UserManager();
     private String currentMap;
-    public GameOver(GameManager gameManager,LoadImage loadImage,User currentUser,String currentMap) {
-        super(gameManager,loadImage);
+    public GameOver(GameManager gameManager,LoadImage loadImage, LoadSound loadSound,User currentUser,String currentMap) {
+        super(gameManager,loadImage,loadSound);
         this.currentUser=currentUser;
         this.currentMap=currentMap;
         screenWidth = gameManager.getWidth();
@@ -49,16 +49,16 @@ public class GameOver extends GameState {
                 loadImage.getXHover()
         );
 
-        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser)));
+        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser)));
         XButton.setOnClick(() -> System.exit(19));
-        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,currentMap,currentUser)));
+        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser)));
     }
 
     @Override
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
+                gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser));
                 break;
             case X:
                 System.exit(19);

@@ -34,8 +34,8 @@ public class GamePlay extends GameState {
     private Angle aimAngle;
     private String curentMap;
     private User currentUser;
-    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap,User currentUser) {
-        super(gameManager,loadImage);
+    public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser) {
+        super(gameManager,loadImage,loadSound);
         this.curentMap = curentMap;
         this.currentUser=currentUser;
         screenHeight=gameManager.getHeight();
@@ -127,11 +127,11 @@ public class GamePlay extends GameState {
                     }
                     case R -> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap,currentUser));
+                            gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,curentMap,currentUser));
                     }
                     case E-> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
+                            gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser));
                     }
                 }
                 break;
@@ -176,8 +176,8 @@ public class GamePlay extends GameState {
             gamePause.handleMouseClicked(
                     e.getX(),
                     e.getY(),
-                    () -> gameManager.changeState(new MainMenu(gameManager, loadImage,currentUser)), // onE
-                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage, curentMap,currentUser)), // onR
+                    () -> gameManager.changeState(new MainMenu(gameManager, loadImage,loadSound,currentUser)), // onE
+                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage,loadSound,curentMap,currentUser)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
         }
     }
@@ -189,7 +189,7 @@ public class GamePlay extends GameState {
      */
     public void gameOver() {
         if(lives <= 0) {
-            gameManager.changeState(new GameOver(gameManager,loadImage,currentUser,curentMap));
+            gameManager.changeState(new GameOver(gameManager,loadImage,loadSound,currentUser,curentMap));
         }
     }
     public void checkLevel() {
@@ -197,7 +197,7 @@ public class GamePlay extends GameState {
             nextLevel.setFinished(true);
             ball.setIs_begin(false);
             ball.resetBegin(paddle);
-            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage));
+            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage,loadSound));
         }
     }
 
