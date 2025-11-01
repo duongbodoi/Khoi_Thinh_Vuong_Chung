@@ -6,15 +6,15 @@ import entity.Paddle;
 
 import java.util.List;
 
-public class LeafBall extends PowerUp {
-    public LeafBall(int x ,int y, int with, int height, int time, String type) {
+public class WaterBall extends PowerUp {
+    public WaterBall(int x , int y, int with, int height, int time, String type) {
         super(x, y, with, height, time, type);
     }
 
     public void applyEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball : balls) {
-            ball.setElemental(Elemental.LEAF);
+            ball.setElemental(Elemental.WATER);
         }
         active = true;
         consumed = true;
