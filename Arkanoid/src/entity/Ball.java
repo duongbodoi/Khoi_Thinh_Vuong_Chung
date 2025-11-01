@@ -201,6 +201,51 @@ public class Ball extends MovableObject {
     public void render(GraphicsContext gc) {
         image=images[1];
         super.render(gc);
+    }
 
+    //Ngọc Anh làm đoạn này để dùng cho double ball
+    public int getSpeed() { return speed; }
+    public double getDx() { return dx; }
+    public double getDy() { return dy; }
+    public double getDirX() { return directionX; }
+    public double getDirY() { return directionY; }
+
+    public void setVelocity(double ndx, double ndy) {
+        this.dx = ndx;
+        this.dy = ndy;
+
+        double len = Math.sqrt(ndx * ndx + ndy * ndy);
+        if (len > 0) {
+            // cập nhật hướng chuẩn hoá
+            this.directionX = ndx / len;
+            this.directionY = ndy / len;
+
+            // scale về đúng "speed" của bóng
+            double target = (this.speed > 0) ? this.speed : len;
+            double s = target / len;
+            this.dx *= s;
+            this.dy *= s;
+        }
+
+        // bảo đảm có vận tốc ngang tối thiểu tránh dính tường
+        double minAbsDx = 1.0;
+        if (Math.abs(this.dx) < minAbsDx) {
+            this.dx = (this.dx >= 0 ? +1 : -1) * minAbsDx;
+        }
+    }
+
+    public Ball shallowCopy() {
+        return new Ball(this.x, this.y, this.width, this.height, this.speed, this.directionX, this.directionY, this.images);
+    }
+
+    //vị trí
+    public void nudge(int nx, int ny) {
+        this.x += nx;
+        this.y += ny;   
+    }
+
+    public void setPosition(int nx, int ny) {
+        this.x = nx;
+        this.y = ny;
     }
 }

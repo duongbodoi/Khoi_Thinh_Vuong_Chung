@@ -16,12 +16,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import powerup.PowerUp;
+import entity.BallProvider;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
-public class GamePlay extends GameState {
+public class GamePlay extends GameState implements entity.BallProvider {
     private Paddle paddle;
-    private Ball ball;
+    private List<Ball> balls;
     private List<Brick> bricks;
     private List<PowerUp> powerUps;
     private int score;
@@ -35,6 +39,11 @@ public class GamePlay extends GameState {
     private Angle aimAngle;
     private String curentMap;
     private User currentUser;
+    private Map<PowerUp, Long> powerUpStartAt; 
+    private int basePaddleWidth;               
+
+    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap,User currentUser) {
+        super(gameManager,loadImage);
     int brickRemoveCount;
     public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser) {
         super(gameManager,loadImage,loadSound);
@@ -47,7 +56,21 @@ public class GamePlay extends GameState {
         nextLevel = new NextLevel(screenWidth, screenHeight);
         aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
 
+        //khởi tạo danh sách power up và thời gian hiệu lực
+        powerUps = new ArrayList<>();
+        powerUpStartAt = new HashMap<>();
+
+        startButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 - 40,
+                                    80, 80, loadImage.getPlayNormal(), loadImage.getPlayHover());
+
         startGame();
+
+         // khi nhấn Start thì tất cả bóng bắt đầu di chuyển
+        startButton.setOnClick(() -> {
+            for (Ball b : balls) {
+                b.setIs_begin(true);
+            }
+        });
     }
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
@@ -63,16 +86,20 @@ public class GamePlay extends GameState {
                 screenHeight - 50,
                 paddleWidth,
                 paddleHeight,
-                0, 0, 9
+                0, 0, 9,
+                this
         );
 
+        basePaddleWidth = paddleWidth;
         // Tạo Ball
-        ball = new Ball(
+        balls = new ArrayList<>();
+        Ball firstBall = new Ball(
                 paddle.getX() + paddle.getWidth() / 2 - 7,
                 paddle.getY() - 15,
                 20, 20, 6, 0.6, -0.8,
                 loadImage.getBall()
         );
+        balls.add(firstBall);
 
         try {
             bricks = BrickLoadMap.loadBricks(curentMap, screenWidth, loadImage);
@@ -82,18 +109,81 @@ public class GamePlay extends GameState {
     }
 
     public void updateGame() {
-        if (!gamePause.Is_pause())
-        {
+        if (!gamePause.Is_pause()) {
             paddle.update();
-            if (ball.Is_begin()) {
-                ball.update();
-            } else {
-                ball.resetBegin(paddle);
-                aimAngle.update();
+
+            //update bong
+            List<Ball> dead = new ArrayList<>();
+            for (Ball b : balls) {
+                if (b.Is_begin()) {
+                    b.update();
+                } else {
+                    b.resetBegin(paddle);
+                    aimAngle.update();
+                }
+                if (b.is_dead()) {
+                    dead.add(b);
+                }
             }
+
+            //xu li bong roi
+            if (!dead.isEmpty()) {
+                balls.removeAll(dead);
+                if (balls.isEmpty()) {
+                    lives--;
+                    //tạo bóng mới gắn vào paddle, chờ SPACE
+                    Ball nb = new Ball(
+                            paddle.getX() + paddle.getWidth()/2 - 7,
+                            paddle.getY() - 15,
+                            20, 20, 6, 0.6, -0.8,
+                            loadImage.getBall()
+                    );
+                    nb.setIs_begin(false);
+                    balls.add(nb);
+                }
+            }
+
             checkCollisions();
             gameOver();
             checkLevel();
+
+            //update power ups (rơi)
+            for (int i = powerUps.size()-1; i >= 0; i--) {
+                PowerUp p = powerUps.get(i);
+                if (!p.isConsumed()) {
+                    p.update();
+                    //va chạm với paddle
+                    if (rectOverlap(p.getX(), p.getY(), p.getWidth(), p.getHeight(),
+                                    paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight())) {
+                        //kích hoạt
+                        p.applyEffect(paddle);
+                        powerUpStartAt.put(p, System.currentTimeMillis());
+                    } else if (p.getY() > screenHeight) {
+                        //rơi khỏi màn hình -> bỏ
+                        powerUps.remove(i);
+                    }
+                } else {
+                    //đã nhặt: nếu có time > 0 thì duy trì đến hết hạn; nếu time <= 0 thì bỏ
+                    if (p.getTime() <= 0) {
+                        powerUps.remove(i);
+                    }
+                }
+            }
+
+            // hết hạn power up dạng thời gian (ExpandPaddle)
+            long now = System.currentTimeMillis();
+            for (int i = powerUps.size()-1; i >= 0; i--) {
+                PowerUp p = powerUps.get(i);
+                if (p.isActive() && p.getTime() > 0) {
+                    Long startAt = powerUpStartAt.get(p);
+                    if (startAt != null && now - startAt >= p.getTime()) {
+                        p.removeEffect(paddle);
+                        powerUps.remove(i);
+                        powerUpStartAt.remove(p);
+                    }
+                }
+            }
+
             for (Brick brick : bricks) {
                 brick.update();
             }
@@ -103,9 +193,19 @@ public class GamePlay extends GameState {
             if (newBricks != null && !newBricks.isEmpty()) {
                 bricks = newBricks;
                 nextLevel.setContinue(false);
+
+                //qua man moi thi xoa effect
+                for (PowerUp p : new ArrayList<>(powerUps)) {
+                    if (p.isActive()) {
+                        p.removeEffect(paddle);
+                    }
+                }
+
+                powerUps.clear();
+                powerUpStartAt.clear();
+
+                paddle.setWidth(basePaddleWidth);
             }
-
-
         }
     }
 
@@ -120,8 +220,10 @@ public class GamePlay extends GameState {
                     case SPACE -> {
                         if(nextLevel.isFinished()) nextLevel.setContinue(true);
                         else {
-                            ball.setMoveBegin(aimAngle.getAngle());
-                            ball.setIs_begin(true);
+                            for (Ball b : balls) {
+                                b.setMoveBegin(aimAngle.getAngle());
+                                b.setIs_begin(true);
+                            }
                         }
                     }
                     case ESCAPE -> {
@@ -152,20 +254,23 @@ public class GamePlay extends GameState {
     public void checkCollisions() {
         // kiểm tra ball với paddle, bricks
         // xử lý điểm, gạch bị phá
-        for (Brick brick : bricks) {
-            if (ball.checkCollision(brick)) {
-                brick.takeHit();
-                ball.bounceOff(brick);
+        for (Ball b : new ArrayList<>(balls)) {
+            for (Brick brick : bricks) {
+                if (b.checkCollision(brick)) {
+                    brick.takeHit();
+                    b.bounceOff(brick);
+                }
             }
-        }
-        if(ball.checkCollision(paddle)) {
-            ball.bounceOff(paddle);
-        }
-        if(ball.is_dead()) {
-            lives--;
-            System.out.println("Lives: " + lives);
-            ball.setIs_begin(false);
-            ball.resetBegin(paddle);
+            if (b.checkCollision(paddle)) {
+                b.bounceOff(paddle);
+            }
+
+            if (b.is_dead()) {
+                lives--;
+                System.out.println("Lives: " + lives);
+                b.setIs_begin(false);
+                b.resetBegin(paddle);
+            }
         }
     }
 
@@ -199,9 +304,13 @@ public class GamePlay extends GameState {
     public void checkLevel() {
         if (!nextLevel.isFinished() && (bricks.isEmpty() || brickRemoveCount == BrickLoadMap.getBrickCount())) {
             nextLevel.setFinished(true);
-            ball.setIs_begin(false);
-            ball.resetBegin(paddle);
-            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage,loadSound));
+
+            //dua tat ca bong vao paddle va dung lai
+            for (Ball b : balls) {
+                b.setIs_begin(false);
+                b.resetBegin(paddle);
+            }
+            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage));
         }
     }
 
@@ -225,6 +334,18 @@ public class GamePlay extends GameState {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
                 brick.createExplosion(gameManager.getEffectLayer(), loadImage);
+
+                // 12% rơi power up tại tâm viên gạch
+                if (Math.random() < 0.12) {
+                    int px = brick.getX() + brick.getWidth()  / 2 - 12;
+                    int py = brick.getY() + brick.getHeight() / 2 - 12;
+
+                    powerup.PowerUp p = (Math.random() < 0.5)
+                            ? new powerup.ExpandPaddle(px, py, 24, 24)
+                            : new powerup.DoubleBall(px, py, 24, 24);
+                    powerUps.add(p);
+                }
+
                 bricks.remove(brick);
                 score +=10;
                 if(!(brick instanceof UnbreakBrick)) brickRemoveCount ++;
@@ -232,16 +353,49 @@ public class GamePlay extends GameState {
                 brick.render(gc);
             }
         }
-        ball.render(gc);
+        //render tất cả bóng
+        for (Ball b : balls) {
+            b.render(gc);
+        }
         paddle.render(gc);
+        //render power-ups đang rơi
+        for (PowerUp p : powerUps) {
+            p.render(gc);
+        }
         nextLevel.renderer(gc);
         gamePause.rendererPause(gc);
-        if (!ball.Is_begin()) {
+        if (!balls.isEmpty() && !balls.get(0).Is_begin()) {
             gc.drawImage(loadImage.getSpace(), screenWidth/ 2 - 250, screenHeight / 2 - 350, 500, 600);
             if(!nextLevel.isFinished()) {
-                aimAngle.render(gc, ball);
+                Ball targetBall = balls.get(0);
+                aimAngle.render(gc, targetBall);
             }
         }
-
     }
+
+        //kiểm tra va chạm hcn
+    private boolean rectOverlap(double x1, double y1, double w1, double h1, double x2, double y2, double w2, double h2) {
+        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+    }
+
+    @Override
+        public List<Ball> getBalls() {
+        return balls;
+    }
+
+    @Override
+    public void addBall(Ball b) {
+        if (b != null) balls.add(b);
+    }
+
+    @Override
+    public entity.Ball getAnyBall() {
+        //ưu tiên bóng còn sống
+        for (Ball b : balls) {
+            if (!b.is_dead()) return b;
+        }
+        //nếu tất cả chết, trả về 1 quả hoặc null
+        return balls.isEmpty() ? null : balls.get(0);
+    }
+
 }
