@@ -13,9 +13,8 @@ public class Paddle extends MovableObject implements BallProvider{
     protected  String currentPowerUp;
     boolean isLeft;
     boolean isRight;
-
     private final BallProvider ballProvider;
-
+    private final int oldWidth;
     public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider) {
         super(x, y, width, height, dx, dy);
         this.speed = speed;
@@ -23,6 +22,11 @@ public class Paddle extends MovableObject implements BallProvider{
         isLeft = false;
         isRight = false;
         this.ballProvider = ballProvider;
+        oldWidth = width;
+    }
+
+    public int getOldWidth() {
+        return oldWidth;
     }
 
     // lấy chiều dài của paddle vì cần update khi dùng power up
