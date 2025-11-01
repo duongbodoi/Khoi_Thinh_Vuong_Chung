@@ -13,7 +13,6 @@ public class IceBrick extends Brick {
         super(x, y, width, height, hitPoint, type, image);
     }
 
-
     @Override
     public void createExplosion(Pane root, LoadImage loader) {
         new StrongExplosion(x + width / 2.0, y + height / 2.0, root, loader);

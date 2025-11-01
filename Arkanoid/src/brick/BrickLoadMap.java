@@ -59,13 +59,13 @@ public class BrickLoadMap {
 
                 switch (value) {
                     case 1:
-                        newBrick = new NormalBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getNormalBrick());
+                        newBrick = new LeafBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getNormalBrick());
                         break;
                     case 2:
-                        newBrick = new StrongBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getStrongBrick());
+                        newBrick = new IceBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getStrongBrick());
                         break;
                     case 3:
-                        newBrick = new PowerupBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick());
+                        newBrick = new FireBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick());
                         break;
                     case 4:
                         newBrick = new SoilBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getSoilBrick());

@@ -24,6 +24,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private List<Ball> balls;
     private List<Brick> bricks;
     private Brick[][] brickGrid;
+    private List<Brick> brickToSpawn;
     private List<PowerUp> powerUps;
     private int score;
     private int lives;
@@ -51,7 +52,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
         gamePause = new GamePause(screenWidth, screenHeight, loadImage);
         nextLevel = new NextLevel(screenWidth, screenHeight,level);
         aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
-
+        brickToSpawn = new ArrayList<>();
         //khởi tạo danh sách power up và thời gian hiệu lực
         powerUps = new ArrayList<>();
         powerUpStartAt = new HashMap<>();
@@ -216,7 +217,24 @@ public class GamePlay extends GameState implements entity.BallProvider {
 
                 paddle.setWidth(basePaddleWidth);
             }
+            if(!brickToSpawn.isEmpty()){
+                for(Brick brick : brickToSpawn){
+                    boolean colision = false;
+                    for(Ball b : balls) {
+                        if(rectOverlap(b.getX(),b.getY(),b.getWidth(),b.getHeight(),brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight())){
+                            colision = true;
+                            break;
+                        }
+                    }
+                    if(!colision){
+                        bricks.add(brick);
+                        brickToSpawn.clear();
+                    }
+                }
+
+            }
         }
+
     }
 
     public void handleInput(KeyEvent e) {
@@ -270,9 +288,10 @@ public class GamePlay extends GameState implements entity.BallProvider {
             }
             for (int i = 0;i<bricks.size();i++) {
                 if (b.checkCollision(bricks.get(i))) {
-                    ApplyPowerUp.LoadNewBricks(b,bricks.get(i),bricks.get(i).getGridX(),bricks.get(i).getGridY(),brickGrid,loadImage,bricks);
                     bricks.get(i).takeHit();
                     b.bounceOff(bricks.get(i));
+                    ApplyPowerUp.LoadNewBricks(b,bricks.get(i),bricks.get(i).getGridX(),bricks.get(i).getGridY(),brickGrid,loadImage,bricks,brickToSpawn);
+                    System.out.println(brickToSpawn.size());
                 }
             }
             if (b.checkCollision(paddle)) {
@@ -358,7 +377,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
                 if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,5000,"Leaf"));
                 if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
-                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,5000,"Ice"));
+                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
 
                 // 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.9) {
