@@ -4,6 +4,7 @@ import brick.BrickLoadMap;
 
 import brick.Brick;
 import brick.StrongBrick;
+import brick.UnbreakBrick;
 import engine.*;
 import entity.Angle;
 import entity.Ball;
@@ -43,6 +44,9 @@ public class GamePlay extends GameState implements entity.BallProvider {
 
     public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap,User currentUser) {
         super(gameManager,loadImage);
+    int brickRemoveCount;
+    public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser) {
+        super(gameManager,loadImage,loadSound);
         this.curentMap = curentMap;
         this.currentUser=currentUser;
         screenHeight=gameManager.getHeight();
@@ -71,7 +75,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
     public void startGame() {
         // HIỆP xem cách Chiến tổ chức các hàm, thực hiện khởi tạo các Brick, nhớ lại bài vẽ map khi làm game cũ, xử dụng file text để truyền vào vị trí cx như loại brick
         // cần thiết có thể tạo thêm 1 method đọc danh sách gạch vào list
-
+        brickRemoveCount =0;
         score = 0;
         lives = 3;
         // Tạo Paddle
@@ -185,6 +189,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
             }
             // --- SAU khi update paddle, ball, brick xong ---
             List<Brick> newBricks = nextLevel.loadNextLevel(loadImage);
+            if(currentUser.getCurrentLevel()<nextLevel.getLevel()) currentUser.setCurrentLevel(nextLevel.getLevel());
             if (newBricks != null && !newBricks.isEmpty()) {
                 bricks = newBricks;
                 nextLevel.setContinue(false);
@@ -227,11 +232,11 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     }
                     case R -> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new GamePlay(gameManager,loadImage,curentMap,currentUser));
+                            gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,curentMap,currentUser));
                     }
                     case E-> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
+                            gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser));
                     }
                 }
                 break;
@@ -279,8 +284,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
             gamePause.handleMouseClicked(
                     e.getX(),
                     e.getY(),
-                    () -> gameManager.changeState(new MainMenu(gameManager, loadImage,currentUser)), // onE
-                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage, curentMap,currentUser)), // onR
+                    () -> gameManager.changeState(new MainMenu(gameManager, loadImage,loadSound,currentUser)), // onE
+                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage,loadSound,curentMap,currentUser)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
         }
     }
@@ -292,11 +297,12 @@ public class GamePlay extends GameState implements entity.BallProvider {
      */
     public void gameOver() {
         if(lives <= 0) {
-            gameManager.changeState(new GameOver(gameManager,loadImage,currentUser,curentMap));
+            if(score>currentUser.getCurrentLevel()) {   currentUser.setCurrentLevel(score);}
+            gameManager.changeState(new GameOver(gameManager,loadImage,loadSound,currentUser,curentMap));
         }
     }
     public void checkLevel() {
-        if (!nextLevel.isFinished() && bricks.isEmpty()) {
+        if (!nextLevel.isFinished() && (bricks.isEmpty() || brickRemoveCount == BrickLoadMap.getBrickCount())) {
             nextLevel.setFinished(true);
 
             //dua tat ca bong vao paddle va dung lai
@@ -342,6 +348,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
 
                 bricks.remove(brick);
                 score +=10;
+                if(!(brick instanceof UnbreakBrick)) brickRemoveCount ++;
             } else {
                 brick.render(gc);
             }

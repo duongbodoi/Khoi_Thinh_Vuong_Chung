@@ -16,6 +16,7 @@ public class GameManager {
     private int width, height;
     private LoadImage loadImage;
     private UserManager userManager;
+    LoadSound loadSound;
     public int getWidth() {
         return width;
     }
@@ -24,20 +25,21 @@ public class GameManager {
         return height;
     }
 
-    public GameManager(Canvas canvas, int width, int height, LoadImage loadImage,UserManager userManager) {
+    public GameManager(Canvas canvas, int width, int height, LoadImage loadImage,UserManager userManager,LoadSound loadSound) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.width = width;
         this.height = height;
         this.loadImage = loadImage;
         this.userManager = userManager;
+        this.loadSound = loadSound;
         effectLayer = new Pane();
         effectLayer.setPickOnBounds(false);
 
         root = new StackPane();
         root.getChildren().addAll(canvas, effectLayer);
 
-        changeState(new GameLogin(this,loadImage,userManager)); // Bắt đầu ở menu
+        changeState(new GameLogin(this,loadImage,loadSound,userManager)); // Bắt đầu ở menu
     }
 
     public void changeState(GameState newState) {

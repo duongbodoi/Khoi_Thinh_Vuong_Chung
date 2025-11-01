@@ -24,8 +24,9 @@ public class Main extends Application {
         userManager.LoadUsers();
         List<User> users = userManager.getUsers();
         LoadImage loadImage = new LoadImage();
+        LoadSound loadSound = new LoadSound();
         // Tạo GameManager
-        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT,loadImage,userManager);
+        GameManager gameManager = new GameManager(canvas, GAME_WIDTH, GAME_HEIGHT,loadImage,userManager,loadSound);
 
         // Scene chỉ dùng root từ GameManager
         Scene scene = new Scene(gameManager.getRoot(), GAME_WIDTH, GAME_HEIGHT);
@@ -45,9 +46,9 @@ public class Main extends Application {
         scene.setOnMouseMoved(e -> gameManager.handleMouseMoved(e));
         scene.setOnMouseClicked(e -> gameManager.handleMouseClicked(e));
 
-//        scene.setOnMouseMoved(e -> {
-//            System.out.println("Mouse at: (" + (int)e.getX() + ", " + (int)e.getY() + ")");
-//        });
+        scene.setOnMouseMoved(e -> {
+            System.out.println("Mouse at: (" + (int)e.getX() + ", " + (int)e.getY() + ")");
+        });
 
         // Gán scene cho stage
         primaryStage.setScene(scene);

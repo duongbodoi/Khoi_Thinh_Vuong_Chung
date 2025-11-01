@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrickLoadMap {
+    private static int brickCount ;
     public static List<Brick> loadBricks(String file, int screenWidth, LoadImage loadImage) {
+        brickCount = 0;
         List<Brick> bricks = new ArrayList<>();
         List<String> lines = new ArrayList<>();
 
@@ -43,7 +45,7 @@ public class BrickLoadMap {
                 int y = dy + row * (brickHeight + dbrick);
                 String type = "type" + value;
                 String imagePath;
-
+                if(value!=100) brickCount ++;
                 switch (value) {
                     case 1:
                         //imagePath = "assets/IMAGE/green.png";
@@ -65,12 +67,16 @@ public class BrickLoadMap {
                         bricks.add(new UnbreakBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getUnbreakBrick()));
                         break;
                     default:
-                        System.out.println("⚠️ Không nhận diện được loại gạch: " + value);
+                        System.out.println("Không nhận diện được loại gạch: " + value);
                         break;
                 }
             }
         }
 
         return bricks;
+    }
+
+    public static int getBrickCount() {
+        return brickCount;
     }
 }
