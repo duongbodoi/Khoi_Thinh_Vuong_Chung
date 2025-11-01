@@ -16,6 +16,8 @@ public abstract class Brick extends GameObject {
     protected Image[] images;
     protected Pane root;
     protected LoadImage loader;
+    private int gridX;
+    private int gridY;
     public Brick(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.destroy = false;
@@ -37,7 +39,17 @@ public abstract class Brick extends GameObject {
             this.image = images[0];
         }
     }
-    public Brick() {
+    public void setGridPosition(int gridX, int gridY) {
+        this.gridX = gridX;
+        this.gridY = gridY;
+    }
+
+    public int getGridX() {
+        return gridX;
+    }
+
+    public int getGridY() {
+        return gridY;
     }
 
     public void createExplosion(Pane root, LoadImage loader) {
@@ -90,5 +102,8 @@ public abstract class Brick extends GameObject {
                 gc.strokeRect(x, y, width, height);
             }
         }
+    }
+    public void setDestroyed() {
+        destroy = true;
     }
 }

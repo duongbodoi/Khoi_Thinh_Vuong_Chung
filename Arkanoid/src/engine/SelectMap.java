@@ -68,11 +68,11 @@ public class SelectMap extends GameState{
                 ( isLock[5] ? loadImage.getLock() : loadImage.getBall()[1])
         );
 
-        if(!isLock[1]) Map1.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map1.txt",currentUser)));
-        if(!isLock[2]) Map2.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map2.txt",currentUser)));
-        if(!isLock[3]) Map3.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map3.txt",currentUser)));
-        if(!isLock[4]) Map4.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map4.txt",currentUser)));
-        if(!isLock[5]) Map5.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map5.txt",currentUser)));
+        if(!isLock[1]) Map1.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map1.txt",currentUser,1)));
+        if(!isLock[2]) Map2.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map2.txt",currentUser,2)));
+        if(!isLock[3]) Map3.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map3.txt",currentUser,3)));
+        if(!isLock[4]) Map4.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map4.txt",currentUser,4)));
+        if(!isLock[5]) Map5.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,"assets/map5.txt",currentUser,5)));
 
     }
 

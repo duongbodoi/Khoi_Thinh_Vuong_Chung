@@ -20,10 +20,12 @@ public class GameOver extends GameState {
     private UserManager userManager = new UserManager();
     private String currentMap;
     private List<User> userList;
-    public GameOver(GameManager gameManager,LoadImage loadImage, LoadSound loadSound,User currentUser,String currentMap) {
+    private int level;
+    public GameOver(GameManager gameManager,LoadImage loadImage, LoadSound loadSound,User currentUser,String currentMap,int level) {
         super(gameManager,loadImage,loadSound);
         this.currentUser=currentUser;
         this.currentMap=currentMap;
+        this.level=level;
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
         userManager.LoadUsers();
@@ -57,7 +59,7 @@ public class GameOver extends GameState {
 
         EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser)));
         XButton.setOnClick(() -> System.exit(19));
-        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser)));
+        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser,level)));
         updateUsers();
     }
 
@@ -73,7 +75,7 @@ public class GameOver extends GameState {
                 System.exit(19);
             case R:
                 userManager.saveAllUsers();
-                gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser));
+                gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser,level));
                 break;
         }
     }
