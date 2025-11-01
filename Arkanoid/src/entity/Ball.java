@@ -27,6 +27,7 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
+    private Elemental elemental = Elemental.NONE;
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -44,6 +45,14 @@ public class Ball extends MovableObject {
         this.directionY = directionY;
         this.images = images;
 
+    }
+
+    public Elemental getElemental() {
+        return elemental;
+    }
+
+    public void setElemental(Elemental elemental) {
+        this.elemental = elemental;
     }
 
     public boolean is_dead() {
@@ -199,7 +208,7 @@ public class Ball extends MovableObject {
     }
     @Override
     public void render(GraphicsContext gc) {
-        image=images[1];
+        image=images[elemental.ordinal()];
         super.render(gc);
     }
 

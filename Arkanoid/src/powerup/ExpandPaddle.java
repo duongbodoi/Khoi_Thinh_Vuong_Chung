@@ -20,7 +20,7 @@ public class ExpandPaddle extends PowerUp {
             consumed = true;
         }
     }
-
+    @Override
     public void removeEffect(Paddle paddle) {
         if (active) {
             paddle.setWidth(oldWidth);

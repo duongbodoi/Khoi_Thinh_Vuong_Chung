@@ -1,10 +1,7 @@
 package engine.InGamePlay;
 
-import brick.BrickLoadMap;
+import brick.*;
 
-import brick.Brick;
-import brick.StrongBrick;
-import brick.UnbreakBrick;
 import engine.*;
 import entity.Angle;
 import entity.Ball;
@@ -15,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import powerup.FireBall;
 import powerup.PowerUp;
 import entity.BallProvider;
 
@@ -42,8 +40,6 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private Map<PowerUp, Long> powerUpStartAt; 
     private int basePaddleWidth;               
 
-    public GamePlay(GameManager gameManager,LoadImage loadImage,String curentMap,User currentUser) {
-        super(gameManager,loadImage);
     int brickRemoveCount;
     public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser) {
         super(gameManager,loadImage,loadSound);
@@ -297,7 +293,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
      */
     public void gameOver() {
         if(lives <= 0) {
-            if(score>currentUser.getCurrentLevel()) {   currentUser.setCurrentLevel(score);}
+            if(score>currentUser.getMaxScore()) {   currentUser.setMaxScore(score);}
+
             gameManager.changeState(new GameOver(gameManager,loadImage,loadSound,currentUser,curentMap));
         }
     }
@@ -310,7 +307,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 b.setIs_begin(false);
                 b.resetBegin(paddle);
             }
-            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage));
+            if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage,loadSound));
         }
     }
 
@@ -334,12 +331,11 @@ public class GamePlay extends GameState implements entity.BallProvider {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
                 brick.createExplosion(gameManager.getEffectLayer(), loadImage);
-
+                int px = brick.getX() + brick.getWidth()  / 2 - 12;
+                int py = brick.getY() + brick.getHeight() / 2 - 12;
+                if(brick instanceof PowerupBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
                 // 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.12) {
-                    int px = brick.getX() + brick.getWidth()  / 2 - 12;
-                    int py = brick.getY() + brick.getHeight() / 2 - 12;
-
                     powerup.PowerUp p = (Math.random() < 0.5)
                             ? new powerup.ExpandPaddle(px, py, 24, 24)
                             : new powerup.DoubleBall(px, py, 24, 24);

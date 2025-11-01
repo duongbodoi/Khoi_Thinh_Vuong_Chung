@@ -34,4 +34,9 @@ public class DoubleBall extends PowerUp {
             paddle.addBall(newBall);
         }
     }
+
+    @Override
+    public void removeEffect(Paddle paddle) {
+
+    }
 }

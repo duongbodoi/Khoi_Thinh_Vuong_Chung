@@ -5,8 +5,10 @@ import base.MovableObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+
 // NGỌC ANH LÀM PHẦN NÀY
-public class Paddle extends MovableObject {
+public class Paddle extends MovableObject implements BallProvider{
     protected  int speed;
     protected  String currentPowerUp;
     boolean isLeft;
@@ -20,7 +22,7 @@ public class Paddle extends MovableObject {
         this.currentPowerUp = null;
         isLeft = false;
         isRight = false;
-        this.ballProvider = null;
+        this.ballProvider = ballProvider;
     }
 
     // lấy chiều dài của paddle vì cần update khi dùng power up
@@ -76,6 +78,15 @@ public class Paddle extends MovableObject {
             return null;
         } else {
             return ballProvider.getAnyBall();
+        }
+    }
+
+    @Override
+    public List<Ball> getBalls() {
+        if (ballProvider == null) {
+            return null;
+        } else {
+            return ballProvider.getBalls();
         }
     }
 

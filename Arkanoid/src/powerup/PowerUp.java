@@ -5,7 +5,7 @@ import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class PowerUp extends GameObject {
+public abstract class PowerUp extends GameObject {
     protected String type;
     protected int time;
     protected boolean active; // xét đang được kích hoạt
@@ -56,7 +56,7 @@ public class PowerUp extends GameObject {
         }
     }
 
-    public void applyEffect(Paddle paddle) {}
+    public abstract void applyEffect(Paddle paddle) ;
 
-    public void removeEffect(Paddle paddle) {}
+    public abstract void removeEffect(Paddle paddle) ;
 }
