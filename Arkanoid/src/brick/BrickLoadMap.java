@@ -49,15 +49,15 @@ public class BrickLoadMap {
                 switch (value) {
                     case 1:
                         //imagePath = "assets/IMAGE/green.png";
-                        bricks.add(new NormalBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getNormalBrick()));
+                        bricks.add(new LeafBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getNormalBrick()));
                         break;
                     case 2:
                         //imagePath = "assets/IMAGE/red.png";
-                        bricks.add(new StrongBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getStrongBrick()));
+                        bricks.add(new IceBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getStrongBrick()));
                         break;
                     case 3:
                         //imagePath = "assets/IMAGE/blue.png";
-                        bricks.add(new PowerupBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick()));
+                        bricks.add(new FireBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getPowerUpBrick()));
                         break;
                     case 4:
                         bricks.add(new SoilBrick(x, y, brickWidth, brickHeight, value, type, loadImage.getSoilBrick()));
