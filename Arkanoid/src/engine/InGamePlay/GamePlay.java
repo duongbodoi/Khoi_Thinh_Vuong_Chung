@@ -105,7 +105,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
     }
 
     public void updateGame() {
-        if (!gamePause.Is_pause()) {
+        if (!gamePause.Is_pause() ) {
             paddle.update();
 
             //update bong
@@ -187,6 +187,15 @@ public class GamePlay extends GameState implements entity.BallProvider {
             List<Brick> newBricks = nextLevel.loadNextLevel(loadImage);
             if(currentUser.getCurrentLevel()<nextLevel.getLevel()) currentUser.setCurrentLevel(nextLevel.getLevel());
             if (newBricks != null && !newBricks.isEmpty()) {
+                Ball anyball = paddle.getAnyBall();
+                anyball.resetBegin(paddle);
+                balls.clear();
+                if(balls.isEmpty()) balls.add(anyball);
+
+
+                bricks.clear();
+                brickRemoveCount = 0;
+                powerUps.clear();
                 bricks = newBricks;
                 nextLevel.setContinue(false);
 
@@ -251,6 +260,9 @@ public class GamePlay extends GameState implements entity.BallProvider {
         // kiểm tra ball với paddle, bricks
         // xử lý điểm, gạch bị phá
         for (Ball b : new ArrayList<>(balls)) {
+            if (!b.Is_begin()) {
+                continue;
+            }
             for (Brick brick : bricks) {
                 if (b.checkCollision(brick)) {
                     brick.takeHit();
@@ -261,12 +273,12 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 b.bounceOff(paddle);
             }
 
-            if (b.is_dead()) {
-                lives--;
-                System.out.println("Lives: " + lives);
-                b.setIs_begin(false);
-                b.resetBegin(paddle);
-            }
+//            if (b.is_dead()) {
+//                lives--;
+//                System.out.println("Lives: " + lives);
+//                b.setIs_begin(false);
+//                b.resetBegin(paddle);
+//            }
         }
     }
 
@@ -301,12 +313,15 @@ public class GamePlay extends GameState implements entity.BallProvider {
     public void checkLevel() {
         if (!nextLevel.isFinished() && (bricks.isEmpty() || brickRemoveCount == BrickLoadMap.getBrickCount())) {
             nextLevel.setFinished(true);
+            Ball mainBall = getAnyBall(); // Lấy 1 quả bóng (bất kỳ)
+            mainBall.resetBegin(paddle);
+            balls.clear(); // Xóa tất cả bóng
+            mainBall.setIs_begin(false);
+            mainBall.resetBegin(paddle);
+            if(balls.isEmpty()) balls.add(mainBall);
 
-            //dua tat ca bong vao paddle va dung lai
-            for (Ball b : balls) {
-                b.setIs_begin(false);
-                b.resetBegin(paddle);
-            }
+            powerUps.clear();
+            brickRemoveCount =0;
             if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage,loadSound));
         }
     }
@@ -335,7 +350,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
                 if(brick instanceof PowerupBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
                 // 12% rơi power up tại tâm viên gạch
-                if (Math.random() < 0.12) {
+                if (Math.random() < 0.9) {
                     powerup.PowerUp p = (Math.random() < 0.5)
                             ? new powerup.ExpandPaddle(px, py, 24, 24)
                             : new powerup.DoubleBall(px, py, 24, 24);
