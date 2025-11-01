@@ -37,7 +37,21 @@ public class UserManager {
             System.out.println("Ghi vào file để lưu bị lỗi");
         }
     }
+    public void saveAllUsers() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/engine/users.txt", false))) {
+            for (User user : users) {
+                bw.write(user.getUsername() + ":" + user.getPassword() + ":" + user.getNickname()
+                        + ":" + user.getMaxScore() + ":" + user.getCurrentLevel());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Lỗi khi lưu danh sách users: " + e.getMessage());
+        }
+    }
     public List<User> getUsers() {
         return users;
+    }
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

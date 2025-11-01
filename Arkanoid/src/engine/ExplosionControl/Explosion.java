@@ -1,4 +1,4 @@
-package engine.Explosion;
+package engine.ExplosionControl;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

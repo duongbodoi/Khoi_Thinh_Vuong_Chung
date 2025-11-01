@@ -22,8 +22,8 @@ public class GameLogin extends GameState {
     boolean enterPassword = false;
     boolean loginSuccess = false;
     List<User> userList;
-    public GameLogin(GameManager gameManager,LoadImage loadImage,UserManager userManager) {
-        super(gameManager,loadImage);
+    public GameLogin(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,UserManager userManager) {
+        super(gameManager,loadImage,loadSound);
         this.userManager=userManager;
         userList=userManager.getUsers();
         screenWidth = gameManager.getWidth();
@@ -77,13 +77,13 @@ public class GameLogin extends GameState {
             password = password.strip();
             username = username.strip();
             if(checkAccount() != null) {
-                gameManager.changeState(new MainMenu(gameManager,loadImage,checkAccount()));
+                gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,checkAccount()));
             }
             else{
-                gameManager.changeState(new GameSignUp(gameManager,loadImage,userManager));
+                gameManager.changeState(new GameSignUp(gameManager,loadImage,loadSound,userManager));
             }
         });
-        signUpButton.setOnClick(() ->gameManager.changeState(new GameSignUp(gameManager,loadImage,userManager)));
+        signUpButton.setOnClick(() ->gameManager.changeState(new GameSignUp(gameManager,loadImage,loadSound,userManager)));
     }
 
     @Override
@@ -107,10 +107,10 @@ public class GameLogin extends GameState {
                     password = password.strip();
                     username = username.strip();
                     if(checkAccount() != null) {
-                        gameManager.changeState(new MainMenu(gameManager,loadImage,checkAccount()));
+                        gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,checkAccount()));
                     }
                     else{
-                        gameManager.changeState(new GameLogin(gameManager,loadImage,userManager));
+                        gameManager.changeState(new GameLogin(gameManager,loadImage,loadSound,userManager));
                     }
 
                 }

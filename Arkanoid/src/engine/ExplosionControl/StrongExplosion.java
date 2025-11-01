@@ -1,4 +1,4 @@
-package engine.Explosion;
+package engine.ExplosionControl;
 
 import engine.LoadImage;
 import javafx.scene.layout.Pane;

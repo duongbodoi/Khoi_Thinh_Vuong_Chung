@@ -2,7 +2,7 @@ package brick;
 
 import base.GameObject;
 import engine.LoadImage;
-import engine.Explosion.NormalExplosion;
+import engine.ExplosionControl.NormalExplosion;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

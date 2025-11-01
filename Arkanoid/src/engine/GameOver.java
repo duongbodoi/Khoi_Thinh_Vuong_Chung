@@ -6,6 +6,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class GameOver extends GameState {
     GameButton EButton;
     GameButton XButton;
@@ -15,13 +19,15 @@ public class GameOver extends GameState {
     private User currentUser;
     private UserManager userManager = new UserManager();
     private String currentMap;
-    public GameOver(GameManager gameManager,LoadImage loadImage,User currentUser,String currentMap) {
-        super(gameManager,loadImage);
+    private List<User> userList;
+    public GameOver(GameManager gameManager,LoadImage loadImage, LoadSound loadSound,User currentUser,String currentMap) {
+        super(gameManager,loadImage,loadSound);
         this.currentUser=currentUser;
         this.currentMap=currentMap;
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();
         userManager.LoadUsers();
+        userList = userManager.getUsers();
         EButton = new GameButton(
                 screenWidth / 2.0 - screenWidth * 0.18 - screenWidth * 0.05,
                 screenHeight * 0.1 + 5,
@@ -49,23 +55,37 @@ public class GameOver extends GameState {
                 loadImage.getXHover()
         );
 
-        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser)));
+        EButton.setOnClick(() -> gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser)));
         XButton.setOnClick(() -> System.exit(19));
-        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,currentMap,currentUser)));
+        RButton.setOnClick(() -> gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser)));
+        updateUsers();
     }
 
     @Override
     public void handleInput(KeyEvent e) {
         switch (e.getCode()) {
             case E:
-                gameManager.changeState(new MainMenu(gameManager,loadImage,currentUser));
+                userManager.saveAllUsers();
+                gameManager.changeState(new MainMenu(gameManager,loadImage,loadSound,currentUser));
                 break;
             case X:
+                userManager.saveAllUsers();
                 System.exit(19);
             case R:
-                //gameManager.changeState(new GamePlay(gameManager,loadImage));
+                userManager.saveAllUsers();
+                gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,currentMap,currentUser));
                 break;
         }
+    }
+    public void updateUsers() {
+        for(User user : userList) {
+            if(user.getUsername().equals(currentUser.getUsername())) {
+                user.setMaxScore(currentUser.getMaxScore());
+                user.setCurrentLevel(currentUser.getCurrentLevel());
+            }
+        }
+        userManager.setUsers(userList);
+        userManager.saveAllUsers();
     }
 
     @Override
@@ -99,8 +119,9 @@ public class GameOver extends GameState {
         RButton.draw(gc);
         //gc.drawImage(loadImage.getBgrlogin(), 275, 30, screenWidth/3, screenHeight/3);
         int y =320;
-        for(User user : userManager.getUsers()) {
-            gc.fillText(user.toString(),230, y+=50);
+        Collections.sort(userList, Comparator.reverseOrder());
+        for(int i =0;i<5;i++ ) {
+            gc.fillText(userManager.getUsers().get(i).toString(),230, y+=50);
         }
     }
 }

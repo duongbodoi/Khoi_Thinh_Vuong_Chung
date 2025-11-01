@@ -13,8 +13,8 @@ public class MainMenu extends GameState {
     GameButton enterButton;
     GameButton escButton;
     User CurrentUser;
-    public MainMenu(GameManager gm,LoadImage loadImage,User currentUser) {
-        super(gm,loadImage);
+    public MainMenu(GameManager gm,LoadImage loadImage,LoadSound loadSound,User currentUser) {
+        super(gm,loadImage,loadSound);
         this.CurrentUser=currentUser;
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
@@ -27,7 +27,7 @@ public class MainMenu extends GameState {
                                     180, 90, loadImage.getEscNormal(),
                                     loadImage.getEscHover());
 
-        enterButton.setOnClick(() -> gameManager.changeState(new SelectMap(gameManager,loadImage,currentUser)));
+        enterButton.setOnClick(() -> gameManager.changeState(new SelectMap(gameManager,loadImage,loadSound,currentUser)));
         escButton.setOnClick(() -> System.exit(0));
     }
 

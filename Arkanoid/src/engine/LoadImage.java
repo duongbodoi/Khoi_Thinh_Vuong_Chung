@@ -65,9 +65,11 @@ public class LoadImage {
 
 
         ball =new Image[] {
-                checkLoadImage("assets/IMAGE/iceBall.png"),
-                checkLoadImage("assets/IMAGE/fireBall.png")
-
+                checkLoadImage("assets/IMAGE/noneBall.png"),
+                checkLoadImage("assets/IMAGE/fireBall.png"),
+                checkLoadImage("assets/IMAGE/waterBall.png"),
+                checkLoadImage("assets/IMAGE/leafBall.png"),
+                checkLoadImage("assets/IMAGE/soidBall.png"),
         };
 
         username = checkLoadImage("assets/IMAGE/username.png");
