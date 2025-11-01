@@ -12,9 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import powerup.FireBall;
-import powerup.PowerUp;
-import entity.BallProvider;
+import powerup.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -356,7 +354,12 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 brick.createExplosion(gameManager.getEffectLayer(), loadImage);
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
-                if(brick instanceof PowerupBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
+
+                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
+                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,5000,"Leaf"));
+                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
+                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,5000,"Ice"));
+
                 // 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.9) {
                     powerup.PowerUp p = (Math.random() < 0.5)
