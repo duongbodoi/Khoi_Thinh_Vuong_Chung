@@ -5,7 +5,7 @@ import engine.LoadImage;
 import entity.Ball;
 import entity.Elemental;
 
-import java.util.List;
+import java.util.*;
 
 public class ApplyPowerUp {
     /**
@@ -18,6 +18,11 @@ public class ApplyPowerUp {
      *  pos chính là vị trí của
      * </>
      */
+        private static int numRows = BrickLoadMap.getGridRows();
+        private static int numCols = BrickLoadMap.getGridCols();
+        private static int[] dx = {0, 0, 1, -1};
+        private static int[] dy = {1, -1, 0, 0};
+
         public static void LoadNewBricks(Ball ball, Brick brick, int posx, int posy, Brick[][] bricks, LoadImage loadImage,List<Brick> bricklist,List<Brick> brickToSpawn) {
             // Lưu ý khi làm nên là đặt brick setdead(), ý là cài là nó đã chết, ko nên remove, vì ở ngoài đã thực hiện remove khi dead r)
             // Bằng posx posy chính là vị trí i,j trong mảng 2 chiều ấy
@@ -38,20 +43,75 @@ public class ApplyPowerUp {
         }
 
         public static void RemoveLeaf(int posx,int posy, Brick[][] bricks) {
+            Brick Bstart = bricks[posy][posx];
+            if(!(Bstart instanceof LeafBrick)) {
+                return;
+            }
 
+            Queue<Brick> q = new LinkedList<>();
+            Set<Brick> visited = new HashSet<>();
+
+            q.add(Bstart);
+            visited.add(Bstart);
+
+            while(!q.isEmpty()) {
+                Brick cur = q.poll();
+                cur.setHitPoints(0);
+
+                int x = cur.getGridX();
+                int y = cur.getGridY();
+
+                for(int i = 0; i < 4; i++) {
+                    int newGridX = x + dx[i];
+                    int newGridY = y + dy[i];
+                    if (newGridX >= 0 && newGridX < numCols && newGridY >= 0 && newGridY < numRows) {
+                        Brick near = bricks[newGridY][newGridX];
+                        if(!visited.contains(near) && near instanceof LeafBrick) {
+                            visited.add(near);
+                            q.add(near);
+                        }
+                    }
+                }
+            }
         }
         public static void RemoveNear(int posx,int posy, Brick[][] bricks){
+            Brick BStart = bricks[posy][posx];
+            if(!(BStart instanceof FireBrick)) {
+                return;
+            }
+
+            Queue<Brick> q = new LinkedList<>();
+            Set<Brick> visited = new HashSet<>();
+            q.add(BStart);
+            visited.add(BStart);
+
+            while(!q.isEmpty()) {
+                Brick cur = q.poll();
+                cur.setHitPoints(0);
+                int x = cur.getGridX();
+                int y = cur.getGridY();
+
+                for(int i = 0; i < 4; i++) {
+                    int newGridX = x + dx[i];
+                    int newGridY = y + dy[i];
+                    if (newGridX >= 0 && newGridX < numCols && newGridY >= 0 && newGridY < numRows) {
+                        Brick near = bricks[newGridY][newGridX];
+
+                        if(!(near instanceof UnbreakBrick)) {
+                            near.setHitPoints(0);
+                        }
+                        if(!visited.contains(near) && near instanceof FireBrick) {
+                            visited.add(near);
+                            q.add(near);
+                        }
+                    }
+                }
+            }
 
         }
         public static void SpawnLeaf(Brick originalBrick,int posx,int posy, Brick[][] bricks, List<Brick> brickToSpawn, LoadImage loadImage) {
             // Kiểm tra 4 ô xung quanh: trên, dưới, trái, phải
             originalBrick.setHitPoints(1);
-            int[] dx = {0, 0, 1, -1};
-            int[] dy = {1, -1, 0, 0};
-
-            int numRows = BrickLoadMap.getGridRows();
-            int numCols = BrickLoadMap.getGridCols();
-
             // Lấy thông số của gạch gốc để tạo gạch mới
             int brickWidth = originalBrick.getWidth();
             int brickHeight = originalBrick.getHeight();
