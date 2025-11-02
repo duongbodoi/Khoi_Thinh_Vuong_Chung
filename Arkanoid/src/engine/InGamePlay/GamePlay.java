@@ -374,8 +374,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
-                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
-                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,5000,"Leaf"));
+                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
+                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
                 if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
                 if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
 
