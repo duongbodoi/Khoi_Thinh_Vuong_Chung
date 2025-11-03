@@ -27,7 +27,7 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-    private Elemental elemental = Elemental.NONE;
+    private Elemental elemental = Elemental.ICE;
     /**
      * Contructor 1.
      * @param x toa độ x bóng

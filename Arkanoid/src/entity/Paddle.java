@@ -3,6 +3,7 @@ import static engine.Main.GAME_WIDTH;
 
 import base.MovableObject;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -15,10 +16,13 @@ public class Paddle extends MovableObject implements BallProvider{
     boolean isRight;
     private final BallProvider ballProvider;
     private final int oldWidth;
-    public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider) {
+    protected Image[] images;
+    private Effect effect = Effect.SLOW;
+    public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider, Image[] images) {
         super(x, y, width, height, dx, dy);
         this.speed = speed;
         this.currentPowerUp = null;
+        this.images = images;
         isLeft = false;
         isRight = false;
         this.ballProvider = ballProvider;
@@ -70,11 +74,6 @@ public class Paddle extends MovableObject implements BallProvider{
         }
     }
 
-    @Override
-    public void render(GraphicsContext gc) {
-       gc.setFill(Color.RED);
-       gc.fillRect(x, y, width, height);
-    }
 
     //trả về 1 quả bóng còn sống
     public Ball getAnyBall() {
@@ -92,6 +91,11 @@ public class Paddle extends MovableObject implements BallProvider{
         } else {
             return ballProvider.getBalls();
         }
+    }
+    @Override
+    public void render(GraphicsContext gc) {
+        image=images[effect.ordinal()];
+        super.render(gc);
     }
 
     //thêm bong mới

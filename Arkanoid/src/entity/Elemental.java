@@ -5,6 +5,8 @@ public enum Elemental {
     FIRE,
     WATER,
     LEAF,
-    SOID
+    SOID,
+    ICE,
+    FAST
 
 }
