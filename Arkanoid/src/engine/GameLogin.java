@@ -30,6 +30,7 @@ public class GameLogin extends GameState {
         screenHeight = gameManager.getHeight();
         username="";
         password="";
+        loadSound.getLoginPlay().play();;
         UnameButton = new GameButton(
                 190,
                 300,

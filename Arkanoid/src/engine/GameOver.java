@@ -28,6 +28,7 @@ public class GameOver extends GameState {
         screenHeight = gameManager.getHeight();
         userManager.LoadUsers();
         userList = userManager.getUsers();
+        loadSound.getLoseLife().play();
         EButton = new GameButton(
                 screenWidth / 2.0 - screenWidth * 0.18 - screenWidth * 0.05,
                 screenHeight * 0.1 + 5,

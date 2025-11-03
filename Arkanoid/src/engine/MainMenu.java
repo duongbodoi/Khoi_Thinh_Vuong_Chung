@@ -26,6 +26,8 @@ public class MainMenu extends GameState {
         escButton = new GameButton(screenWidth / 2 - 100, screenHeight / 2 + 50,
                                     180, 90, loadImage.getEscNormal(),
                                     loadImage.getEscHover());
+        loadSound.getLoginPlay().stop();
+        loadSound.getBgmMenu().play();
 
         enterButton.setOnClick(() -> gameManager.changeState(new SelectMap(gameManager,loadImage,loadSound,currentUser)));
         escButton.setOnClick(() -> System.exit(0));
