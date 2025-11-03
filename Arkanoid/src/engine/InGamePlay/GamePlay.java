@@ -301,7 +301,10 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     System.out.println(brickToSpawn.size());
                 }
             }
-
+            if (b.checkCollision(paddle)) {
+                b.bounceOff(paddle);
+                loadSound.getPaddleHit().play();
+            }
             if (b.is_dead()) {
                 lives--;
                 loadSound.getLoseLife().play();
