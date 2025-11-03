@@ -116,8 +116,9 @@ public class ApplyPowerUp {
             int brickWidth = originalBrick.getWidth();
             int brickHeight = originalBrick.getHeight();
             int dbrick = 1; // Khoảng cách giữa các viên gạch (lấy từ BrickLoadMap.java)
-
+            boolean flag = false;
             for (int i = 0; i < 4; i++) {
+                if(flag) break;
                 int newGridX = posx + dx[i];
                 int newGridY = posy + dy[i];
                 if (newGridX >= 0 && newGridX < numCols && newGridY >= 0 && newGridY < numRows) {
@@ -138,6 +139,7 @@ public class ApplyPowerUp {
                         brickToSpawn.add(newBrick);
                         // Tăng tổng số gạch để tính điều kiện qua màn
                         BrickLoadMap.incrementBrickCount();
+                        flag = true;
                     }
                 }
             }
