@@ -56,7 +56,7 @@ public class ApplyPowerUp {
 
             while(!q.isEmpty()) {
                 Brick cur = q.poll();
-                cur.setHitPoints(0);
+                cur.takeHit();
 
                 int x = cur.getGridX();
                 int y = cur.getGridY();
@@ -98,7 +98,7 @@ public class ApplyPowerUp {
                         Brick near = bricks[newGridY][newGridX];
 
                         if(!(near instanceof UnbreakBrick)) {
-                            near.setHitPoints(0);
+                            near.takeHit();
                         }
                         if(!visited.contains(near) && near instanceof FireBrick) {
                             visited.add(near);
