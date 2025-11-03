@@ -13,18 +13,23 @@ public class ExpandPaddle extends PowerUp {
 
     @Override
     public void applyEffect(Paddle paddle) {
-        if (!active) {
-            oldWidth = paddle.getWidth();
-            paddle.setWidth(oldWidth * expandFactor);
-            active  = true;
-            consumed = true;
+//        if (!active) {
+//            oldWidth = paddle.getWidth();
+//            paddle.setWidth(oldWidth * expandFactor);
+//            active  = true;
+//            consumed = true;
+//        }
+        active  = false;
+        consumed = true;
+        oldWidth = paddle.getWidth();
+        paddle.setWidth(oldWidth * expandFactor);
+        if(paddle.getWidth() > 3*paddle.getOldWidth())
+            paddle.setWidth((int)3*paddle.getOldWidth());
         }
-    }
+
     @Override
     public void removeEffect(Paddle paddle) {
-        if (active) {
-            paddle.setWidth(oldWidth);
-            active = false;
-        }
+
     }
+
 }

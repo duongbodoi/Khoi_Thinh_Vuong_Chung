@@ -61,7 +61,15 @@ public class LoadImage {
     private Image signup;
     private Image bgrlogin;
     private Image lock;
+
+    private Image[] paddle;
     public LoadImage() {
+        //paddle = checkLoadImage("assets/IMAGE/paddle.png");
+        paddle =new Image[] {
+                checkLoadImage("assets/IMAGE/paddle.png"),
+                checkLoadImage("assets/IMAGE/Stunnedpaddle.png"),
+                checkLoadImage("assets/IMAGE/slowpaddle.png"),
+        };
 
 
         ball =new Image[] {
@@ -70,6 +78,8 @@ public class LoadImage {
                 checkLoadImage("assets/IMAGE/waterBall.png"),
                 checkLoadImage("assets/IMAGE/leafBall.png"),
                 checkLoadImage("assets/IMAGE/soidBall.png"),
+                checkLoadImage("assets/IMAGE/iceBall.png"),
+                checkLoadImage("assets/IMAGE/fastBall.png"),
         };
 
         username = checkLoadImage("assets/IMAGE/username.png");
@@ -317,5 +327,9 @@ public class LoadImage {
     }
     public Image getLock() {
         return lock;
+    }
+
+    public Image[] getPaddle() {
+        return paddle;
     }
 }

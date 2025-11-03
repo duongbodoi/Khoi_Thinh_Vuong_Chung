@@ -3,7 +3,7 @@ nguyen:abc:duongbodoiqua:1200:1
 duongbodoithe:hehehhe:duongbodoi:1000:2
 duongw:12345:quabodoi:0:1
 chien:12345:chonlien:0:1
-hiep:12345:honliem:0:1
+hiep:12345:honliem:290:1
 :::0:1
 :::0:1
 :::0:1

@@ -15,14 +15,14 @@ public class NextLevel {
     private int screenHeight;
     private boolean isContinue;
     LoadImage loadImage;
-    int level;
-    public NextLevel(int screen_width, int screen_height) {
+    private int level;
+    public NextLevel(int screen_width, int screen_height,int level) {
         isVictory = false;
         isFinished = false;
         loadImage = new LoadImage();
         this.screenWidth = screen_width;
         this.screenHeight = screen_height;
-        level = 1;
+        this.level = level;
         isContinue = false;
     }
     public void setLevel(int level) {

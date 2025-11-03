@@ -12,9 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import powerup.FireBall;
-import powerup.PowerUp;
-import entity.BallProvider;
+import powerup.*;
+import powerup.Fire.FireBall;
+import powerup.Plant.LeafBall;
+import powerup.Soid.SoilBall;
+import powerup.Water.WaterBall;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private Paddle paddle;
     private List<Ball> balls;
     private List<Brick> bricks;
+    private Brick[][] brickGrid;
+    private List<Brick> brickToSpawn;
     private List<PowerUp> powerUps;
     private int score;
     private int lives;
@@ -33,6 +37,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private int screenHeight;
     private GamePause gamePause;
     private NextLevel nextLevel;
+    private int level;
     private GameButton startButton;
     private Angle aimAngle;
     private String curentMap;
@@ -41,17 +46,17 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private int basePaddleWidth;               
 
     int brickRemoveCount;
-    public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser) {
+    public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser,int level) {
         super(gameManager,loadImage,loadSound);
         this.curentMap = curentMap;
         this.currentUser=currentUser;
         screenHeight=gameManager.getHeight();
         screenWidth=gameManager.getWidth();
-
+        this.level=level;
         gamePause = new GamePause(screenWidth, screenHeight, loadImage);
-        nextLevel = new NextLevel(screenWidth, screenHeight);
+        nextLevel = new NextLevel(screenWidth, screenHeight,level);
         aimAngle = new Angle(0,0,150,19,loadImage.getAimArrow());
-
+        brickToSpawn = new ArrayList<>();
         //khởi tạo danh sách power up và thời gian hiệu lực
         powerUps = new ArrayList<>();
         powerUpStartAt = new HashMap<>();
@@ -85,7 +90,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 paddleWidth,
                 paddleHeight,
                 0, 0, 9,
-                this
+                this,
+                loadImage.getPaddle()
         );
 
         basePaddleWidth = paddleWidth;
@@ -101,13 +107,17 @@ public class GamePlay extends GameState implements entity.BallProvider {
 
         try {
             bricks = BrickLoadMap.loadBricks(curentMap, screenWidth, loadImage);
+            brickGrid = BrickLoadMap.getGrid();
+            if(bricks!=null){
+                System.out.println("ok");
+            }
         } catch (Exception e) {
             System.out.println("Không thể đọc file map" + e.getMessage());
         }
     }
 
     public void updateGame() {
-        if (!gamePause.Is_pause()) {
+        if (!gamePause.Is_pause() ) {
             paddle.update();
 
             //update bong
@@ -187,8 +197,18 @@ public class GamePlay extends GameState implements entity.BallProvider {
             }
             // --- SAU khi update paddle, ball, brick xong ---
             List<Brick> newBricks = nextLevel.loadNextLevel(loadImage);
+            level = nextLevel.getLevel();
             if(currentUser.getCurrentLevel()<nextLevel.getLevel()) currentUser.setCurrentLevel(nextLevel.getLevel());
             if (newBricks != null && !newBricks.isEmpty()) {
+                Ball anyball = paddle.getAnyBall();
+                anyball.resetBegin(paddle);
+                balls.clear();
+                if(balls.isEmpty()) balls.add(anyball);
+
+
+                bricks.clear();
+                brickRemoveCount = 0;
+                powerUps.clear();
                 bricks = newBricks;
                 nextLevel.setContinue(false);
 
@@ -204,7 +224,24 @@ public class GamePlay extends GameState implements entity.BallProvider {
 
                 paddle.setWidth(basePaddleWidth);
             }
+            if(!brickToSpawn.isEmpty()){
+                for(Brick brick : brickToSpawn){
+                    boolean colision = false;
+                    for(Ball b : balls) {
+                        if(rectOverlap(b.getX(),b.getY(),b.getWidth(),b.getHeight(),brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight())){
+                            colision = true;
+                            break;
+                        }
+                    }
+                    if(!colision){
+                        bricks.add(brick);
+                        brickToSpawn.remove(brick);
+                    }
+                }
+
+            }
         }
+
     }
 
     public void handleInput(KeyEvent e) {
@@ -230,7 +267,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     }
                     case R -> {
                         if (gamePause.Is_pause())
-                            gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,curentMap,currentUser));
+                            gameManager.changeState(new GamePlay(gameManager,loadImage,loadSound,curentMap,currentUser,level));
                     }
                     case E-> {
                         if (gamePause.Is_pause())
@@ -253,17 +290,15 @@ public class GamePlay extends GameState implements entity.BallProvider {
         // kiểm tra ball với paddle, bricks
         // xử lý điểm, gạch bị phá
         for (Ball b : new ArrayList<>(balls)) {
-            if(getAnyBall().Is_begin()) {
-                for (Brick brick : bricks) {
-                    if (b.checkCollision(brick)) {
-                        brick.takeHit();
-                        b.bounceOff(brick);
-                        loadSound.getHitBrick().play();
-                    }
-                }
-                if (b.checkCollision(paddle)) {
-                    b.bounceOff(paddle);
-                    loadSound.getPaddleHit().play();
+            if (!b.Is_begin()) {
+                continue;
+            }
+            for (int i = 0;i<bricks.size();i++) {
+                if (b.checkCollision(bricks.get(i))) {
+                    bricks.get(i).takeHit();
+                    b.bounceOff(bricks.get(i));
+                    ApplyPowerUp.LoadNewBricks(b,bricks.get(i),bricks.get(i).getGridX(),bricks.get(i).getGridY(),brickGrid,loadImage,bricks,brickToSpawn);
+                    System.out.println(brickToSpawn.size());
                 }
             }
 
@@ -288,7 +323,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     e.getX(),
                     e.getY(),
                     () -> gameManager.changeState(new MainMenu(gameManager, loadImage,loadSound,currentUser)), // onE
-                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage,loadSound,curentMap,currentUser)), // onR
+                    () -> gameManager.changeState(new GamePlay(gameManager, loadImage,loadSound,curentMap,currentUser,level)), // onR
                     () -> gamePause.setIs_pause(false));// onEsc
         }
     }
@@ -302,7 +337,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
         if(lives <= 0) {
             if(score>currentUser.getMaxScore()) {   currentUser.setMaxScore(score);}
 
-            gameManager.changeState(new GameOver(gameManager,loadImage,loadSound,currentUser,curentMap));
+            gameManager.changeState(new GameOver(gameManager,loadImage,loadSound,currentUser,curentMap,level));
         }
     }
     public void checkLevel() {
@@ -315,6 +350,15 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 b.setIs_begin(false);
                 b.resetBegin(paddle);
             }
+            Ball mainBall = getAnyBall(); // Lấy 1 quả bóng (bất kỳ)
+            mainBall.resetBegin(paddle);
+            balls.clear(); // Xóa tất cả bóng
+            mainBall.setIs_begin(false);
+            mainBall.resetBegin(paddle);
+            if(balls.isEmpty()) balls.add(mainBall);
+
+            powerUps.clear();
+            brickRemoveCount =0;
             if(nextLevel.getLevel()==5) gameManager.changeState(new GameVictory(gameManager,loadImage,loadSound));
         }
     }
@@ -342,7 +386,12 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 loadSound.getExplosion().play();
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
-                if(brick instanceof PowerupBrick) powerUps.add(new FireBall(px,py,24,24,5000,"Fire"));
+
+                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
+                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
+                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
+                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
+
                 // 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.9) {
                     powerup.PowerUp p = (Math.random() < 0.5)

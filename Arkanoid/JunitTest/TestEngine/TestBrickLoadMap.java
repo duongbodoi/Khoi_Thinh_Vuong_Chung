@@ -40,9 +40,9 @@ public class TestBrickLoadMap {
         // map 2x3 nhung 1 ô = 0 thi co 5 brick
         assertEquals(5, bricks.size());
 
-        assertTrue(bricks.get(0) instanceof NormalBrick);
-        assertTrue(bricks.get(1) instanceof StrongBrick);
-        assertTrue(bricks.get(2) instanceof PowerupBrick);
+        assertTrue(bricks.get(0) instanceof LeafBrick);
+        assertTrue(bricks.get(1) instanceof IceBrick);
+        assertTrue(bricks.get(2) instanceof FireBrick);
         assertTrue(bricks.get(3) instanceof SoilBrick);
         assertTrue(bricks.get(4) instanceof UnbreakBrick);
     }

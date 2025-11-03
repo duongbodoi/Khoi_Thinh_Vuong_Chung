@@ -1,33 +1,32 @@
-package powerup;
+package powerup.Water;
 
 import entity.Ball;
 import entity.Elemental;
 import entity.Paddle;
+import powerup.PowerUp;
 
 import java.util.List;
 
-public class FireBall extends PowerUp {
-    public FireBall(int x, int y, int width, int height, int time, String type) {
-        super(x, y, width, height, time, type);
+public class WaterBall extends PowerUp {
+    public WaterBall(int x , int y, int with, int height, int time, String type) {
+        super(x, y, with, height, time, type);
     }
 
-    @Override
     public void applyEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball : balls) {
-            ball.setElemental(Elemental.FIRE);
+            ball.setElemental(Elemental.WATER);
         }
-        consumed = true;
         active = true;
+        consumed = true;
     }
 
-    @Override
     public void removeEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball : balls) {
             ball.setElemental(Elemental.NONE);
         }
         active = false;
+        consumed = false;
     }
-
 }
