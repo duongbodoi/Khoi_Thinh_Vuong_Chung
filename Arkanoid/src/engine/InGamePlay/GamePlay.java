@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import powerup.*;
+import powerup.Fire.FireBall;
+import powerup.Plant.LeafBall;
+import powerup.Soid.SoilBall;
+import powerup.Water.WaterBall;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -84,7 +88,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 paddleWidth,
                 paddleHeight,
                 0, 0, 9,
-                this
+                this,
+                loadImage.getPaddle()
         );
 
         basePaddleWidth = paddleWidth;
@@ -228,7 +233,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     }
                     if(!colision){
                         bricks.add(brick);
-                        brickToSpawn.clear();
+                        brickToSpawn.remove(brick);
                     }
                 }
 
