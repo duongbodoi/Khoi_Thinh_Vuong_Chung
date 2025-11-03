@@ -82,6 +82,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
         // Tạo Paddle
         int paddleWidth = screenWidth / 8;
         int paddleHeight = screenHeight / 40;
+        loadSound.getBgmMenu().stop();
+        loadSound.getBgmPlay().play();
         paddle = new Paddle(
                 screenWidth / 2 - paddleWidth / 2,
                 screenHeight - 50,
@@ -299,16 +301,14 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     System.out.println(brickToSpawn.size());
                 }
             }
-            if (b.checkCollision(paddle)) {
-                b.bounceOff(paddle);
-            }
 
-//            if (b.is_dead()) {
-//                lives--;
-//                System.out.println("Lives: " + lives);
-//                b.setIs_begin(false);
-//                b.resetBegin(paddle);
-//            }
+            if (b.is_dead()) {
+                lives--;
+                loadSound.getLoseLife().play();
+                System.out.println("Lives: " + lives);
+                b.setIs_begin(false);
+                b.resetBegin(paddle);
+            }
         }
     }
 
@@ -343,6 +343,13 @@ public class GamePlay extends GameState implements entity.BallProvider {
     public void checkLevel() {
         if (!nextLevel.isFinished() && (bricks.isEmpty() || brickRemoveCount == BrickLoadMap.getBrickCount())) {
             nextLevel.setFinished(true);
+
+            loadSound.getVictory().play();
+            //dua tat ca bong vao paddle va dung lai
+            for (Ball b : balls) {
+                b.setIs_begin(false);
+                b.resetBegin(paddle);
+            }
             Ball mainBall = getAnyBall(); // Lấy 1 quả bóng (bất kỳ)
             mainBall.resetBegin(paddle);
             balls.clear(); // Xóa tất cả bóng
@@ -376,6 +383,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
             Brick brick = bricks.get(i);
             if (brick.isDestroyed()) {
                 brick.createExplosion(gameManager.getEffectLayer(), loadImage);
+                loadSound.getExplosion().play();
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
@@ -445,3 +453,9 @@ public class GamePlay extends GameState implements entity.BallProvider {
     }
 
 }
+/*
+ Lửa : có lợi: nỗ hết lá v.; tăng tốc độ bóng: x;
+ Lá : làm nổ bóng lửa ra xung quanh v; làm paddle ko di chuyển đc trong 1=2s;
+ nước : nước: mọc lá; băng : chấm lợi
+ đất : có lợi : phá tất trong đường đi, bất lơi ;Làm chậm baddle
+ */

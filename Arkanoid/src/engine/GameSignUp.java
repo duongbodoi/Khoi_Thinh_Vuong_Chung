@@ -32,6 +32,7 @@ public class GameSignUp extends GameState {
         username="";
         password="";
         nickname="";
+        loadSound.getLoginPlay().play();
         UnameButton = new GameButton(
                 190,
                 300,
