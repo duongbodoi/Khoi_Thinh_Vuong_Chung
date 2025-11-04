@@ -27,7 +27,7 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-    private Elemental elemental = Elemental.ICE;
+    private Elemental elemental = Elemental.SOID;
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -60,6 +60,8 @@ public class Ball extends MovableObject {
     }
     public void setSpeed(int speed) {
         this.speed = speed;
+        this.dx = this.directionX * speed;
+        this.dy = this.directionY * speed;
     }
     /**
      * Thao tác phản lại khi va chạm vào vật thể.

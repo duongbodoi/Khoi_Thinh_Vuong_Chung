@@ -1,6 +1,7 @@
 package powerup;
 
 import base.GameObject;
+import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -56,7 +57,7 @@ public abstract class PowerUp extends GameObject {
         }
     }
 
-    public abstract void applyEffect(Paddle paddle) ;
+    public abstract void applyEffect(Paddle paddle, Ball ball) ;
 
-    public abstract void removeEffect(Paddle paddle) ;
+    public abstract void removeEffect(Paddle paddle,Ball ball) ;
 }

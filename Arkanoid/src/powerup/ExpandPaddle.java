@@ -1,5 +1,6 @@
 package powerup;
 
+import entity.Ball;
 import entity.Paddle;
 
 public class ExpandPaddle extends PowerUp {
@@ -12,13 +13,7 @@ public class ExpandPaddle extends PowerUp {
     }
 
     @Override
-    public void applyEffect(Paddle paddle) {
-//        if (!active) {
-//            oldWidth = paddle.getWidth();
-//            paddle.setWidth(oldWidth * expandFactor);
-//            active  = true;
-//            consumed = true;
-//        }
+    public void applyEffect(Paddle paddle, Ball ball) {
         active  = false;
         consumed = true;
         oldWidth = paddle.getWidth();
@@ -28,7 +23,7 @@ public class ExpandPaddle extends PowerUp {
         }
 
     @Override
-    public void removeEffect(Paddle paddle) {
+    public void removeEffect(Paddle paddle, Ball ball) {
 
     }
 

@@ -17,7 +17,8 @@ public class Paddle extends MovableObject implements BallProvider{
     private final BallProvider ballProvider;
     private final int oldWidth;
     protected Image[] images;
-    private Effect effect = Effect.SLOW;
+    private Effect effect = Effect.NONE;
+    private boolean isMove = true;
     public Paddle(int x, int y, int width, int height, int dx, int dy, int speed, BallProvider ballProvider, Image[] images) {
         super(x, y, width, height, dx, dy);
         this.speed = speed;
@@ -49,17 +50,30 @@ public class Paddle extends MovableObject implements BallProvider{
     public void moveRight(boolean isMove) {
         isRight = isMove;
     }
+
+    public boolean isMove() {
+        return isMove;
+    }
+
+    public void setMove(boolean move) {
+        isMove = move;
+    }
+
     public void applyPowerUp(String powerUp) {
         currentPowerUp = powerUp;
     }
 
     @Override
     public void move() {
-        if(isLeft) {
-            x-=speed;
-        }
-        if(isRight) {
-            x+=speed;
+        if (!isMove) {
+            return;
+        } else {
+            if (isLeft) {
+                x -= speed;
+            }
+            if (isRight) {
+                x += speed;
+            }
         }
     }
     @Override
@@ -98,10 +112,22 @@ public class Paddle extends MovableObject implements BallProvider{
         super.render(gc);
     }
 
+    public void setEffect(Effect effect) {
+        this.effect = effect;
+    }
+
     //thêm bong mới
     public void addBall(Ball b) {
         if (ballProvider != null && b != null) {
             ballProvider.addBall(b);
         }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

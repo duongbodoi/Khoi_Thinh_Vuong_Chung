@@ -3,9 +3,7 @@ package engine.InGamePlay;
 import brick.*;
 
 import engine.*;
-import entity.Angle;
-import entity.Ball;
-import entity.Paddle;
+import entity.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -13,8 +11,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import powerup.*;
+import powerup.Fire.FastBall;
 import powerup.Fire.FireBall;
 import powerup.Plant.LeafBall;
+import powerup.Plant.StunPaddle;
+import powerup.Soid.SlowPaddle;
 import powerup.Soid.SoilBall;
 import powerup.Water.WaterBall;
 
@@ -25,6 +26,7 @@ import java.util.HashMap;
 
 public class GamePlay extends GameState implements entity.BallProvider {
     private Paddle paddle;
+    private Ball ball;
     private List<Ball> balls;
     private List<Brick> bricks;
     private Brick[][] brickGrid;
@@ -42,8 +44,8 @@ public class GamePlay extends GameState implements entity.BallProvider {
     private Angle aimAngle;
     private String curentMap;
     private User currentUser;
-    private Map<PowerUp, Long> powerUpStartAt; 
-    private int basePaddleWidth;               
+    private Map<PowerUp, Long> powerUpStartAt;
+    private int basePaddleWidth;
 
     int brickRemoveCount;
     public GamePlay(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,String curentMap,User currentUser,int level) {
@@ -164,7 +166,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     if (rectOverlap(p.getX(), p.getY(), p.getWidth(), p.getHeight(),
                                     paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight())) {
                         //kích hoạt
-                        p.applyEffect(paddle);
+                        p.applyEffect(paddle, ball);
                         powerUpStartAt.put(p, System.currentTimeMillis());
                     } else if (p.getY() > screenHeight) {
                         //rơi khỏi màn hình -> bỏ
@@ -185,7 +187,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 if (p.isActive() && p.getTime() > 0) {
                     Long startAt = powerUpStartAt.get(p);
                     if (startAt != null && now - startAt >= p.getTime()) {
-                        p.removeEffect(paddle);
+                        p.removeEffect(paddle, ball);
                         powerUps.remove(i);
                         powerUpStartAt.remove(p);
                     }
@@ -215,7 +217,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 //qua man moi thi xoa effect
                 for (PowerUp p : new ArrayList<>(powerUps)) {
                     if (p.isActive()) {
-                        p.removeEffect(paddle);
+                        p.removeEffect(paddle, ball);
                     }
                 }
 
@@ -293,10 +295,18 @@ public class GamePlay extends GameState implements entity.BallProvider {
             if (!b.Is_begin()) {
                 continue;
             }
-            for (int i = 0;i<bricks.size();i++) {
+            for (int i = 0;i < bricks.size();i++) {
                 if (b.checkCollision(bricks.get(i))) {
-                    bricks.get(i).takeHit();
-                    b.bounceOff(bricks.get(i));
+                    if (b.getElemental() == Elemental.SOID) {
+                        if (bricks.get(i) instanceof UnbreakBrick) {
+                            b.bounceOff(bricks.get(i));
+                        } else {
+                            bricks.get(i).setHitPoints(0);
+                        }
+                    } else {
+                        bricks.get(i).takeHit();
+                        b.bounceOff(bricks.get(i));
+                    }
                     ApplyPowerUp.LoadNewBricks(b,bricks.get(i),bricks.get(i).getGridX(),bricks.get(i).getGridY(),brickGrid,loadImage,bricks,brickToSpawn);
                     System.out.println(brickToSpawn.size());
                 }
@@ -390,10 +400,14 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
-                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
-                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
-                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
-                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
+//                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
+//                if(brick instanceof FireBrick) powerUps.add(new FastBall(px,py,24,24,100000,"Fire"));
+
+//                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
+//                if(brick instanceof LeafBrick) powerUps.add(new StunPaddle(px,py,24,24,5000,"Leaf"));
+//                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
+                if(brick instanceof SoilBrick) powerUps.add(new SlowPaddle(px,py,24,24,5000,"Soil"));
+//                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
 
                 // 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.9) {
