@@ -29,14 +29,19 @@
   - [Giới thiệu chung](#giới-thiệu-chung)
   - [1. Lời nói đầu](#1-lời-nói-đầu)
   - [2. Cấu trúc chương trình](#2-cấu-trúc-chương-trình)
-  - [3. Các thành phần của game](#3-các-thành-phần-của-game)
+  - [3. Mục đích của các lớp](#3-các-thành-phần-của-game)
+  - [4. Các thành phần của game](#4-điều-khiển--luật-chơi)
+  - [5. Hướng phát triển](#5-hướng-phát-triển)
+  - [6. Nguồn tham khảo](#6-nguồn-tham-khảo)
 
 ---
 
 ## 1. Lời nói đầu
 
 **Arkanoid** là tựa game kinh điển dạng *brick breaker*, nơi người chơi điều khiển thanh chắn (paddle) để bật bóng phá hủy toàn bộ gạch trên màn hình.  
-Trong phiên bản này, nhóm phát triển đã thêm các hiệu ứng, vật phẩm hỗ trợ và nhiều cấp độ thử thách hơn, mang đến trải nghiệm hấp dẫn hơn bản gốc.
+Trong phiên bản này, nhóm phát triển đã thêm các hiệu ứng, vật phẩm hỗ trợ và nhiều cấp độ thử thách hơn, mang đến trải nghiệm hấp dẫn hơn bản gốc. Game
+có hướng phát triển theo các nguyên tố cơ bản như : lửa, nước, lá, đất. Người chơi sẽ phải vượt qua thử thách khi chọn lựa các loại power đa dạng theo 4 nguyên
+tố nêu trên. Game sử dụng một số powerup gây khó buộc người chơi ăn hoặc né và buộc phải sử dụng linh hoạt các power từ các brick để vượt qua màn chơi.
 
 ---
 
@@ -111,9 +116,9 @@ Trong phiên bản này, nhóm phát triển đã thêm các hiệu ứng, vật
 ```
 
 ---
-## 3. Cấu trúc chương trình
+## 3. Mục đích của các lớp
 
-Cấu trúc chương trình của **"Arkanoid"** được tổ chức một cách rõ ràng và dễ mở rộng, giúp cho việc quản lý mã nguồn, thêm tính năng và sửa lỗi trở nên thuận tiện hơn. Các thư mục và tệp được chia theo từng chức năng chính như sau:
+Các lớp của **"Arkanoid"** được tổ chức một cách rõ ràng và dễ mở rộng, giúp cho việc quản lý mã nguồn, thêm tính năng và sửa lỗi trở nên thuận tiện hơn. Các thư mục và tệp được chia theo từng chức năng chính như sau:
 
 - **`base/`**: Chứa các lớp cơ sở trừu tượng, cung cấp nền tảng cho hầu hết các đối tượng trong game.  
   - **`GameObject`**: Lớp cha của mọi đối tượng trong game, định nghĩa các thuộc tính cơ bản như vị trí, kích thước, hình ảnh.  
@@ -164,8 +169,8 @@ Có thể nhận `effect` hoặc `power-up` để tạm thời thay đổi tính
 
 Thanh điểm của người chơi được lưu và quản lý trong `engine/InGamePlay/User.java` và `UserManager.java`.
 
-<div style="text-align: center;">
-  <img src="img/paddle.png" width="200" height="100">
+<div align="center">
+  <img src="IMAGE/Bgreen1.png" width="100" height="100">
 </div>
 
 ---
@@ -251,3 +256,43 @@ Power-up xuất hiện khi phá gạch, giúp người chơi tạm thời thay �
 - `LoadImage.java` và `LoadSound.java` – quản lý tải ảnh và âm thanh.  
 - `GameState.java`, `MainMenu.java`, `SelectMap.java`, `GameOver.java`, `GameVictory.java` – quản lý giao diện và trạng thái game.  
 - `User.java` và `UserManager.java` – quản lý dữ liệu người chơi, lưu vào `users.txt`.
+
+  ---
+## 5. Hướng phát triển game
+
+**Ngôn ngữ lập trình:** Java  
+**Công nghệ sử dụng:** JavaFX  
+
+- **JavaFX Controls:** Cung cấp các thành phần giao diện như nút bấm, thanh chọn, hộp thoại để xây dựng menu và giao diện chính.  
+- **JavaFX FXML:** Hỗ trợ tách riêng phần giao diện (FXML) với logic xử lý, giúp mã nguồn dễ bảo trì hơn.  
+- **JavaFX Media:** Dùng để phát âm thanh, nhạc nền và hiệu ứng khi bóng va chạm hoặc phá gạch.  
+
+**Môi trường phát triển:** IntelliJ IDEA  
+**Module path:**
+--module-path "C:\Downloads\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib"
+--add-modules javafx.controls,javafx.fxml,javafx.media
+
+### Định hướng phát triển trong tương lai
+
+Nhóm dự kiến mở rộng trò chơi **Arkanoid** theo các hướng sau:
+
+#### 🧠 Hệ thống va chạm nâng cao
+- Cải thiện thuật toán xử lý va chạm giữa bóng, gạch và paddle.  
+- Thêm cơ chế phản xạ vật lý chân thực hơn dựa trên góc va chạm.  
+- Tối ưu hiệu năng khi có nhiều bóng hoặc power-up hoạt động đồng thời.  
+
+#### 🎮 Phát triển gameplay
+- Bổ sung thêm **màn chơi mới**, **bản đồ đặc biệt** và **các loại gạch độc đáo**.  
+- Thêm **boss cuối màn** hoặc **các chướng ngại động** (gạch di chuyển, gạch tự hồi phục).  
+- Mở rộng **hệ thống power-up** với khả năng kết hợp nhiều hiệu ứng (ví dụ: bóng lửa kết hợp bóng đôi).  
+
+#### 💡 Trải nghiệm người chơi
+- Cải thiện hiệu ứng hình ảnh, âm thanh và hiệu ứng nổ khi phá gạch.  
+- Hỗ trợ **tài khoản đăng nhập trực tuyến**, **lưu tiến trình chơi**, và **chế độ nhiều người chơi 
+
+---
+## 6. Nguồn tham khảo
+
+- Tham khảo kỹ thuật xây dựng game Arkanoid, cấu trúc module và xử lý va chạm từ Youtube(https://www.youtube.com), (https://chatgpt.com).  
+- Âm thanh: [Pixabay - Free Game Sounds](https://pixabay.com).  
+- Hình ảnh và ý tưởng giao diện: [Gemini AI Image Generator](https://gemini.google.com). 
