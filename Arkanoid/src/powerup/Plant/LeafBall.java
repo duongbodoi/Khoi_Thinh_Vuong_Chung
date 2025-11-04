@@ -12,19 +12,19 @@ public class LeafBall extends PowerUp {
         super(x, y, with, height, time, type);
     }
 
-    public void applyEffect(Paddle paddle) {
+    public void applyEffect(Paddle paddle, Ball ball) {
         List<Ball> balls = paddle.getBalls();
-        for(Ball ball : balls) {
-            ball.setElemental(Elemental.LEAF);
+        for(Ball ball1 : balls) {
+            ball1.setElemental(Elemental.LEAF);
         }
         active = true;
         consumed = true;
     }
 
-    public void removeEffect(Paddle paddle) {
+    public void removeEffect(Paddle paddle, Ball ball) {
         List<Ball> balls = paddle.getBalls();
-        for(Ball ball : balls) {
-            ball.setElemental(Elemental.NONE);
+        for(Ball ball1 : balls) {
+            ball1.setElemental(Elemental.NONE);
         }
         active = false;
         consumed = false;

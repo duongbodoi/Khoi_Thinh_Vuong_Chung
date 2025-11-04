@@ -1,4 +1,5 @@
 package powerup.Plant;
+import entity.Ball;
 import entity.Paddle;
 import powerup.PowerUp;
 
@@ -9,13 +10,18 @@ public class StunPaddle extends PowerUp {
 
     // làm paddle ko thể di chuyển, kiểu như bị dây leo trói lại ko đi được v
     @Override
-    public void applyEffect(Paddle paddle) {
-
+    public void applyEffect(Paddle paddle, Ball ball) {
+        if(paddle != null) {
+            paddle.setMove(false);
+            active = true;
+            consumed = true;
+        }
     }
 
     @Override
-    public void removeEffect(Paddle paddle) {
-
+    public void removeEffect(Paddle paddle, Ball ball) {
+        if (paddle != null) {
+            paddle.setMove(true);
+        }
     }
-
 }
