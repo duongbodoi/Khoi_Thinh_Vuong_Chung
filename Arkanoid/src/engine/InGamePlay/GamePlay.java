@@ -17,6 +17,7 @@ import powerup.Plant.LeafBall;
 import powerup.Plant.StunPaddle;
 import powerup.Soid.SlowPaddle;
 import powerup.Soid.SoilBall;
+import powerup.Water.IceBall;
 import powerup.Water.WaterBall;
 
 import java.util.List;
@@ -26,7 +27,6 @@ import java.util.HashMap;
 
 public class GamePlay extends GameState implements entity.BallProvider {
     private Paddle paddle;
-    private Ball ball;
     private List<Ball> balls;
     private List<Brick> bricks;
     private Brick[][] brickGrid;
@@ -166,7 +166,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     if (rectOverlap(p.getX(), p.getY(), p.getWidth(), p.getHeight(),
                                     paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight())) {
                         //kích hoạt
-                        p.applyEffect(paddle, ball);
+                        p.applyEffect(paddle);
                         powerUpStartAt.put(p, System.currentTimeMillis());
                     } else if (p.getY() > screenHeight) {
                         //rơi khỏi màn hình -> bỏ
@@ -187,7 +187,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 if (p.isActive() && p.getTime() > 0) {
                     Long startAt = powerUpStartAt.get(p);
                     if (startAt != null && now - startAt >= p.getTime()) {
-                        p.removeEffect(paddle, ball);
+                        p.removeEffect(paddle);
                         powerUps.remove(i);
                         powerUpStartAt.remove(p);
                     }
@@ -217,7 +217,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 //qua man moi thi xoa effect
                 for (PowerUp p : new ArrayList<>(powerUps)) {
                     if (p.isActive()) {
-                        p.removeEffect(paddle, ball);
+                        p.removeEffect(paddle);
                     }
                 }
 
@@ -401,15 +401,16 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
 //                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
-//                if(brick instanceof FireBrick) powerUps.add(new FastBall(px,py,24,24,100000,"Fire"));
+//                if(brick instanceof FireBrick) powerUps.add(new FastBall(px,py,24,24,5000,"Fire"));
 
 //                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
 //                if(brick instanceof LeafBrick) powerUps.add(new StunPaddle(px,py,24,24,5000,"Leaf"));
 //                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
-                if(brick instanceof SoilBrick) powerUps.add(new SlowPaddle(px,py,24,24,5000,"Soil"));
+//                if(brick instanceof SoilBrick) powerUps.add(new SlowPaddle(px,py,24,24,5000,"Soil"));
+                if(brick instanceof IceBrick) powerUps.add(new IceBall(px,py,24,24,5000,"Water"));
 //                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
 
-                // 12% rơi power up tại tâm viên gạch
+//                 12% rơi power up tại tâm viên gạch
                 if (Math.random() < 0.9) {
                     powerup.PowerUp p = (Math.random() < 0.5)
                             ? new powerup.ExpandPaddle(px, py, 24, 24)

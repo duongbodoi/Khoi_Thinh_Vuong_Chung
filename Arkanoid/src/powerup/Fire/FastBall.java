@@ -1,8 +1,11 @@
 package powerup.Fire;
 
 import entity.Ball;
+import entity.Elemental;
 import entity.Paddle;
 import powerup.PowerUp;
+
+import java.util.List;
 
 public class FastBall extends PowerUp {
     private int Speedold;
@@ -11,22 +14,23 @@ public class FastBall extends PowerUp {
     }
     // Tăng tốc độ bóng và biến bóng thành bóng nhanh(đã cài trong Elemental), để phân biệt vs bóng đỏ
     @Override
-    public void applyEffect(Paddle paddle, Ball ball) {
-        ball = paddle.getAnyBall();
-        if(ball != null) {
+    public void applyEffect(Paddle paddle) {
+        List<Ball> balls = paddle.getBalls();
+        for(Ball ball : balls) {
             Speedold = ball.getSpeed();
             ball.setSpeed(ball.getSpeed() + 5);
             paddle.applyPowerUp(type);
-            active = true;
-            consumed = true;
         }
+        active = true;
+        consumed = true;
     }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
-        ball = paddle.getAnyBall();
-        if (ball != null) {
-            ball.setSpeed(Speedold);
+    public void removeEffect(Paddle paddle) {
+        List<Ball> balls = paddle.getBalls();
+        for(Ball ball : balls) {
+            ball.setSpeed(ball.getOldSpeed());
+            paddle.applyPowerUp(type);
         }
     }
 }

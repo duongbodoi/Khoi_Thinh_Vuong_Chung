@@ -16,6 +16,7 @@ public class Paddle extends MovableObject implements BallProvider{
     boolean isRight;
     private final BallProvider ballProvider;
     private final int oldWidth;
+    private final int oldSpeed;
     protected Image[] images;
     private Effect effect = Effect.NONE;
     private boolean isMove = true;
@@ -26,6 +27,7 @@ public class Paddle extends MovableObject implements BallProvider{
         this.images = images;
         isLeft = false;
         isRight = false;
+        oldSpeed = speed;
         this.ballProvider = ballProvider;
         oldWidth = width;
     }
@@ -37,6 +39,10 @@ public class Paddle extends MovableObject implements BallProvider{
     // lấy chiều dài của paddle vì cần update khi dùng power up
     public int getWidth() {
         return width;
+    }
+
+    public int getOldSpeed() {
+        return oldSpeed;
     }
 
     public void setWidth(int width) {

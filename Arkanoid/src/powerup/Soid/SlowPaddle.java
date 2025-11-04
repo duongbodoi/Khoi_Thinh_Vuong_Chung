@@ -12,7 +12,7 @@ public class SlowPaddle extends PowerUp {
     }
 
     @Override
-    public void applyEffect(Paddle paddle, Ball ball) {
+    public void applyEffect(Paddle paddle) {
         reduceSpeed = paddle.getSpeed();
         paddle.setSpeed(Math.max(1, paddle.getSpeed() / 2));
         paddle.applyPowerUp(type);
@@ -21,7 +21,7 @@ public class SlowPaddle extends PowerUp {
     }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
+    public void removeEffect(Paddle paddle) {
         paddle.setSpeed(reduceSpeed);
     }
 

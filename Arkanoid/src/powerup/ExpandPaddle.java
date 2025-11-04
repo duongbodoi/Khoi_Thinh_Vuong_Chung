@@ -13,7 +13,7 @@ public class ExpandPaddle extends PowerUp {
     }
 
     @Override
-    public void applyEffect(Paddle paddle, Ball ball) {
+    public void applyEffect(Paddle paddle) {
         active  = false;
         consumed = true;
         oldWidth = paddle.getWidth();
@@ -23,7 +23,7 @@ public class ExpandPaddle extends PowerUp {
         }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
+    public void removeEffect(Paddle paddle) {
 
     }
 

@@ -9,7 +9,7 @@ public class DoubleBall extends PowerUp {
     }   
 
     @Override
-    public void applyEffect(Paddle paddle,Ball ball) {
+    public void applyEffect(Paddle paddle) {
         //đánh giấu đã nhặt double ball
         this.consumed = true;
         this.active = false;
@@ -36,7 +36,7 @@ public class DoubleBall extends PowerUp {
     }
 
     @Override
-    public void removeEffect(Paddle paddle,Ball ball) {
+    public void removeEffect(Paddle paddle) {
 
     }
 }
