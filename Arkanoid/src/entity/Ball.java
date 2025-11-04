@@ -28,6 +28,7 @@ public class Ball extends MovableObject {
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
     private Elemental elemental = Elemental.SOID;
+    public final int oldSpeed;
     /**
      * Contructor 1.
      * @param x toa độ x bóng
@@ -44,11 +45,15 @@ public class Ball extends MovableObject {
         this.directionX = directionX;
         this.directionY = directionY;
         this.images = images;
-
+        oldSpeed = speed;
     }
 
     public Elemental getElemental() {
         return elemental;
+    }
+
+    public int getOldSpeed() {
+        return oldSpeed;
     }
 
     public void setElemental(Elemental elemental) {

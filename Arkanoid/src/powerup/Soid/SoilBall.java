@@ -13,7 +13,7 @@ public class SoilBall extends PowerUp {
     }
 
     @Override
-    public void applyEffect(Paddle paddle,Ball ball) {
+    public void applyEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ballsn : balls) {
             ballsn.setElemental(Elemental.SOID);
@@ -23,7 +23,7 @@ public class SoilBall extends PowerUp {
     }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
+    public void removeEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ballln : balls) {
             ballln.setElemental(Elemental.NONE);

@@ -13,7 +13,7 @@ public class FireBall extends PowerUp {
     }
 
     @Override
-    public void applyEffect(Paddle paddle, Ball ball) {
+    public void applyEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball1 : balls) {
             ball1.setElemental(Elemental.FIRE);
@@ -23,7 +23,7 @@ public class FireBall extends PowerUp {
     }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
+    public void removeEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball1 : balls) {
             ball1.setElemental(Elemental.NONE);

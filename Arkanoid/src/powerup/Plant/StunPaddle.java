@@ -10,7 +10,7 @@ public class StunPaddle extends PowerUp {
 
     // làm paddle ko thể di chuyển, kiểu như bị dây leo trói lại ko đi được v
     @Override
-    public void applyEffect(Paddle paddle, Ball ball) {
+    public void applyEffect(Paddle paddle) {
         if(paddle != null) {
             paddle.setMove(false);
             active = true;
@@ -19,9 +19,11 @@ public class StunPaddle extends PowerUp {
     }
 
     @Override
-    public void removeEffect(Paddle paddle, Ball ball) {
+    public void removeEffect(Paddle paddle) {
         if (paddle != null) {
             paddle.setMove(true);
         }
+        active = false;
+        consumed = false;
     }
 }
