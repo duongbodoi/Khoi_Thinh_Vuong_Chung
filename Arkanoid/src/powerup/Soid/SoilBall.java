@@ -3,13 +3,16 @@ package powerup.Soid;
 import entity.Ball;
 import entity.Elemental;
 import entity.Paddle;
+import javafx.scene.image.Image;
 import powerup.PowerUp;
+import powerup.Type;
 
 import java.util.List;
 
 public class SoilBall extends PowerUp {
-    public SoilBall(int x , int y, int with, int height, int time, String type) {
-        super(x, y, with, height, time, type);
+    public SoilBall(int x , int y, int with, int height, int time, String type, Image image) {
+        super(x, y, with, height, time, type,image);
+        powerUpType= Type.ELEMENTAL;
     }
 
     @Override

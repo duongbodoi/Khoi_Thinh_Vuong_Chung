@@ -71,19 +71,17 @@ public class Paddle extends MovableObject implements BallProvider{
 
     @Override
     public void move() {
-        if (!isMove) {
-            return;
-        } else {
             if (isLeft) {
                 x -= speed;
             }
             if (isRight) {
                 x += speed;
             }
-        }
+
     }
     @Override
     public void update() {
+        if(!isMove) return;
         move();
         // giới hạn paddle
         if (x <= 0) {

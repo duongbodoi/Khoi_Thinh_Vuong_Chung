@@ -1,11 +1,8 @@
-package engine.InGamePlay;
+package engine.GameState;
 
 import engine.GameButton;
-import javafx.scene.input.MouseEvent;
-import engine.GameState;
 import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public class GamePause {
     private boolean is_paused;

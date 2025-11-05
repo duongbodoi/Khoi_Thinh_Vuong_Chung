@@ -1,8 +1,7 @@
-package engine.InGamePlay;
-
+package engine.GameState;
 import brick.*;
-
 import engine.*;
+import engine.User.User;
 import entity.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -11,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import powerup.*;
+import powerup.Basic.DoubleBall;
+import powerup.Basic.ExpandPaddle;
 import powerup.Fire.FastBall;
 import powerup.Fire.FireBall;
 import powerup.Plant.LeafBall;
@@ -19,7 +20,6 @@ import powerup.Soid.SlowPaddle;
 import powerup.Soid.SoilBall;
 import powerup.Water.IceBall;
 import powerup.Water.WaterBall;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -82,7 +82,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
         score = 0;
         lives = 3;
         // Tạo Paddle
-        int paddleWidth = screenWidth / 8;
+        int paddleWidth = screenWidth / 7;
         int paddleHeight = screenHeight / 40;
         loadSound.getBgmMenu().stop();
         loadSound.getBgmPlay().play();
@@ -165,6 +165,14 @@ public class GamePlay extends GameState implements entity.BallProvider {
                     //va chạm với paddle
                     if (rectOverlap(p.getX(), p.getY(), p.getWidth(), p.getHeight(),
                                     paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight())) {
+                        for (int t = powerUps.size() - 1; t >= 0; t--) {
+                            PowerUp oldP = powerUps.get(t);
+                            if (oldP.isActive() && oldP != p && oldP.getPowerUpType() == Type.ELEMENTAL) {
+                                oldP.removeEffect(paddle);
+                                powerUps.remove(t);
+                                powerUpStartAt.remove(oldP);
+                            }
+                        }
                         //kích hoạt
                         p.applyEffect(paddle);
                         powerUpStartAt.put(p, System.currentTimeMillis());
@@ -400,22 +408,38 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
-//                if(brick instanceof FireBrick) powerUps.add(new FireBall(px,py,24,24,100000,"Fire"));
-//                if(brick instanceof FireBrick) powerUps.add(new FastBall(px,py,24,24,5000,"Fire"));
+                double dropChance = 0.5; // 40% có power-up
+                double commonChance = 0.1; // 10% cho power-up chung (Expand/DoubleBall)
+                double fireBuff = 0.6, leafBuff = 0.7, soilBuff = 0.5, iceBuff = 0.5;
 
-//                if(brick instanceof LeafBrick) powerUps.add(new LeafBall(px,py,24,24,10000,"Leaf"));
-//                if(brick instanceof LeafBrick) powerUps.add(new StunPaddle(px,py,24,24,5000,"Leaf"));
-//                if(brick instanceof SoilBrick) powerUps.add(new SoilBall(px,py,24,24,5000,"Soil"));
-//                if(brick instanceof SoilBrick) powerUps.add(new SlowPaddle(px,py,24,24,5000,"Soil"));
-                if(brick instanceof IceBrick) powerUps.add(new IceBall(px,py,24,24,5000,"Water"));
-//                if(brick instanceof IceBrick) powerUps.add(new WaterBall(px,py,24,24,10000,"Ice"));
-
-//                 12% rơi power up tại tâm viên gạch
-                if (Math.random() < 0.9) {
-                    powerup.PowerUp p = (Math.random() < 0.5)
-                            ? new powerup.ExpandPaddle(px, py, 24, 24)
-                            : new powerup.DoubleBall(px, py, 24, 24);
-                    powerUps.add(p);
+                if (Math.random() < dropChance) {
+                    // Có rơi power-up
+                    if (Math.random() < commonChance) {
+                        // Power-up chung (mọi gạch)
+                        powerUps.add(Math.random() < 0.5
+                                ? new ExpandPaddle(px, py, 24, 24,loadImage.getExpand())
+                                : new DoubleBall(px, py, 24, 24,loadImage.getDball()));
+                    } else {
+                        // Power-up nguyên tố theo loại gạch
+                        double r = Math.random();
+                        if (brick instanceof FireBrick) {
+                            powerUps.add(r < fireBuff
+                                    ? new FireBall(px, py, 24, 24, 12000, "Fire",loadImage.getFirep())
+                                    : new FastBall(px, py, 24, 24, 5000, "Fire",loadImage.getFirep()));
+                        } else if (brick instanceof LeafBrick) {
+                            powerUps.add(r < leafBuff
+                                    ? new LeafBall(px, py, 24, 24, 12000, "Leaf",loadImage.getPlantp())
+                                    : new StunPaddle(px, py, 24, 24, 2000, "Leaf",loadImage.getPlantp()));
+                        } else if (brick instanceof SoilBrick) {
+                            powerUps.add(r < soilBuff
+                                    ? new SoilBall(px, py, 24, 24, 7000, "Soil",loadImage.getEarthp())
+                                    : new SlowPaddle(px, py, 24, 24, 5000, "Soil",loadImage.getEarthp()));
+                        } else if (brick instanceof IceBrick) {
+                            powerUps.add(r < iceBuff
+                                    ? new WaterBall(px, py, 24, 24, 12000, "Ice",loadImage.getWaterp())
+                                    : new IceBall(px, py, 24, 24, 5000, "Ice",loadImage.getWaterp()));
+                        }
+                    }
                 }
 
                 bricks.remove(brick);

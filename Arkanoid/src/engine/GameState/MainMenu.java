@@ -1,10 +1,10 @@
-package engine;
+package engine.GameState;
 
-import engine.InGamePlay.GamePlay;
+import engine.*;
+import engine.User.User;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 
 public class MainMenu extends GameState {
@@ -13,7 +13,7 @@ public class MainMenu extends GameState {
     GameButton enterButton;
     GameButton escButton;
     User CurrentUser;
-    public MainMenu(GameManager gm,LoadImage loadImage,LoadSound loadSound,User currentUser) {
+    public MainMenu(GameManager gm, LoadImage loadImage, LoadSound loadSound, User currentUser) {
         super(gm,loadImage,loadSound);
         this.CurrentUser=currentUser;
         screenHeight=gameManager.getHeight();

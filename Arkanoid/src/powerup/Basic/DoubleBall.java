@@ -1,11 +1,15 @@
-package powerup;
+package powerup.Basic;
 
 import entity.Ball;
 import entity.Paddle;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import powerup.PowerUp;
 
 public class DoubleBall extends PowerUp {
-    public DoubleBall(int x, int y, int width, int height) {
-        super(x, y, width, height, 15, "D");
+    public DoubleBall(int x, int y, int width, int height, Image image) {
+        super(x, y, width, height, 15, "D",image);
     }   
 
     @Override
@@ -39,4 +43,5 @@ public class DoubleBall extends PowerUp {
     public void removeEffect(Paddle paddle) {
 
     }
+
 }

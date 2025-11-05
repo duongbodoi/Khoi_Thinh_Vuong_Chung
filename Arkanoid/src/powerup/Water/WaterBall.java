@@ -3,13 +3,14 @@ package powerup.Water;
 import entity.Ball;
 import entity.Elemental;
 import entity.Paddle;
+import javafx.scene.image.Image;
 import powerup.PowerUp;
 
 import java.util.List;
 
 public class WaterBall extends PowerUp {
-    public WaterBall(int x , int y, int with, int height, int time, String type) {
-        super(x, y, with, height, time, type);
+    public WaterBall(int x , int y, int with, int height, int time, String type, Image image) {
+        super(x, y, with, height, time, type,image);
     }
 
     public void applyEffect(Paddle paddle) {

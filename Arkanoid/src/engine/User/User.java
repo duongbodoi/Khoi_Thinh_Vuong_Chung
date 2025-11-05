@@ -1,4 +1,4 @@
-package engine;
+package engine.User;
 
 public class User implements Comparable<User> {
     private String username;

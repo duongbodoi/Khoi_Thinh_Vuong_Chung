@@ -1,10 +1,9 @@
-package engine.InGamePlay;
+package engine.GameState;
 
 import brick.Brick;
 import brick.BrickLoadMap;
 import engine.LoadImage;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 import java.util.List;
 

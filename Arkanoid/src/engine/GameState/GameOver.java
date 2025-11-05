@@ -1,10 +1,11 @@
-package engine;
+package engine.GameState;
 
-import engine.InGamePlay.GamePlay;
+import engine.*;
+import engine.User.User;
+import engine.User.UserManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,7 +22,7 @@ public class GameOver extends GameState {
     private String currentMap;
     private List<User> userList;
     private int level;
-    public GameOver(GameManager gameManager,LoadImage loadImage, LoadSound loadSound,User currentUser,String currentMap,int level) {
+    public GameOver(GameManager gameManager, LoadImage loadImage, LoadSound loadSound, User currentUser, String currentMap, int level) {
         super(gameManager,loadImage,loadSound);
         this.currentUser=currentUser;
         this.currentMap=currentMap;

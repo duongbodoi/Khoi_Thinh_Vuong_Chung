@@ -27,7 +27,7 @@ public class Ball extends MovableObject {
     double xo = getX() + (double)getWidth() / 2;
     double yo = getY() + (double) getHeight() / 2;
     double r = (double) getHeight() / 2;
-    private Elemental elemental = Elemental.SOID;
+    private Elemental elemental = Elemental.NONE;
     public final int oldSpeed;
     /**
      * Contructor 1.
@@ -64,9 +64,11 @@ public class Ball extends MovableObject {
         return is_dead;
     }
     public void setSpeed(int speed) {
+        int hx =(dx>0?1:-1);
+        int hy =(dy>0?1:-1);
         this.speed = speed;
-        this.dx = this.directionX * speed;
-        this.dy = this.directionY * speed;
+        this.dx = Math.abs(this.directionX * speed)*hx;
+        this.dy = Math.abs(this.directionY * speed)*hy;
     }
     /**
      * Thao tác phản lại khi va chạm vào vật thể.
