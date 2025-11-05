@@ -81,9 +81,9 @@ public class GamePlay extends GameState implements entity.BallProvider {
         brickRemoveCount =0;
         score = 0;
         lives = 3;
-        // Tạo Paddle
-        int paddleWidth = screenWidth / 7;
-        int paddleHeight = screenHeight / 40;
+        // Tạo Paddle6
+        int paddleWidth = screenWidth / 6;
+        int paddleHeight = screenHeight / 35;
         loadSound.getBgmMenu().stop();
         loadSound.getBgmPlay().play();
         paddle = new Paddle(
@@ -408,15 +408,15 @@ public class GamePlay extends GameState implements entity.BallProvider {
                 int px = brick.getX() + brick.getWidth()  / 2 - 12;
                 int py = brick.getY() + brick.getHeight() / 2 - 12;
 
-                double dropChance = 0.5; // 40% có power-up
-                double commonChance = 0.1; // 10% cho power-up chung (Expand/DoubleBall)
-                double fireBuff = 0.6, leafBuff = 0.7, soilBuff = 0.5, iceBuff = 0.5;
+                double dropChance = 0.4; // 40% có power-up
+                double commonChance = 0.4; // 10% cho power-up chung (Expand/DoubleBall)
+                double fireBuff = 0.6, leafBuff = 0.7, soilBuff = 0.7, iceBuff = 0.5;
 
                 if (Math.random() < dropChance) {
                     // Có rơi power-up
                     if (Math.random() < commonChance) {
                         // Power-up chung (mọi gạch)
-                        powerUps.add(Math.random() < 0.5
+                        powerUps.add(Math.random() < 0.2
                                 ? new ExpandPaddle(px, py, 24, 24,loadImage.getExpand())
                                 : new DoubleBall(px, py, 24, 24,loadImage.getDball()));
                     } else {
@@ -432,7 +432,7 @@ public class GamePlay extends GameState implements entity.BallProvider {
                                     : new StunPaddle(px, py, 24, 24, 2000, "Leaf",loadImage.getPlantp()));
                         } else if (brick instanceof SoilBrick) {
                             powerUps.add(r < soilBuff
-                                    ? new SoilBall(px, py, 24, 24, 7000, "Soil",loadImage.getEarthp())
+                                    ? new SoilBall(px, py, 24, 24, 10000, "Soil",loadImage.getEarthp())
                                     : new SlowPaddle(px, py, 24, 24, 5000, "Soil",loadImage.getEarthp()));
                         } else if (brick instanceof IceBrick) {
                             powerUps.add(r < iceBuff

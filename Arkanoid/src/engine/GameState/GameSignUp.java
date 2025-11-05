@@ -166,8 +166,8 @@ public class GameSignUp extends GameState {
         nicknameButton.draw(gc);
         signUpButton.draw(gc);
         gc.fillText("Username:" + username, 255, 325);
-        gc.fillText("Password:" + password, 255, 418);
-        gc.fillText("Nickname:" + nickname, 255, 232);
+        gc.fillText( password, 255, 418);
+        gc.fillText( nickname, 255, 232);
 
     }
 

@@ -43,7 +43,7 @@ public abstract class PowerUp extends GameObject {
     @Override
     public void update() {
         if (!consumed) {
-            this.y += 4; //rơi
+            this.y += 2; //rơi
         }
     }
 
