@@ -4,24 +4,25 @@
 
 - **Thành viên nhóm:**
   - **Nguyễn Tùng Dương** — *Leader*  
-    - **Mã sinh viên:**  
+    - **Mã sinh viên:** 24021443
     - **Lớp:** CS7 
-    - **Nhiệm vụ:**
+    - **Nhiệm vụ:** Quản lí tổ chức game, phần bóng, một số powerup, quản lí game state.
   - **Trần Mạnh Chiến**  
     - **Mã sinh viên:** 24021395  
     - **Lớp:** CS7  
-    - **Nhiệm vụ:** Thực hiện phần hiển thị và giao diện cho brick, hiệu ứng animation cho brick và một số powerup nhỏ.
+    - **Nhiệm vụ:** Thực hiện phần hiển thị và giao diện cho brick, hiệu ứng animation cho brick và một số powerup nhỏ, làm phần âm thanh.
   - **Bành Văn Hiệp**  
     - **Mã sinh viên:** 24021467
     - **Lớp:** CS7
-    - **Nhiệm vụ:** xây map, tìm ảnh và làm nút các nút bấm cho game, làm 2 powup
+    - **Nhiệm vụ:** Xây map, tìm ảnh và làm nút các nút bấm cho game, làm 2 powerup, làm các giao diện trong game, hoàn thiện các cửa sổ game.
   - **Đoàn Ngọc Anh**  
-    - **Mã sinh viên:**  
+    - **Mã sinh viên:** 24021363
     - **Lớp:** CS7
-    - **Nhiệm vụ:**
+    - **Nhiệm vụ:** Làm các powerup, làm paddle.
 
 - **Project:** Arkanoid  
-- **Link giới thiệu game:** 
+- **Link giới thiệu game:** https://drive.google.com/file/d/1GdQZEME637cXHPFnihsiROG4EB5HGD3B/view?usp=drive_link
+- **Link chơi thử game:** https://drive.google.com/file/d/10AL_qJ0l3ru-lM_DW1D6LEkum_WKfUdn/view?usp=drive_link
 
 ####📖 **Mục lục**
 
@@ -29,10 +30,11 @@
   - [Giới thiệu chung](#giới-thiệu-chung)
   - [1. Lời nói đầu](#1-lời-nói-đầu)
   - [2. Cấu trúc chương trình](#2-cấu-trúc-chương-trình)
-  - [3. Mục đích của các lớp](#3-các-thành-phần-của-game)
-  - [4. Các thành phần của game](#4-điều-khiển--luật-chơi)
-  - [5. Hướng phát triển](#5-hướng-phát-triển)
-  - [6. Nguồn tham khảo](#6-nguồn-tham-khảo)
+  - [3. Mục đích của các lớp](#3-mục-đích-của-các-lớp)
+  - [4. Điều khiến và luật chơi](#4-điều-khiển-và-luật-chơi)
+  - [5. Các thành phần của game](#4-các-thành-phần-của-game)
+  - [6. Hướng phát triển](#5-hướng-phát-triển)
+  - [7. Nguồn tham khảo](#6-nguồn-tham-khảo)
 
 ---
 
@@ -116,7 +118,7 @@ tố nêu trên. Game sử dụng một số powerup gây khó buộc người c
 ```
 
 ---
-## 3. 🕹️ Mục đích của các lớp
+## 3. 💡 Mục đích của các lớp
 
 Các lớp của **"Arkanoid"** được tổ chức một cách rõ ràng và dễ mở rộng, giúp cho việc quản lý mã nguồn, thêm tính năng và sửa lỗi trở nên thuận tiện hơn. Các thư mục và tệp được chia theo từng chức năng chính như sau:
 
@@ -160,7 +162,60 @@ Nhờ cách tổ chức này, mã nguồn của Arkanoid dễ dàng bảo trì, 
 </div>
 
 ---
-# 4. 🚀 Các thành phần của game
+# 4. 🕹️ Điều khiển & Cách chơi
+
+### 🎮 Điều khiển
+
+| Phím        | Chức năng                                |
+|--------------|-------------------------------------------|
+| ⬅️ / ➡️     | Di chuyển thanh paddle sang trái / phải   |
+| **Space**    | Thả bóng để bắt đầu lượt chơi            |
+| **Esc**      | Return menu/ Resume/ Pause               |
+
+---
+
+### 🧩 Cách chơi
+
+Người chơi điều khiển **thanh paddle** để **đỡ và bật quả bóng**, mục tiêu là **phá vỡ toàn bộ gạch** trên màn hình.  
+- Khi **tất cả gạch bị phá**, người chơi sẽ **chuyển sang màn tiếp theo**.  
+- Nếu để **bóng rơi khỏi paddle**, người chơi **mất một mạng**.  
+- Khi **hết mạng**, trò chơi **kết thúc**.  
+
+Trên đường chơi, người chơi có thể nhận được **power-up** rơi ra từ gạch, giúp tăng tốc, mở rộng paddle, nhân đôi bóng hoặc tạo hiệu ứng đặc biệt khác.
+
+# Power-up (Vật phẩm hỗ trợ)
+
+Power-up xuất hiện ngẫu nhiên khi người chơi phá gạch, giúp thay đổi gameplay tạm thời:
+
+- ExpandPaddle.java – Mở rộng chiều dài paddle, giúp dễ đỡ bóng hơn.
+- DoubleBall.java – Nhân đôi bóng, giúp người chơi tấn công nhiều hướng cùng lúc.
+- FastBall.java – Tăng tốc độ bóng, tăng độ khó nhưng điểm thưởng cao hơn.
+
+# Các loại bóng đặc biệt
+
+FireBall.java 🔥
+  - Tác dụng: Bóng có khả năng đi nhanh.
+  - Tương tác đặc biệt: Khi bóng lửa va vào gạch lửa, tất cả gạch lửa trên màn hình sẽ bị phá huỷ ngay lập tức.
+
+LeafBall.java 🍃
+  - Tác dụng: Bóng có hiệu ứng lan rộng.
+  - Tương tác đặc biệt: Khi bóng lá va vào gạch lá, toàn bộ gạch lá trên màn hình sẽ bị phá huỷ.
+
+SoilBall.java 🪨
+  - Tác dụng: Có thể xuyên qua mọi gạch, không bị bật lại khi chạm vật cản trừ gạch UnbreakBrick.
+  - Tương tác đặc biệt: Giúp người chơi dọn màn cực nhanh, nhưng khó kiểm soát hướng bóng.
+
+WaterBall.java 💧
+  - Tác dụng: Bóng bật lại linh hoạt.
+  - Tương tác đặc biệt: Khi bóng nước đập vào gạch lá, một gạch lá mới được sinh ra tại vị trí ngẫu nhiên trên màn hình.
+
+# Gợi ý chiến thuật
+- Kết hợp FireBall và LeafBall để phá sạch màn chỉ trong vài lượt.
+- WaterBall có thể khiến người chơi phải đối phó với nhiều gạch hơn nếu không cẩn thận.
+- SoilBall hữu dụng trong màn có bố cục gạch dày đặc, nhưng đòi hỏi xử lí nhanh vì bóng đi qua các gạch.
+
+---
+# 5. 🚀 Các thành phần của game
 
 ## a. Player (Người chơi)
 
@@ -275,19 +330,33 @@ Các lớp chính:
 
 Power-up xuất hiện khi phá gạch, giúp người chơi tạm thời thay đổi gameplay:
 
-- Mở rộng paddle: `ExpandPaddle.java`  
-- Nhân đôi bóng: `DoubleBall.java`  
-- Tăng tốc bóng: `FastBall.java`  
-- Bóng đặc biệt: `FireBall.java`, `LeafBall.java`, `SoilBall.java`  
-- Hiệu ứng lên paddle: `StunPaddle.java`, `SlowPaddle.java`
+- Mở rộng paddle: `ExpandPaddle.java`
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/firep.png" width="100" height="100"">
+</div>  
 
+- Nhân đôi bóng: `DoubleBall.java`  
 <div style="text-align: center;">
-  <img src="img/power-up1.png" width="100" height="100">
-  <img src="img/power-up2.png" width="100" height="100">
-  <img src="img/power-up3.png" width="100" height="100">
+  <img src="Arkanoid/assets/IMAGE/dball.png" width="100" height="100"">
 </div>
 
----
+- Tăng tốc bóng: `FastBall.java`  
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/firep.png" width="100" height="100"">
+</div>
+
+- Bóng đặc biệt: `FireBall.java`, `LeafBall.java`, `SoilBall.java`, `WaterBall`
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/firep.png" width="100" height="100"">
+  &nbsp;&nbsp;
+  <img src="Arkanoid/assets/IMAGE/plantp.png" width="100" height="100"">
+  &nbsp;&nbsp;
+  <img src="Arkanoid/assets/IMAGE/earth.png" width="100" height="100"">
+  &nbsp;&nbsp;
+  <img src="Arkanoid/assets/IMAGE/waterp.png" width="100" height="100""> 
+</div>
+
+- Hiệu ứng lên paddle: `StunPaddle.java`, `SlowPaddle.java`
 
 ## f. Game Engine & Quản lý
 
@@ -297,7 +366,7 @@ Power-up xuất hiện khi phá gạch, giúp người chơi tạm thời thay �
 - `User.java` và `UserManager.java` – quản lý dữ liệu người chơi, lưu vào `users.txt`.
 
   ---
-## 5. 📚 Hướng phát triển game
+## 6. 📚 Hướng phát triển game
 
 **Ngôn ngữ lập trình:** Java  
 **Công nghệ sử dụng:** JavaFX  
@@ -330,7 +399,7 @@ Nhóm dự kiến mở rộng trò chơi **Arkanoid** theo các hướng sau:
 - Hỗ trợ **tài khoản đăng nhập trực tuyến**, **lưu tiến trình chơi**, và **chế độ nhiều người chơi 
 
 ---
-## 6. 💡 Nguồn tham khảo
+## 7. 💡 Nguồn tham khảo
 
 - Tham khảo kỹ thuật xây dựng game Arkanoid, cấu trúc module và xử lý va chạm từ Youtube(https://www.youtube.com), (https://chatgpt.com).  
 - Âm thanh: [Pixabay - Free Game Sounds](https://pixabay.com).  
