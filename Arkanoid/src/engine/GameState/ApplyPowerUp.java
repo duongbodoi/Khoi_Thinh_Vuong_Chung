@@ -1,4 +1,4 @@
-package engine.InGamePlay;
+package engine.GameState;
 
 import brick.*;
 import engine.LoadImage;
@@ -66,6 +66,9 @@ public class ApplyPowerUp {
                     int newGridY = y + dy[i];
                     if (newGridX >= 0 && newGridX < numCols && newGridY >= 0 && newGridY < numRows) {
                         Brick near = bricks[newGridY][newGridX];
+                        if (near == null) {
+                            continue;
+                        }
                         if(!visited.contains(near) && near instanceof LeafBrick) {
                             visited.add(near);
                             q.add(near);
@@ -96,7 +99,9 @@ public class ApplyPowerUp {
                     int newGridY = y + dy[i];
                     if (newGridX >= 0 && newGridX < numCols && newGridY >= 0 && newGridY < numRows) {
                         Brick near = bricks[newGridY][newGridX];
-
+                        if (near == null) {
+                            continue;
+                        }
                         if(!(near instanceof UnbreakBrick)) {
                             near.takeHit();
                         }
@@ -109,6 +114,7 @@ public class ApplyPowerUp {
             }
 
         }
+
         public static void SpawnLeaf(Brick originalBrick,int posx,int posy, Brick[][] bricks, List<Brick> brickToSpawn, LoadImage loadImage) {
             // Kiểm tra 4 ô xung quanh: trên, dưới, trái, phải
             originalBrick.setHitPoints(1);

@@ -1,11 +1,12 @@
-package engine;
+package engine.GameState;
 
-import engine.InGamePlay.GamePlay;
+import engine.*;
+import engine.User.User;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class SelectMap extends GameState{
+public class SelectMap extends GameState {
     GameButton Map1;
     GameButton Map2;
     GameButton Map3;
@@ -15,7 +16,7 @@ public class SelectMap extends GameState{
     private int screenHeight;
     private User currentUser;
     private boolean[] isLock = new boolean[6];
-    public SelectMap(GameManager gameManager,LoadImage loadImage,LoadSound loadSound,User currentUser) {
+    public SelectMap(GameManager gameManager, LoadImage loadImage, LoadSound loadSound, User currentUser) {
         super(gameManager,loadImage,loadSound);
         this.currentUser=currentUser;
         screenWidth = gameManager.getWidth();

@@ -1,15 +1,18 @@
-package powerup;
+package powerup.Basic;
 
-import entity.Ball;
 import entity.Paddle;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import powerup.PowerUp;
 
 public class ExpandPaddle extends PowerUp {
 
     private int oldWidth; //độ dài cũ paddle
     private final int expandFactor = 2; //mở rộng 2 lần (hệ số)
 
-    public ExpandPaddle(int x, int y, int width, int height) {
-        super(x, y, width, height, 5000, "E"); // thời gian 30s, loại E
+    public ExpandPaddle(int x, int y, int width, int height, Image image) {
+        super(x, y, width, height, 5000, "E",image); // thời gian 30s, loại E
     }
 
     @Override
@@ -26,5 +29,6 @@ public class ExpandPaddle extends PowerUp {
     public void removeEffect(Paddle paddle) {
 
     }
+
 
 }

@@ -1,19 +1,24 @@
 package powerup.Soid;
 
 import entity.Ball;
+import entity.Effect;
 import entity.Paddle;
+import javafx.scene.image.Image;
 import powerup.Plant.StunPaddle;
 import powerup.PowerUp;
+import powerup.Type;
 
 public class SlowPaddle extends PowerUp {
-    private int reduceSpeed;
-    public SlowPaddle(int x, int y, int width, int height, int time, String type) {
-        super(x, y, width, height, time, type);
+
+    public SlowPaddle(int x, int y, int width, int height, int time, String type, Image image) {
+        super(x, y, width, height, time, type,image);
+        powerUpType= Type.BUFF;
+
     }
 
     @Override
     public void applyEffect(Paddle paddle) {
-        reduceSpeed = paddle.getSpeed();
+        paddle.setEffect(Effect.SLOW);
         paddle.setSpeed(Math.max(1, paddle.getSpeed() / 2));
         paddle.applyPowerUp(type);
         consumed = true;
@@ -22,7 +27,9 @@ public class SlowPaddle extends PowerUp {
 
     @Override
     public void removeEffect(Paddle paddle) {
-        paddle.setSpeed(reduceSpeed);
+        paddle.setEffect(Effect.NONE);
+        paddle.setSpeed(paddle.getOldSpeed());
+        active = false;
     }
 
 }

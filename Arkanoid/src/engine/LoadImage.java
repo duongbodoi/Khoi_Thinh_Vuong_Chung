@@ -1,6 +1,7 @@
 package engine;
 
 import javafx.scene.image.Image;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -47,7 +48,7 @@ public class LoadImage {
     private Image esc1Hover;
     private Image pauseImage;
 
-    private  Image space;
+    private Image space;
 
     private Image aimArrow;
 
@@ -63,16 +64,29 @@ public class LoadImage {
     private Image lock;
 
     private Image[] paddle;
+
+    private Image firep;
+    private Image waterp;
+    private Image earthp;
+    private Image plantp;
+    private Image expand;
+    private Image dball;
     public LoadImage() {
         //paddle = checkLoadImage("assets/IMAGE/paddle.png");
-        paddle =new Image[] {
+        firep = checkLoadImage("assets/IMAGE/firep.png");
+        waterp = checkLoadImage("assets/IMAGE/waterp.png");
+        earthp = checkLoadImage("assets/IMAGE/earth.png");
+        plantp = checkLoadImage("assets/IMAGE/plantp.png");
+        expand = checkLoadImage("assets/IMAGE/expand.png");
+        dball = checkLoadImage("assets/IMAGE/dball.png");
+        paddle = new Image[]{
                 checkLoadImage("assets/IMAGE/paddle.png"),
                 checkLoadImage("assets/IMAGE/Stunnedpaddle.png"),
                 checkLoadImage("assets/IMAGE/slowpaddle.png"),
         };
 
 
-        ball =new Image[] {
+        ball = new Image[]{
                 checkLoadImage("assets/IMAGE/noneBall.png"),
                 checkLoadImage("assets/IMAGE/fireBall.png"),
                 checkLoadImage("assets/IMAGE/waterBall.png"),
@@ -89,17 +103,17 @@ public class LoadImage {
         bgrlogin = checkLoadImage("assets/IMAGE/bgrlogin.png");
 
         normalBrick = checkLoadImage("assets/IMAGE/Bgreen1.jpg");
-        strongBrick = new Image[] {
+        strongBrick = new Image[]{
                 checkLoadImage("assets/IMAGE/iceB1.png"),
                 checkLoadImage("assets/IMAGE/iceB2.png")
         };
 
-        powerUpBrick = new Image[] {
+        powerUpBrick = new Image[]{
                 checkLoadImage("assets/IMAGE/firebirck1.png"),
                 checkLoadImage("assets/IMAGE/firebirck2.png"),
                 checkLoadImage("assets/IMAGE/firebirck3.png")
         };
-        soilBrick = new Image[] {
+        soilBrick = new Image[]{
                 checkLoadImage("assets/IMAGE/soidB1.png"),
                 checkLoadImage("assets/IMAGE/soidB2.png"),
                 checkLoadImage("assets/IMAGE/soidB3.png"),
@@ -133,25 +147,25 @@ public class LoadImage {
         backgroundOver = checkLoadImage("assets/IMAGE/background_over.png");
 
         eNormal = checkLoadImage("assets/IMAGE/e_normal.png");
-        eHover  = checkLoadImage("assets/IMAGE/e_hover.png");
+        eHover = checkLoadImage("assets/IMAGE/e_hover.png");
 
         rNormal = checkLoadImage("assets/IMAGE/r_normal.png");
-        rHover  = checkLoadImage("assets/IMAGE/r_hover.png");
+        rHover = checkLoadImage("assets/IMAGE/r_hover.png");
 
         xNormal = checkLoadImage("assets/IMAGE/x_normal.png");
-        xHover  = checkLoadImage("assets/IMAGE/x_hover.png");
+        xHover = checkLoadImage("assets/IMAGE/x_hover.png");
 
         //pause
         e1Normal = checkLoadImage("assets/IMAGE/e1_normal.png");
-        e1Hover  = checkLoadImage("assets/IMAGE/e1_hover.png");
+        e1Hover = checkLoadImage("assets/IMAGE/e1_hover.png");
 
         r1Normal = checkLoadImage("assets/IMAGE/r1_normal.png");
-        r1Hover  = checkLoadImage("assets/IMAGE/r1_hover.png");
+        r1Hover = checkLoadImage("assets/IMAGE/r1_hover.png");
 
         escNormal = checkLoadImage("assets/IMAGE/esc_normal.png");
         escHover = checkLoadImage("assets/IMAGE/esc_hover.png");
         esc1Normal = checkLoadImage("assets/IMAGE/esc1_normal.png");
-        esc1Hover  = checkLoadImage("assets/IMAGE/esc1_hover.png");
+        esc1Hover = checkLoadImage("assets/IMAGE/esc1_hover.png");
 
         pauseImage = checkLoadImage("assets/IMAGE/pause.png");
         backgroundPause = checkLoadImage("assets/IMAGE/background_pause.png");
@@ -186,21 +200,27 @@ public class LoadImage {
     public Image[] getPowerUpBrick() {
         return powerUpBrick;
     }
+
     public Image[] getSoilBrick() {
-        return  soilBrick;
+        return soilBrick;
     }
 
     public Image getUnbreakBrick() {
         return unbreakBrick;
     }
 
-    public Image getBackgroundMain(){
+    public Image getBackgroundMain() {
         return backgroundMain;
     }
-    public Image getBackgroundPlay(){
+
+    public Image getBackgroundPlay() {
         return backgroundPlay;
     }
-    public Image getBackgroundOver() { return backgroundOver; }
+
+    public Image getBackgroundOver() {
+        return backgroundOver;
+    }
+
     public Image getBackgroundVictory() {
         return backgroundVictory;
     }
@@ -208,6 +228,7 @@ public class LoadImage {
     public Image getScoreFrame() {
         return scoreFrame;
     }
+
     public Image getLifeFrame() {
         return lifeFrame;
     }
@@ -232,12 +253,29 @@ public class LoadImage {
         return escHover;
     }
 
-    public Image getENormal() { return eNormal; }
-    public Image getEHover()  { return eHover; }
-    public Image getRNormal() { return rNormal; }
-    public Image getRHover()  { return rHover; }
-    public Image getXNormal() { return xNormal; }
-    public Image getXHover()  { return xHover; }
+    public Image getENormal() {
+        return eNormal;
+    }
+
+    public Image getEHover() {
+        return eHover;
+    }
+
+    public Image getRNormal() {
+        return rNormal;
+    }
+
+    public Image getRHover() {
+        return rHover;
+    }
+
+    public Image getXNormal() {
+        return xNormal;
+    }
+
+    public Image getXHover() {
+        return xHover;
+    }
 
     public Image getNormalExplosion() {
         return normalExplosion;
@@ -295,9 +333,11 @@ public class LoadImage {
     public Image getAimArrow() {
         return aimArrow;
     }
+
     public Image[] getBall() {
         return ball;
     }
+
     public Image getSelectMap() {
         return selectMap;
     }
@@ -325,11 +365,36 @@ public class LoadImage {
     public Image getBgrlogin() {
         return bgrlogin;
     }
+
     public Image getLock() {
         return lock;
     }
 
     public Image[] getPaddle() {
         return paddle;
+    }
+
+    public Image getPlantp() {
+        return plantp;
+    }
+
+    public Image getEarthp() {
+        return earthp;
+    }
+
+    public Image getWaterp() {
+        return waterp;
+    }
+
+    public Image getFirep() {
+        return firep;
+    }
+
+    public Image getExpand() {
+        return expand;
+    }
+
+    public Image getDball() {
+        return dball;
     }
 }

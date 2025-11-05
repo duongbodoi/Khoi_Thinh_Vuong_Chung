@@ -1,4 +1,4 @@
-package engine;
+package engine.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class UserManager {
         users = new ArrayList<>();
     }
     public void LoadUsers() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/engine/users.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/engine/User/users.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
@@ -29,7 +29,7 @@ public class UserManager {
     }
     public void AddUser(User user) {
         users.add(user);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/engine/users.txt", true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/engine/User/users.txt", true))) {
             bw.write(user.getUsername() + ":" + user.getPassword() + ":" + user.getNickname()
                     + ":" + user.getMaxScore() + ":" + user.getCurrentLevel());
             bw.newLine();
@@ -38,7 +38,7 @@ public class UserManager {
         }
     }
     public void saveAllUsers() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/engine/users.txt", false))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/engine/User/users.txt", false))) {
             for (User user : users) {
                 bw.write(user.getUsername() + ":" + user.getPassword() + ":" + user.getNickname()
                         + ":" + user.getMaxScore() + ":" + user.getCurrentLevel());

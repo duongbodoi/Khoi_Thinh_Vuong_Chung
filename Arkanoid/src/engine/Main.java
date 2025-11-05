@@ -1,5 +1,7 @@
 package engine;
 
+import engine.User.User;
+import engine.User.UserManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -46,9 +48,9 @@ public class Main extends Application {
         scene.setOnMouseMoved(e -> gameManager.handleMouseMoved(e));
         scene.setOnMouseClicked(e -> gameManager.handleMouseClicked(e));
 
-        scene.setOnMouseMoved(e -> {
-            System.out.println("Mouse at: (" + (int)e.getX() + ", " + (int)e.getY() + ")");
-        });
+//        scene.setOnMouseMoved(e -> {
+//            System.out.println("Mouse at: (" + (int)e.getX() + ", " + (int)e.getY() + ")");
+//        });
 
         // Gán scene cho stage
         primaryStage.setScene(scene);

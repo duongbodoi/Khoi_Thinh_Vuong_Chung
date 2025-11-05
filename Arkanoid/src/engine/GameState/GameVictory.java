@@ -1,10 +1,9 @@
-package engine;
+package engine.GameState;
 
-import engine.InGamePlay.GamePlay;
+import engine.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 public class GameVictory extends GameState {
     GameButton EButton;
@@ -14,7 +13,7 @@ public class GameVictory extends GameState {
     private int screenHeight;
 
 
-    public GameVictory(GameManager gameManager,LoadImage loadImage,LoadSound loadSound) {
+    public GameVictory(GameManager gameManager, LoadImage loadImage, LoadSound loadSound) {
         super(gameManager,loadImage,loadSound);
         screenWidth = gameManager.getWidth();
         screenHeight = gameManager.getHeight();

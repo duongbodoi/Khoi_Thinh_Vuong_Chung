@@ -4,6 +4,7 @@ import base.GameObject;
 import entity.Ball;
 import entity.Paddle;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public abstract class PowerUp extends GameObject {
@@ -11,9 +12,9 @@ public abstract class PowerUp extends GameObject {
     protected int time;
     protected boolean active; // xét đang được kích hoạt
     protected boolean consumed; // xét đã va chạm và kích hoạt
-
-    public PowerUp(int x, int y, int width, int height, int time, String type) {
-        super(x, y, width, height);
+    protected Type powerUpType;
+    public PowerUp(int x, int y, int width, int height, int time, String type, Image image) {
+        super(x, y, width, height,image);
         this.time = time;
         this.type = type;
         this.active = false; //mặc định chưa kích hoạt
@@ -24,6 +25,9 @@ public abstract class PowerUp extends GameObject {
         return type;
     }
 
+    public Type getPowerUpType() {
+        return powerUpType;
+    }
     public int getTime() {
         return time;
     }
@@ -39,7 +43,7 @@ public abstract class PowerUp extends GameObject {
     @Override
     public void update() {
         if (!consumed) {
-            this.y += 2; //rơi
+            this.y += 4; //rơi
         }
     }
 
@@ -50,10 +54,7 @@ public abstract class PowerUp extends GameObject {
     @Override
     public void render(GraphicsContext gc) {
         if (!consumed) {
-            gc.setFill(Color.LIGHTGREEN);
-            gc.fillOval(x, y, width, height);
-            gc.setFill(Color.BLACK);
-            gc.fillText(type.substring(0, 1).toUpperCase(), x + width / 3, y + height / 1.5);
+            super.render(gc);
         }
     }
 

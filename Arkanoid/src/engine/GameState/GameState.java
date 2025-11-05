@@ -1,5 +1,8 @@
-package engine;
+package engine.GameState;
 
+import engine.GameManager;
+import engine.LoadImage;
+import engine.LoadSound;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
