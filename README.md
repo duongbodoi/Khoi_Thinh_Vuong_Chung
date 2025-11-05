@@ -18,7 +18,7 @@
   - **Đoàn Ngọc Anh**  
     - **Mã sinh viên:** 24021363
     - **Lớp:** CS7
-    - **Nhiệm vụ:** Làm các powerup, làm paddle.
+    - **Nhiệm vụ:** Làm các powerup, làm paddle, sửa ball.
 
 - **Project:** Arkanoid  
 - **Link giới thiệu game:** https://drive.google.com/file/d/1GdQZEME637cXHPFnihsiROG4EB5HGD3B/view?usp=drive_link
