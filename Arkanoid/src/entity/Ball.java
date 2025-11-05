@@ -183,9 +183,10 @@ public class Ball extends MovableObject {
             dx*=-1;
             x=GAME_WIDTH-getWidth();
         }
-        if(x<= 0) {
-            dx*=-1;
-            x=0;
+        if(x<= 1) {
+            dx=Math.abs(dx);
+            if(dx==0) dx=Math.abs(speed*directionX);
+            x=1;
         }
         if(y>=GAME_HEIGHT-getHeight()) {
             is_dead = true;

@@ -19,7 +19,7 @@ public class FastBall extends PowerUp {
     public void applyEffect(Paddle paddle) {
         List<Ball> balls = paddle.getBalls();
         for(Ball ball : balls) {
-            ball.setSpeed(ball.getSpeed() + 5);
+            ball.setSpeed(ball.getSpeed() + 3);
             paddle.applyPowerUp(type);
         }
         active = true;

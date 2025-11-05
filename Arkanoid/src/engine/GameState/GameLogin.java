@@ -158,8 +158,8 @@ public class GameLogin extends GameState {
         passButton.draw(gc);
         loginButton.draw(gc);
         signUpButton.draw(gc);
-        gc.fillText("Username:" + username, 255, 325);
-        gc.fillText("Password:" + password, 255, 418);
+        gc.fillText( username, 255, 325);
+        gc.fillText( password, 255, 418);
     }
     public User checkAccount() {
         for(User user:userList){
