@@ -1,29 +1,29 @@
-# Arkanoid
+# 🏹 **Arkanoid**
 
-## Giới thiệu chung
+##🎮 **Giới thiệu chung**
 
 - **Thành viên nhóm:**
   - **Nguyễn Tùng Dương** — *Leader*  
     - **Mã sinh viên:**  
-    - **Lớp:**  
+    - **Lớp:** CS7 
     - **Nhiệm vụ:**
   - **Trần Mạnh Chiến**  
     - **Mã sinh viên:** 24021395  
     - **Lớp:** CS7  
-    - **Nhiệm vụ:**
+    - **Nhiệm vụ:** Thực hiện phần hiển thị và giao diện cho brick, hiệu ứng animation cho brick và một số powerup nhỏ.
   - **Bành Văn Hiệp**  
+    - **Mã sinh viên:** 24021467
+    - **Lớp:** CS7
+    - **Nhiệm vụ:** xây map, tìm ảnh và làm nút các nút bấm cho game, làm 2 powup
+  - **Đoàn Ngọc Anh**  
     - **Mã sinh viên:**  
-    - **Lớp:**  
-    - **Nhiệm vụ:**
-  - **Nguyễn Ngọc Anh**  
-    - **Mã sinh viên:**  
-    - **Lớp:**  
+    - **Lớp:** CS7
     - **Nhiệm vụ:**
 
 - **Project:** Arkanoid  
-- **Link giới thiệu game:** *(thêm link nếu có)*
+- **Link giới thiệu game:** 
 
-#### Mục lục
+####📖 **Mục lục**
 
 - [Arkanoid](#arkanoid)
   - [Giới thiệu chung](#giới-thiệu-chung)
@@ -36,7 +36,7 @@
 
 ---
 
-## 1. Lời nói đầu
+## 1. 💬 Lời nói đầu
 
 **Arkanoid** là tựa game kinh điển dạng *brick breaker*, nơi người chơi điều khiển thanh chắn (paddle) để bật bóng phá hủy toàn bộ gạch trên màn hình.  
 Trong phiên bản này, nhóm phát triển đã thêm các hiệu ứng, vật phẩm hỗ trợ và nhiều cấp độ thử thách hơn, mang đến trải nghiệm hấp dẫn hơn bản gốc. Game
@@ -45,7 +45,7 @@ tố nêu trên. Game sử dụng một số powerup gây khó buộc người c
 
 ---
 
-## 2. Cấu trúc chương trình
+## 2. 🧩 Cấu trúc chương trình
 ```
 / (root)
 ├─ base/
@@ -116,7 +116,7 @@ tố nêu trên. Game sử dụng một số powerup gây khó buộc người c
 ```
 
 ---
-## 3. Mục đích của các lớp
+## 3. 🕹️ Mục đích của các lớp
 
 Các lớp của **"Arkanoid"** được tổ chức một cách rõ ràng và dễ mở rộng, giúp cho việc quản lý mã nguồn, thêm tính năng và sửa lỗi trở nên thuận tiện hơn. Các thư mục và tệp được chia theo từng chức năng chính như sau:
 
@@ -155,22 +155,32 @@ Các lớp của **"Arkanoid"** được tổ chức một cách rõ ràng và d
 - **`users.txt`**: Tệp lưu trữ thông tin người chơi như tên đăng nhập, mật khẩu, hoặc điểm cao.  
 
 Nhờ cách tổ chức này, mã nguồn của Arkanoid dễ dàng bảo trì, mở rộng thêm nhiều loại vật phẩm, hiệu ứng hoặc màn chơi mới mà không ảnh hưởng đến cấu trúc tổng thể.
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/Sodolop.png" width="1000" height="1000"">
+</div>
 
 ---
-# 4. Các thành phần của game
+# 4. 🚀 Các thành phần của game
 
 ## a. Player (Người chơi)
 
 Người chơi điều khiển paddle để đỡ bóng và phá gạch.
 
 Paddle được định nghĩa trong `entity/Paddle.java`.
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/paddle.png" width="200" height="200"">
+   &nbsp;&nbsp;
+  <img src="Arkanoid/assets/IMAGE/slowpaddle.png" width="200" height="200"">
+   &nbsp;&nbsp;
+  <img src="Arkanoid/assets/IMAGE/Stunnedpaddle.png" width="200" height="200"">
+
 
 Có thể nhận `effect` hoặc `power-up` để tạm thời thay đổi tính năng, ví dụ: mở rộng paddle, giảm tốc paddle, choáng paddle, được xử lý bởi các lớp trong `entity/Effect.java` và `powerup/`.
 
 Thanh điểm của người chơi được lưu và quản lý trong `engine/InGamePlay/User.java` và `UserManager.java`.
 
-<div align="center">
-  <img src="IMAGE/Bgreen1.png" width="100" height="100">
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/background_over.png" width="200" height="200"">
 </div>
 
 ---
@@ -178,18 +188,28 @@ Thanh điểm của người chơi được lưu và quản lý trong `engine/In
 ## b. Ball (Quả bóng)
 
 Quả bóng di chuyển liên tục và nảy khi va chạm với paddle, gạch hoặc tường.
-
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/none.png" width="200" height="200"">
+</div>
 Lớp `entity/Ball.java` mô tả vị trí, tốc độ, góc đánh của bóng.
 
 Bóng có thể nhận elemental hoặc power-up, ví dụ:
 
-- `FireBall.java` (bóng lửa)  
+- `FireBall.java` (bóng lửa)
+  <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/fireBall.png" width="200" height="200"">
+</div>
 - `LeafBall.java` (bóng hệ lá)  
-- `DoubleBall.java` (nhân đôi bóng)  
-- `FastBall.java` (tăng tốc bóng)
-
 <div style="text-align: center;">
-  <img src="img/ball.png" width="100" height="100">
+  <img src="Arkanoid/assets/IMAGE/leafBall.png" width="200" height="200"">
+</div>
+- `IceBall.java` (bóng hệ băng) 
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/iceBall.png" width="200" height="200"">
+</div>
+- `SoilBall.java` (bóng hệ đất) 
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/soidBall.png" width="200" height="200"">
 </div>
 
 ---
@@ -198,20 +218,30 @@ Bóng có thể nhận elemental hoặc power-up, ví dụ:
 
 Gạch được định nghĩa trong thư mục `brick/` và có các loại:
 
-- `Brick.java` – gạch cơ bản  
 - `FireBrick.java` – gạch hệ lửa  
-- `IceBrick.java` – gạch hệ băng  
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/firebirck1.png" width="200" height="200"">
+</div>
+- `IceBrick.java` – gạch hệ băng 
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/iceB1.png" width="200" height="200"">
+</div>
 - `LeafBrick.java` – gạch hệ lá  
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/Bgreen1.jpg" width="200" height="100"">
+</div>
 - `SoilBrick.java` – gạch hệ đất  
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/soidB1.png" width="200" height="100"">
+</div>
 - `UnbreakBrick.java` – gạch không thể phá
+ <div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/Bblack.png" width="200" height="100"">
+</div>
 
-Bản đồ gạch được load từ file bởi `BrickLoadMap.java`.
+Bản đồ gạch được load từ file trong `BrickLoadMap.java`.
 
 Khi phá hủy, gạch có thể tạo ra `Explosion` hoặc `Power-up`.
-
-<div style="text-align: center;">
-  <img src="img/brick.png" width="150" height="50">
-</div>
 
 ---
 
@@ -222,12 +252,21 @@ Quản lý hiệu ứng khi gạch bị phá trong `engine/ExplosionControl/`.
 Các lớp chính:
 
 - `Explosion.java` – lớp cơ sở  
-- `NormalExplosion.java` – nổ thường  
-- `PowerUpExplosion.java` – kèm power-up  
-- `SoilExplosion.java`, `StrongExplosion.java` – nổ đặc biệt
-
+- `NormalExplosion.java` – nổ lá
 <div style="text-align: center;">
-  <img src="img/explosion.png" width="150" height="150">
+  <img src="Arkanoid/assets/IMAGE/explosion1.png" width="100" height="100"">
+</div> 
+- `PowerUpExplosion.java` –nổ băng 
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/explosion2.png" width="100" height="100"">
+</div>
+- `SoilExplosion.java` - nổ đất
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/explosion3.png" width="100" height="100"">
+</div>
+- `StrongExplosion.java` – nổ lửa
+<div style="text-align: center;">
+  <img src="Arkanoid/assets/IMAGE/explosion4.png" width="100" height="100"">
 </div>
 
 ---
@@ -258,7 +297,7 @@ Power-up xuất hiện khi phá gạch, giúp người chơi tạm thời thay �
 - `User.java` và `UserManager.java` – quản lý dữ liệu người chơi, lưu vào `users.txt`.
 
   ---
-## 5. Hướng phát triển game
+## 5. 📚 Hướng phát triển game
 
 **Ngôn ngữ lập trình:** Java  
 **Công nghệ sử dụng:** JavaFX  
@@ -291,7 +330,7 @@ Nhóm dự kiến mở rộng trò chơi **Arkanoid** theo các hướng sau:
 - Hỗ trợ **tài khoản đăng nhập trực tuyến**, **lưu tiến trình chơi**, và **chế độ nhiều người chơi 
 
 ---
-## 6. Nguồn tham khảo
+## 6. 💡 Nguồn tham khảo
 
 - Tham khảo kỹ thuật xây dựng game Arkanoid, cấu trúc module và xử lý va chạm từ Youtube(https://www.youtube.com), (https://chatgpt.com).  
 - Âm thanh: [Pixabay - Free Game Sounds](https://pixabay.com).  
